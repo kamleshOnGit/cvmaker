@@ -1,0 +1,41 @@
+.oxford {font-size:14px;height:400px;overflow:hidden;padding: 0 10px;background:#fff;}
+.oxford .title{ padding:10px; text-transform: uppercase; }
+.modal .modal-body  .oxford  { height:auto!important}
+.oxford h2 {
+    font-size: 1em
+}
+
+.oxford  h5 {
+    font-size: .8em
+}
+
+.oxford p {
+    font-size: .6em
+}
+
+
+.profilepic  { width:100%;display:block;margin:auto}
+.propic { max-width:120px;width:50%;margin:auto;display:inline-block;}
+ 
+
+.oxford .right-part {
+    background: #fff;
+    color: #333;
+    padding: 10px;
+    border-left-color: rgb(19, 2, 2);
+    border-left-width:20px;
+    border-left-style:solid;
+}
+
+.oxford  .left-part {
+    background: #fff;
+    color: #333;
+    // padding: 10px;
+    border-left-color: rgb(19, 2, 2);
+    border-left-width:20px;
+    border-left-style:solid;
+}
+.oxford.right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.oxford .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.oxford  .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.oxford   .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

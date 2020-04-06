@@ -1,0 +1,252 @@
+<div class="harvard shadow " (click)="showpopup('harvard')">
+    <div class="row ">
+  <h2 class="title text-center font-weight-bold col-12 mb-0 pt-2 pl-2">  {{formdata.personal.firstName}}  {{formdata.personal.secondName}} </h2> 
+  <div class="col-5 left-part text-left">
+    <h5 class="font-weight-bold pt-2">PERSONAL DETAILS</h5> 
+    <div class="media ml-2"> 
+      <div class="media-body">
+          <p class="p-2 mb-3 text-center propic "> <img *ngIf="profilepic" [src]="profilepic | safe : 'url'" width="80"  class="profilepic rounded-circle" alt="profile pic" /></p> 
+      <p class="mt-2 mb-1 font-weight-bold">Name  </p>
+      <p class="mb-1">{{formdata.personal.firstName}}  {{formdata.personal.secondName}}</p>
+    </div>
+    </div>
+    <div class="media ml-2"> 
+        <div class="media-body"> 
+        <p class="mt-2 mb-1 font-weight-bold"> Address</p>
+        <p class="mb-1">{{formdata.personal.address}}</p>
+      </div>
+      </div>
+      <div class="media ml-2"> 
+          <div class="media-body"> 
+          <p class="mt-2 mb-1 font-weight-bold">Phone number</p>
+          <p class="mb-1">{{formdata.personal.phone}}</p>
+        </div>
+        </div>
+        <div class="media ml-2"> 
+            <div class="media-body"> 
+            <p class="mt-2 mb-1 font-weight-bold">Email Address</p>
+            <p class="mb-1">{{formdata.personal.email}}</p>
+          </div>
+          </div>
+        
+           
+      <h5 class="font-weight-bold" *ngIf="interest"> INTERESTS </h5>
+      <div class="media ml-2" *ngIf="interest"> 
+          <div class="media-body"> 
+            <p  class="mb-1">  {{formdata.interest.interest1.interest}}  </p>
+            <p  class="mb-1" *ngIf="formdata.interest2" >  {{formdata.interest2.interest2.interest}}  </p>
+            <p  class="mb-1" *ngIf="formdata.interest3" >  {{formdata.interest3.interest3.interest}}  </p>
+        </div>
+        </div>
+
+      <h5 class="font-weight-bold" *ngIf="languages"> LANGUAGES</h5>
+      <div class="media ml-2" *ngIf="languages"> 
+          <div class="media-body"> 
+            <p  class="mb-1 description" >  {{formdata.languages.language1.language}}    </p>
+            <p  class="mb-1 description" *ngIf="formdata.language2" >  {{formdata.language2.language2.language}}    </p>
+            <p  class="mb-1 description" *ngIf="formdata.language3" >  {{formdata.language3.language3.language}}    </p>
+        </div>
+        </div> 
+  </div>
+  <div class="col-7 right-part" >
+    <div class="media ml-2" *ngIf="profile"> 
+        <div class="media-body"> 
+          <div  class="mb-1 description " [innerHTML]="formdata.profile.profiledata">   </div>
+      </div>
+    </div>
+      <hr> 
+      <div class="media"  *ngIf="education"> 
+          <div class="media-body"> 
+          <h5 class="text-left font-weight-bold mb-1">Education and Qualifications</h5>
+          <div class="row">
+            <div class="col-6 text-left">  
+                <p class="mb-1 degree"> {{formdata.education.education1.degree}} </p>
+                <p class="mb-1"> <span class="school"> {{formdata.education.education1.school}}  </span> <span class="city"> {{formdata.education.education1.city}}  </span> </p>
+                <div class="mb-1 description col-12" [innerHTML]="formdata.education.education1.description"> 
+                </div>
+            </div>
+            <div class="col-6 text-right"> 
+                <p class="mb-1 start-end"> {{formdata.education.education1.startDate.month}} {{formdata.education.education1.startDate.year}}  - {{formdata.education.education1.endDate.month}} {{formdata.education.education1.endDate.year}} </p>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="media"  *ngIf="education2"> 
+            <div class="media-body"> 
+            <div class="row">
+              <div class="col-6 text-left">  
+                  <p class="mb-1 degree"> {{formdata.education2.education2.degree}}  </p>
+                  <p class="mb-1"> <span class="school">{{formdata.education2.education2.school}}  </span> <span class="city"> {{formdata.education2.education2.city}}  </span> </p>
+                  <div class="mb-1 description col-12" [innerHTML]="formdata.education2.education2.description"> 
+                </div>
+              </div>
+              <div class="col-6 text-right"> 
+                <p class="mb-1 start-end"> {{formdata.education2.education2.startDate.month}} {{formdata.education2.education2.startDate.year}}  - {{formdata.education.education1.endDate.month}} {{formdata.education.education1.endDate.year}} </p>
+            </div>
+            </div>
+          </div>
+          </div>
+          <div class="media"  *ngIf="education3"> 
+            <div class="media-body"> 
+            <div class="row">
+              <div class="col-6 text-left">  
+                  <p class="mb-1 degree">  {{formdata.education3.education3.degree}}   </p>
+                  <p class="mb-1"> <span class="school"> {{formdata.education3.education3.school}}  </span> <span class="city"> {{formdata.education3.education3.city}}  </span> </p>
+                  <div class="mb-1 description col-12" [innerHTML]="formdata.education3.education3.description"> 
+                </div>
+              </div>
+              <div class="col-6 text-right"> 
+                <p class="mb-1 start-end"> {{formdata.education3.education3.startDate.month}} {{formdata.education3.education3.startDate.year}}  - {{formdata.education.education1.endDate.month}} {{formdata.education.education1.endDate.year}} </p>
+            </div>
+            </div>
+          </div>
+          </div>
+        <hr>
+        <div class="media" *ngIf="experiance"> 
+            <div class="media-body"> 
+            <h5 class="text-left font-weight-bold mb-1">Work Experience </h5>
+            <div class="row">
+              <div class="col-6 text-left">  
+                  <p class="mb-1 job">  {{formdata.experiance.experiance1.jobTitle}} </p>
+                  <p class="mb-1"> <span class="employer">{{formdata.experiance.experiance1.employer}}</span> <span class="city"> {{formdata.experiance.experiance1.city}} </span> </p>
+                  <div class="mb-1 description col-12" [innerHTML]="formdata.experiance.experiance1.description">  </div>
+              </div>
+              <div class="col-6 text-right"> 
+                <p class="mb-1 start-end"> {{formdata.experiance.experiance1.startDate.month}}  {{formdata.experiance.experiance1.startDate.year}} - {{formdata.experiance.experiance1.endDate.month}} {{formdata.experiance.experiance1.endDate.year}}</p>
+            </div>
+            </div>
+          </div>
+          </div>
+          <div class="media" *ngIf="experiance2"> 
+            <div class="media-body"> 
+             
+            <div class="row">
+              <div class="col-6 text-left">  
+                  <p class="mb-1 job">   {{formdata.experiance2.experiance2.jobTitle}}  </p>
+                  <p class="mb-1"> <span class="employer"> {{formdata.experiance2.experiance2.employer}} </span>
+                     <span class="city"> {{formdata.experiance2.experiance2.city}} </span> </p>
+                     <div class="mb-1 description col-12" [innerHTML]="formdata.experiance2.experiance2.description">  </div>
+              </div>
+              <div class="col-6 text-right"> 
+                    <p class="mb-1 start-end"> {{formdata.experiance2.experiance2.startDate.month}}  {{formdata.experiance2.experiance2.startDate.year}} - 
+                        {{formdata.experiance2.experiance2.endDate.month}} {{formdata.experiance2.experiance2.endDate.year}}</p>
+                </div>
+            </div>
+          </div>
+          </div>
+          <div class="media" *ngIf="experiance3"> 
+                <div class="media-body"> 
+                
+                <div class="row">
+                  <div class="col-6 text-left">  
+                      <p class="mb-1 job">  {{formdata.experiance3.experiance3.jobTitle}} </p>
+                      <p class="mb-1"> <span class="employer">{{formdata.experiance3.experiance3.employer}}</span>
+                         <span class="city"> {{formdata.experiance3.experiance3.city}}</span> </p>
+                         <div class="mb-1 description col-12" [innerHTML]="formdata.experiance3.experiance3.description">  </div>
+                  </div>
+                  <div class="col-6 text-right"> 
+                        <p class="mb-1 start-end"> {{formdata.experiance3.experiance3.startDate.month}}  {{formdata.experiance3.experiance3.startDate.year}} -
+                             {{formdata.experiance3.experiance3.endDate.month}} {{formdata.experiance3.experiance3.endDate.year}}</p>
+                    </div>
+                </div>
+              </div>
+              </div>
+          <hr>
+          <div class="media" *ngIf="skills"> 
+              <div class="media-body"> 
+              <h5 class="text-left font-weight-bold mb-1">Skills </h5>
+              <div class="row">
+                <div class="col-6 text-left">  
+                    <p class="mb-1 job">  {{formdata.skills.skill1.skill}} </p>
+                     
+                </div>
+                <div class="col-6 text-right"> 
+                    <p class="mb-1 start-end"> {{formdata.skills.skill1.level}}  </p>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="media" *ngIf="skills2"> 
+                    <div class="media-body"> 
+                  
+                    <div class="row">
+                      <div class="col-6 text-left">  
+                          <p class="mb-1 job"> {{formdata.skills2.skills2.skill}} </p>
+                           
+                      </div>
+                      <div class="col-6 text-right"> 
+                          <p class="mb-1 start-end"> {{formdata.skills2.skills2.level}} </p>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="media" *ngIf="skills3"> 
+                        <div class="media-body"> 
+                        
+                        <div class="row">
+                          <div class="col-6 text-left">  
+                              <p class="mb-1 job"> {{formdata.skills3.skills3.skill}} </p>
+                               
+                          </div>
+                          <div class="col-6 text-right"> 
+                              <p class="mb-1 start-end"> {{formdata.skills3.skills3.level}}  </p>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+            <hr>
+            <div class="media" *ngIf="courses"> 
+                <div class="media-body"> 
+                <h5 class="text-left font-weight-bold mb-1">Courses</h5>
+                <div class="row">
+                  <div class="col-6 text-left">  
+                      <p class="mb-1 job"> {{formdata.courses.course1.course}} </p>
+                      <p class="mb-1"> {{formdata.courses.course1.institution}}</p>
+                      <div class="mb-1 description" [innerHTML]="formdata.courses.course1.description">   </div>
+                  </div>
+                  <div class="col-6 text-right"> 
+                        <p class="mb-1 start-end"> {{formdata.courses.course1.startDate.month}}  {{formdata.courses.course1.startDate.year}}  - {{formdata.courses.course1.endDate.month}} - {{formdata.courses.course1.endDate.year}}</p>
+
+                 </div>
+                </div>
+              </div>
+              </div>
+              <div class="media" *ngIf="courses2"> 
+                    <div class="media-body"> 
+                   
+                    <div class="row">
+                      <div class="col-6 text-left">  
+                          <p class="mb-1 job">{{formdata.courses2.courses2.course}} </p>
+                          <p class="mb-1"> {{formdata.courses2.courses2.institution}} </p>
+                          
+                      </div>
+                      <div class="col-6 text-right"> 
+                            <p class="mb-1 start-end"> {{formdata.courses2.courses2.startDate.month}} - {{formdata.courses2.courses2.startDate.year}} </p>
+                                <p class="mb-1 start-end"> {{formdata.courses2.courses2.endDate.month}} - {{formdata.courses2.courses2.endDate.year}} </p>
+                         </div>
+                     <div class="clearfix"></div>
+                     <div class="mb-1 description col-12" [innerHTML]="formdata.courses2.courses2.description">   </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="media" *ngIf="courses3"> 
+                        <div class="media-body"> 
+                        
+                        <div class="row">
+                          <div class="col-6 text-left">  
+                              <p class="mb-1 job">  {{formdata.courses3.courses3.course}} </p>
+                              <p class="mb-1"> {{formdata.courses3.courses3.institution}} </p>
+                              
+                          </div>
+                          <div class="col-6 text-right"> 
+                                <p class="mb-1 start-end"> {{formdata.courses3.courses3.startDate.month}} - {{formdata.courses3.courses3.startDate.year}} </p>
+                                    <p class="mb-1 start-end"> {{formdata.courses3.courses3.endDate.month}} - {{formdata.courses3.courses3.endDate.year}} </p>
+                             </div>
+                             <div class="clearfix"></div>
+                             <div class="mb-1 description col-12" [innerHTML]="formdata.courses3.courses3.description">   </div>
+                        </div>
+                      </div>
+                      </div>
+            </div> 
+  </div>
+</div>

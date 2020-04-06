@@ -1,0 +1,34 @@
+.harvard {font-size:14px;height:400px;overflow:hidden;padding:0 10px;background:#fff;}
+.harvard .title{ padding:10px; text-transform: uppercase; }
+
+.modal .modal-body  .harvard   { height:auto!important}
+.harvard h2 {
+    font-size: 1em
+}
+
+.harvard  h5 {
+    font-size: .8em
+}
+
+.harvard p {
+    font-size: .6em
+}
+
+.profilepic  { width:100%;display:block;margin:auto}
+.propic { max-width:120px;width:90%;margin:auto;}
+
+.harvard .right-part {
+    background: #fff;
+    color: #777;
+    padding: 10px;
+}
+
+.harvard  .left-part {
+    background: #999;
+    color: #333;
+    // padding: 10px;
+}
+.harvard .right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.harvard .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.harvard .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.harvard  .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

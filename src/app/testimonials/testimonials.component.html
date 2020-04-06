@@ -1,0 +1,33 @@
+<div class="testimonial"> 
+<div class="col-sm-8 offset-sm-2">
+  <h2 class="text-center mb-2"> What do our users say? </h2>
+  <p class="text-center mb-2" > They all found their dream job, thanks to CVmaker:</p>
+  <div class="d-flex flex-column flex-sm-row justify-content-between mt-5"> 
+   <div *ngFor="let item of datatestimonials"  class="testimonial-item card d-flex">
+     <div class="card-body"> 
+      <div class="col-12 row ">
+         <div class="col-4 text-center">
+           <fa-icon class="fa-3x user"  [icon]="user"></fa-icon>
+         </div>
+         <div class="col-8">
+          <h4> {{item.title}} </h4> 
+          <p> 
+            <fa-icon class="fa-1x star" [icon]="star"></fa-icon> 
+            <fa-icon class="fa-1x star" [icon]="star"></fa-icon> 
+            <fa-icon class="fa-1x star" [icon]="star"></fa-icon> 
+            <fa-icon class="fa-1x star" [icon]="star"></fa-icon> 
+            <fa-icon class="fa-1x star" [icon]="star"></fa-icon> 
+          </p>
+         </div>
+      </div>
+      <div class="col-12">
+        <p class="card-text"> {{item.text}} </p>
+      </div>
+      <div class="col-12">
+        <p class="card-text"> {{item.role }} </p>
+      </div>
+    </div>
+   </div>
+  </div>
+</div>
+</div>

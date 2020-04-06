@@ -1,0 +1,39 @@
+<div class="d-flex flex-column popup-bg align-content-center justify-content-center align-items-center">
+ <div class="popup d-flex flex-column ">
+   <div class="row"> 
+   <div class="col-9"> 
+     <h3> {{popup.title}} </h3>
+   </div>
+   <div class="col-3">
+     <p (click)="dismispopup(false)" >X</p>
+   </div>
+  </div>
+  <div class="row">
+    <div class="col-10 justify-content-end">
+        <p [ngSwitch]="popupvalue + ''" style="min-width:350px;min-height:495px;">
+            <img width="350" [src]="path1"  *ngSwitchCase="'image1'">
+            <img width="350" [src]=" path2"  *ngSwitchCase="'image2'"> 
+            <img width="350" [src]=" path3"  *ngSwitchCase="'image3'"> 
+            <img width="350" [src]=" path4"  *ngSwitchCase="'image4'">
+            <img width="350" [src]=" path5"  *ngSwitchCase="'image5'">
+            <img width="350" [src]="path1" *ngSwitchDefault>
+          </p>
+     <!-- <img style="width:100%" width="350"  src="../../assets/images/cv-auckland-1.jpg"  /> -->
+    </div>
+    <div class="col-2">
+      <div class="card d-inline-flex">
+        <span class="d-inline-flex radioselect flex-column">
+          
+          <input type="radio" name="image" [(ngModel)]="popupvalue" *ngIf="popup.image1"   checked value="image1" > 
+          <input type="radio" name="image" [(ngModel)]="popupvalue"  *ngIf="popup.image2" value="image2" >
+          <input type="radio" name="image" [(ngModel)]="popupvalue"  *ngIf="popup.image3" value="image3" >
+          <input type="radio" name="image" [(ngModel)]="popupvalue"  *ngIf="popup.image4"  value="image4" >
+          <input type="radio" name="image" [(ngModel)]="popupvalue"  *ngIf="popup.image5" value="image5" >
+        
+        </span>
+      </div>
+    </div>
+  </div>
+ </div>
+ <div class="popupbackdrop"  (click)="dismispopup(false)"></div>
+</div>

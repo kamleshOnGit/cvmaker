@@ -1,0 +1,101 @@
+<div  class="card interest shadow p-5 mt-5 ">
+
+  <h3 class="card-title">
+      <fa-icon class="fa-1x mr-2" [icon]="interest"></fa-icon>
+      Interests
+      <span class="align-items-around float-right">
+        <fa-icon class="fa-0x mr-2" (click)="up('interest')" [icon]="arrowup"></fa-icon>
+        <fa-icon class="fa-0x mr-2" (click)="down('interest')" [icon]="arrowdown"></fa-icon>
+        <fa-icon class="fa-0x mr-2" (click)="setting('interest')" [icon]="gear"></fa-icon>
+      </span>
+    </h3>
+    <hr>
+<div [formGroup]="interestdata.get('interest1')" > 
+<div class="row mt-3">
+   <div class="col-md-12">
+      <div class="form-group">
+         <label for="hobby"> Hobby</label>
+         <input type="text" class="form-control"  formControlName="interest" id="hobby" placeholder="e.g Drawing" />
+      </div>
+   </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="float-left btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+        </div>
+
+        <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div> -->
+
+        <!-- <div class="float-right btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="interest2"  [formGroup]="interest2" > 
+    <div class="row mt-3">
+       <div class="col-md-12">
+          <div class="form-group">
+             <label for="hobby"> Hobby</label>
+             <input type="text" class="form-control"  formControlName="interest" id="hobby" placeholder="e.g Drawing" />
+          </div>
+       </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="float-left btn btn-outline-dark btn-md">
+              <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+            </div>
+    
+            <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+              </div> -->
+    
+            <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('interest2')">
+                <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+              </div>
+          </div>
+        </div>
+      </div>
+</div>
+  <div *ngIf="interest3"  [formGroup]="interest3" > 
+        <div class="row mt-3">
+           <div class="col-md-12">
+              <div class="form-group">
+                 <label for="hobby"> Hobby</label>
+                 <input type="text" class="form-control"  formControlName="interest" id="hobby" placeholder="e.g Drawing" />
+              </div>
+           </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="float-left btn btn-outline-dark btn-md">
+                  <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                </div>
+        
+                <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                    <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                  </div> -->
+        
+                <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('interest3')">
+                    <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  <div class="row mt-3">
+    <div class="col-md-12 text-center">
+      <div class="addanother btn btn-light btn-lg text-secondary" (click)="addextrainterest()">
+          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another hobby
+      </div>
+    </div>
+  </div>
+</div>

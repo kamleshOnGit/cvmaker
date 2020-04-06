@@ -1,0 +1,38 @@
+.next-step {border-radius:40px;}
+.indicator {position: relative;}
+.indicator-main{margin-top:10px ;position: static; z-index:5 ;width:70%; text-align: center;}
+.indicator-bg{ position: absolute; top:26px;left:92px;height:10px;width:62%;z-index: 1;border-radius:6px;}
+.indicator-inner{height:100%;width:43%;border-radius:6px;}
+.hidepage{display:none}
+.imagetype { position: absolute;top:0;left:0;bottom:0;right:0;opacity:0;z-index: 19;}
+.image-cover{width:100%;border:1px dashed #999;border-radius:6px;height:122px;text-align: center;overflow:hidden;}
+.profile , .experience , .education , .interests , .referance , .skills {
+    transition:all .1s cubic-bezier(0.755, 0.05, 0.855, 0.06)}
+.ng-dirty .ng-invalid{ border: 1px solid red;}
+.ng-dirty .ng-valid { border: 1px solid green;}
+.picicon { display: none}
+.profilepic { width: 120px ;height:auto ;display:block;}
+.featurepopup {position: fixed;
+    margin: 2% auto;
+    display: block;
+    z-index: 200;
+    max-width: 77%;
+    min-height: 290px;
+    top: 20%;
+    width: 560px;
+    left: 30%;
+    background: #fff;
+    box-shadow: 0px 0px 4px 4px #999;
+    border-radius: 4px;
+    padding: 20px;
+}
+.settings:before{ content:'' ;position:fixed; width:100%;height:100%;background: rgba(0,0,0,.5);
+    display:block;z-index:100;top:0px;left:0px;}
+.togglesection {width:50px;height:28px;position:relative;display:inline-block;}
+.togglesection input { width:0;opacity:0;}
+
+.togglesection .slider { position: absolute;top:0;left:1px;right:0;bottom:0;border-radius:18px;background-color:blue;}
+.togglesection .slider:before {content:''; width:22px; height:22px;border-radius:50%;display:block;
+    background-color:#fff;transition: all .4s ease-out;position:absolute; top:3px;left:3px; }
+.togglesection input:checked + .slider:before {transform:translateX(21px);}
+.togglesection input:disabled + .slider {background-color:gray;} 

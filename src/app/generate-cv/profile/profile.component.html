@@ -1,0 +1,47 @@
+<div  class="card profile p-5  shadow">
+  <h3 class="card-title">
+    <fa-icon class="fa-1x mr-2" [icon]="user"></fa-icon>
+    Profile
+    <span class="align-items-around float-right">
+      <fa-icon class="fa-0x mr-2" (click)="up('profile')" [icon]="arrowup"></fa-icon>
+      <fa-icon class="fa-0x mr-2" (click)="down('profile')" [icon]="arrowdown"></fa-icon>
+      <fa-icon class="fa-0x mr-2" (click)="setting('profile')" [icon]="gear"></fa-icon>
+    </span>
+  </h3>
+  <hr>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group" [formGroup]="prof">
+        <label for="description"> Description</label>
+        <div class="list-group"  >
+          <div class="list-group-item p-0 textedit"  >
+            
+             <quill-editor  [styles]="{height: '140px'}" class="textarea" formControlName="profiledata"
+             placeholder="Enter Text"
+             ></quill-editor>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="float-left btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+        </div>
+
+        <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div>
+
+        <div class="float-right btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div> -->
+
+        
+      </div>
+    </div>
+  </div>
+</div>

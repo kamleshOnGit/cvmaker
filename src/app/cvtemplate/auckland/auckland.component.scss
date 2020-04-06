@@ -1,0 +1,32 @@
+.modal-body { background: #fff;}
+.auckland {font-size:14px;height:400px;overflow:hidden;padding:0 10px;background:#fff;}
+.modal .modal-body .auckland  {height:auto!important}
+.auckland  .title{ padding:10px;border:2px solid #444; text-transform: uppercase; }
+
+.auckland  h2 {
+    font-size: 1em
+}
+
+.auckland  h5 {
+    font-size: .8em
+}
+
+.auckland  p {
+    font-size: .6em
+}
+
+.auckland  .right-part {
+    background: #fff;
+    color: #777;
+    padding: 10px;
+}
+
+.auckland  .left-part {
+    background: #999;
+    color: #333;
+    // padding: 10px;
+}
+.auckland  .right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.auckland  .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.auckland .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.auckland .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

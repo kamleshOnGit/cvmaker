@@ -1,0 +1,65 @@
+.edinburg {
+    font-size: 14px;
+    border: 1px solid #222;
+    height:400px;overflow:hidden;
+    padding:20px 10px;
+    background:#fff;
+}
+.modal .modal-body  .edinburg   { height:auto!important}
+:host { width:100%;}
+.edinburg .title {
+    padding: 10px;
+    text-transform: uppercase;
+    background: #435;
+    font-size: 1.8em;
+    color: #fff;
+    position: relative;
+}
+.edinburg .profilepic{
+    // position: absolute;
+    left: 29%;
+    border-radius: 50%;
+    width: 37%;
+    // bottom: -47px;
+    z-index: 9;}
+
+    .edinburg .title:after {
+    width: 100%;
+    content: '';
+    // border-bottom: 32px solid #435;
+    // border-radius: 55%;
+    height: 69px;
+    bottom: -28px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.edinburg h2 {
+    font-size: 1em
+}
+
+.edinburg h5 {
+    font-size: .8em
+}
+
+.edinburg p {
+    font-size: .6em
+}
+
+.edinburg .right-part {
+    background: #fff;
+    color: #777;
+    padding: 10px;
+}
+
+.edinburg .left-part {
+    background: #999;
+    color: #333;
+    // padding: 10px;
+}
+.edinburg .right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.edinburg .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.edinburg .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.edinburg   .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

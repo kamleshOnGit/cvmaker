@@ -1,0 +1,34 @@
+
+.berkeley {font-size:14px;height:400px;overflow:hidden;padding:0 10px;background:#fff;}
+.berkeley  .title{ padding:10px; text-transform: uppercase; }
+.modal .modal-body .berkeley  { height:auto!important}
+.berkeley   h2 {
+    font-size: 1em
+}
+
+.berkeley   h5 {
+    font-size: .8em;
+    background: rgb(156, 144, 144);
+    padding:10px;
+    color:rgb(24, 23, 23);
+}
+
+.berkeley  p {
+    font-size: .6em
+}
+
+.berkeley   .right-part {
+    background: #fff;
+    color: #333;
+    padding: 10px;
+}
+
+.berkeley  .left-part {
+    background: #fff;
+    color: #333;
+    // padding: 10px;
+}
+.berkeley   .right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.berkeley  .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.berkeley  .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.berkeley  .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

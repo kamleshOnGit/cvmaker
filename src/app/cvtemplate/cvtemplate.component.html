@@ -1,0 +1,70 @@
+<div class="container" >
+  <div class="row" *ngIf="!togglepopup" >
+     
+     <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-edinburg [profilepic]="profilepic" [formdata]="formdata"  (popup)="showpopup($event)"></app-edinburg>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+      <app-auckland [formdata]="formdata" (popup)="showpopup($event)" ></app-auckland>
+   </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-berkeley [formdata]="formdata" (click)="showpopup('berkeley')" (popup)="showpopup($event)"> </app-berkeley>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-princeton [formdata]="formdata" (click)="showpopup('princeton')" (popup)="showpopup($event)"> </app-princeton>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-cambridge  [profilepic]="profilepic" [formdata]="formdata"   (popup)="showpopup($event)"> </app-cambridge>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-otago [formdata]="formdata" (click)="showpopup('otago')" (popup)="showpopup($event)"> </app-otago>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-oxford  [profilepic]="profilepic" [formdata]="formdata"   (popup)="showpopup($event)"> </app-oxford>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-standford  [profilepic]="profilepic" [formdata]="formdata"   (popup)="showpopup($event)"></app-standford> 
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+       <app-harvard  [profilepic]="profilepic" [formdata]="formdata"   (popup)="showpopup($event)"> </app-harvard>
+    </div>
+    
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-8 offset-sm-2">
+      <div class="showfull"  *ngIf="togglepopup" >
+        <div class="containing"   [ngSwitch]="popup" >
+            <div class="col-12  sticky-top">
+                <div class="d-flex justify-content-between align-content-end pt-1 pb-1 p-ms-5" > 
+                  <button type="button" class="btn btn-primary" (click)="makePdf()">Download</button>
+                  <button type="button" class="btn btn-primary" (click)="editData()">Add/Edit Data</button>
+                  <button type="button" class="btn btn-primary" (click)="toggleOptions()">back</button>
+                </div>
+              </div>
+          <div #printcv> 
+            <app-auckland [formdata]="formdata"     *ngSwitchCase="'auckland'"  ></app-auckland>
+
+            <app-edinburg [profilepic]="profilepic"  [formdata]="formdata"  *ngSwitchCase="'edinburg'" ></app-edinburg>
+
+            <app-berkeley [formdata]="formdata"    *ngSwitchCase="'berkeley'"> </app-berkeley>
+
+            <app-princeton [formdata]="formdata"  *ngSwitchCase="'princeton'"> </app-princeton>
+
+            <app-cambridge  [profilepic]="profilepic"   [formdata]="formdata"  *ngSwitchCase="'cambridge'"> </app-cambridge>
+
+            <app-otago [formdata]="formdata"    *ngSwitchCase="'otago'"> </app-otago>
+
+            <app-oxford  [profilepic]="profilepic"   [formdata]="formdata"  *ngSwitchCase="'oxford'"> </app-oxford>
+
+            <app-standford  [profilepic]="profilepic"   [formdata]="formdata"  *ngSwitchCase="'standford'"> </app-standford>
+
+            <app-harvard  [profilepic]="profilepic"  [formdata]="formdata"  *ngSwitchCase="'harvard'"> </app-harvard>
+          </div>
+            
+        </div>
+      </div>
+       
+    </div>
+  </div>
+</div>

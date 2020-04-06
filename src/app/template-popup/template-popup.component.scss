@@ -1,0 +1,17 @@
+.popup-bg {width:100%;height:100%;position: fixed;z-index:10;top:0;left:0;right:0;bottom:0;}
+.popup {max-width:600px;color:#fff;position: relative;z-index:11;}
+.radioselect{padding:10px; }
+.radioselect input[type=radio] { margin:4px;}
+.popupbackdrop{width:100%;height:100%;background-color:rgba(0,0,0,.8);position: absolute;z-index:5;}
+
+@media (max-width:380px) {
+    .popup { zoom:.7;margin-top:30px} 
+}
+
+@media (max-width:900px) and (orientation: landscape) {
+    .popup { zoom:.7;margin-top:80px} 
+}
+
+@media (max-width:700px) and (orientation: landscape) {
+    .popup { zoom:.5;margin-top:100px} 
+}

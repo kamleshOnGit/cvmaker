@@ -1,0 +1,915 @@
+<div class="container">
+
+  <h1 class="text-center mt-2 mb-2"> {{ showpage ? 'Personal Information' : 'My Experiance' }} </h1>
+  <div class="row mb-5 mt-2">
+    <div class="col-md-6 offset-md-3">
+      <div class="d-flex justify-content-around flex-row indicator">
+        <div class="text-center d-flex flex-row  indicator-main justify-content-between">
+          <div class="d-inline-block text-center mr-4">
+            <div class="btn btn-success rounded-circle p-2 shadow" [style.width.px]="42">
+              <fa-icon class="fa-0x mb-1" [icon]="user"></fa-icon>
+            </div>
+            <p> Personal</p>
+          </div>
+          <div class="d-inline-block text-center mr-4">
+            <div class="btn bg-light rounded-circle p-2 shadow" [style.width.px]="42">
+              <fa-icon class="fa-0x mb-1" [icon]="list"></fa-icon>
+            </div>
+            <p> Experiance</p>
+          </div>
+
+          <div class="d-inline-block text-center mr-4">
+            <div class="btn bg-light rounded-circle p-2 shadow" [style.width.px]="42">
+              <fa-icon class="fa-0x mb-1" [icon]="pen"></fa-icon>
+            </div>
+            <p> Template</p>
+          </div>
+        </div>
+        <div class="indicator-bg bg-light shadow">
+          <div class="indicator-inner bg-success"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 offset-md-1 col-12 ">
+      <form [formGroup]="cvformdata" (ngSubmit)="onSubmit()">
+        <div class="page1  mt-2 mb-5" [ngStyle]=" {'display': showpage ? 'block' : 'none'}">
+          <div formGroupName="personal" class="card personal-details  p-5 shadow">
+            <h3 class="card-title"> Personal Details </h3>
+            <hr>
+            <div class="row mt-3">
+              <div class="col-md-3">
+                <div class="card mt-2">
+                  <div class="card-body ">
+                    <input type="file" (change)="onFileChange($event)" class="form-control-file imagetype" accept="image/*" />
+
+                    <div class="image-cover d-flex align-items-center justify-content-center">
+                      <fa-icon [ngClass]="{ 'picicon' : isProfilePicSet }" class="fa-3x pt-4 pb-4" [icon]="potrait"></fa-icon>
+                      <img [src]="prfilePicPreview | safe : 'url'" [ngClass]="{'picicon' : !isProfilePicSet, 'profilepic' : isProfilePicSet }"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="firstname"> First Name</label>
+                  <input type="text" class="form-control" formControlName="firstName" id="firstname" placeholder="your first name" />
+                </div>
+                <div class="form-group">
+                  <label for="lastname"> Last Name</label>
+                  <input type="text" class="form-control" formControlName="secondName" id="lastname" placeholder="your last name" />
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="email"> Email address*</label>
+                  <input type="email" class="form-control" formControlName="email" id="email" placeholder="your email" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="phone">Phone number* </label>
+                  <input type="tell" class="form-control" formControlName="phone" id="phone" placeholder="your phone number" />
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="address"> Address*</label>
+                  <input type="text" class="form-control" formControlName="address" id="address" placeholder="your address" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-form-group">
+                  <label for="city"> City*</label>
+                  <input type="text" class="form-control" formControlName="city" id="city" placeholder="your city" />
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="country"> Country</label>
+                  <input type="text" class="form-control" formControlName="country" id="country" placeholder="your country" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="postal"> Postal Code</label>
+                  <input type="text" class="form-control" formControlName="postalCode" id="postal" placeholder="your postal" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 text-center">
+              <div class="btn btn-primary btn-lg next-step  pr-5 pl-5" (click)="onshowpage();">
+                Next Step
+                <fa-icon class="fa-1x ml-2" [icon]="arrowright"></fa-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page2 mt-5 mb-5" [ngStyle]=" {'display': showpage ? 'none' : 'block'}">
+         <div #formchild>
+            <!-- <div class="card profile p-5 mt-5 shadow">
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="user"></fa-icon>
+                Profile
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('profile')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('profile')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+              <hr>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group" formGroupName="profile">
+                    <label for="description"> Description</label>
+                    <div class="list-group">
+                      <div class="list-group-item">
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-white"> B </button>
+                          <button type="button" class="btn btn-white">
+                            <em> I</em>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <u> U</u>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <fa-icon class="fa-1x" [icon]="list"></fa-icon>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="list-group-item p-0">
+                        <textarea class="form-control p-4" formControlName="profile" max-lenght="200"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <app-profile class="profile" *ngIf="profileflag" [prof]="cvformdata.get('profile')"></app-profile>
+
+            <!-- <div formGroupName="experiance" class="card experience p-5 mt-5 shadow">
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="brifecase"></fa-icon>
+                Work experience
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('experience')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('experience')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+              <hr>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="country"> Job</label>
+                    <input type="text" class="form-control" formControlName="jobTitle" id="job" placeholder="your country" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="town"> City/Town</label>
+                    <input type="text" class="form-control" formControlName="city" id="town" placeholder="your town" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="employer"> Employer</label>
+                    <input type="text" class="form-control" formControlName="employer" id="employer" placeholder="your employer" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="startdate"> Start Date</label>
+                    <div formGroupName="startDate" class="d-flex flex-row ">
+                      <select formControlName="month" class="custom-select col-6 mr-1">
+                        <option> Don't show </option>
+                        <option> Show year only </option>
+                        <option> January </option>
+                        <option> February </option>
+                        <option> March </option>
+                        <option> Add rest of the year </option>
+                      </select>
+
+                      <select formControlName="year" class="custom-select col-6">
+                        <option> 2023 </option>
+                        <option> 2022 </option>
+                        <option> 2021 </option>
+                        <option> 2020 </option>
+                        <option> 2019 </option>
+                        <option> 2018 </option>
+                        <option> 2017 </option>
+                        <option> 2016 </option>
+                        <option> 2015 </option>
+                        <option> 2014 </option>
+                      </select>
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="enddate"> End Date</label>
+                    <div formGroupName="endDate" class="d-flex flex-row">
+                      <select formControlName="month" class="custom-select col-6 mr-1">
+                        <option> Don't show </option>
+                        <option> Show year only </option>
+                        <option> January </option>
+                        <option> February </option>
+                        <option> March </option>
+                        <option> Add rest of the year </option>
+                      </select>
+
+                      <select formControlName="year" class="custom-select col-6 ">
+                        <option> 2023 </option>
+                        <option> 2022 </option>
+                        <option> 2021 </option>
+                        <option> 2020 </option>
+                        <option> 2019 </option>
+                        <option> 2018 </option>
+                        <option> 2017 </option>
+                        <option> 2016 </option>
+                        <option> 2015 </option>
+                        <option> 2014 </option>
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="description"> Description</label>
+                    <div class="list-group" #description>
+                      <div class="list-group-item">
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-white">
+                            <strong> B </strong>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <em> I</em>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <u> U</u>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <fa-icon class="fa-1x" [icon]="list"></fa-icon>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="list-group-item p-0">
+                        <textarea formControlName="description" class="form-control p-4" max-lenght="200"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <div class="addanother btn btn-light btn-lg text-secondary">
+                    <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another work experiance
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <app-experiance class="experiance" *ngIf="experianceflag" [exp]="cvformdata.get('experiance')"></app-experiance>
+
+            <!-- <div formGroupName="education" class="card education p-5 mt-5 shadow">
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="brifecase"></fa-icon>
+                Education
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('education')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('education')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+              <hr>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="degree">Degree</label>
+                    <input type="text" class="form-control" formControlName="degree" id="degree" placeholder="your degree" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="town"> City/Town</label>
+                    <input type="text" class="form-control" formControlName="city" id="town" placeholder="your town" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="school"> School</label>
+                    <input type="text" class="form-control" formControlName="school" id="school" placeholder="your school" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="startdate"> Start Date</label>
+                    <div formGroupName="startDate" class="d-flex flex-row ">
+                      <select formControlName="month" class="custom-select col-6 mr-1">
+                        <option> Don't show </option>
+                        <option> Show year only </option>
+                        <option> January </option>
+                        <option> February </option>
+                        <option> March </option>
+                        <option> Add rest of the year </option>
+                      </select>
+
+                      <select formControlName="year" class="custom-select col-6">
+                        <option> 2023 </option>
+                        <option> 2022 </option>
+                        <option> 2021 </option>
+                        <option> 2020 </option>
+                        <option> 2019 </option>
+                        <option> 2018 </option>
+                        <option> 2017 </option>
+                        <option> 2016 </option>
+                        <option> 2015 </option>
+                        <option> 2014 </option>
+                      </select>
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="enddate"> End Date</label>
+                    <div formGroupName="endDate" class="d-flex flex-row">
+                      <select formControlName="month" class="custom-select col-6 mr-1">
+                        <option> Don't show </option>
+                        <option> Show year only </option>
+                        <option> January </option>
+                        <option> February </option>
+                        <option> March </option>
+                        <option> Add rest of the year </option>
+                      </select>
+
+                      <select formControlName="year" class="custom-select col-6 ">
+                        <option> 2023 </option>
+                        <option> 2022 </option>
+                        <option> 2021 </option>
+                        <option> 2020 </option>
+                        <option> 2019 </option>
+                        <option> 2018 </option>
+                        <option> 2017 </option>
+                        <option> 2016 </option>
+                        <option> 2015 </option>
+                        <option> 2014 </option>
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="description"> Description</label>
+                    <div class="list-group" #description>
+                      <div class="list-group-item">
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-white">
+                            <strong> B </strong>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <em> I</em>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <u> U</u>
+                          </button>
+                          <button type="button" class="btn btn-white">
+                            <fa-icon class="fa-1x" [icon]="list"></fa-icon>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="list-group-item p-0">
+                        <textarea formControlName="description" class="form-control p-4" max-lenght="200"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <div class="addanother btn btn-light btn-lg text-secondary">
+                    <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another work experiance
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <app-education class="education" *ngIf="educationflag" [edu]="cvformdata.get('education')"> </app-education>
+
+            <!-- <div formGroupName="interest" class="card interests shadow p-5 mt-5 ">
+
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="interest"></fa-icon>
+                Interests
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('interests')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('interests')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+              <hr>
+
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="hobby"> Hobby</label>
+                    <input type="text" class="form-control" formControlName="interest" id="hobby" placeholder="e.g Drawing" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <div class="addanother btn btn-light btn-lg text-secondary">
+                    <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another hobby
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <app-interest class="interest" *ngIf="interestflag" [interestdata]="cvformdata.get('interest')"></app-interest>
+
+            <!-- <div formGroupName="reference" class="card referance shadow p-5 mt-5 "></div>
+
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="comment"></fa-icon>
+                References
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('referance')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('referance')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="bg-light p-3 rounded ">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input " id="referenceondemand" />
+                      <label class="custom-control-label" for="referenceondemand"> References on request? Displays "References available on request" on your CV. </label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <hr>
+
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="country"> Company Name</label>
+                    <input type="text" class="form-control" formControlName="cName" id="cname" placeholder="your country" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="town"> Contact Person</label>
+                    <input type="text" class="form-control" formControlName="cPerson" id="cperson" placeholder="your town" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="cnumber"> Phone Number</label>
+                    <input type="text" class="form-control" formControlName="cPhone" id="cnumber" placeholder="your country" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="cemail"> Email Address</label>
+                    <input type="text" class="form-control" formControlName="cEmail" id="cemail" placeholder="your town" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <div class="addanother btn btn-light btn-lg text-secondary">
+                    <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another reference
+                  </div>
+                </div>
+              </div>
+          </div> -->
+
+            <app-referance class="reference" *ngIf="referenceflag" [ref]="cvformdata.get('reference')"></app-referance>
+
+            <!-- <div formGroupName="skills" class="card skills shadow p-5 mt-5 ">
+
+                  <h3 class="card-title">
+                      <fa-icon class="fa-1x mr-2" [icon]="skill"></fa-icon>
+                      Skills
+                      <span class="align-items-around float-right">
+                        <fa-icon class="fa-0x mr-2" (click)="up('skills')"  [icon]="arrowup"></fa-icon>
+                        <fa-icon class="fa-0x mr-2"  (click)="down('skills')" [icon]="arrowdown"></fa-icon>
+                        <fa-icon class="fa-0x mr-2" [icon]="gear"></fa-icon>
+                      </span>
+                    </h3>
+                    <hr>
+              
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="skill"> Skill</label>
+                            <input type="text" class="form-control"  formControlName="skill" id="skill" placeholder="your skill" />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="town"> Lavel</label>
+                            <select  formControlName="level" class="form-control" > 
+                                <option> Select Lavel</option>
+                                <option> Expert </option>
+                                <option> Experianced </option>
+                                <option> Skillfull </option>
+                                <option > Beginner </option>
+                                <option> Novice</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="float-left btn btn-outline-dark btn-md">
+                          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                        </div>
+              
+                        <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                          </div>
+              
+                        <div class="float-right btn btn-outline-dark btn-md">
+                            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-12 text-center">
+                      <div class="addanother btn btn-light btn-lg text-secondary">
+                          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another skill
+                      </div>
+                    </div>
+                  </div>
+        </div> -->
+
+            <app-skills class="skills" *ngIf="skillsflag" [skills]="cvformdata.get('skills')"></app-skills>
+
+            
+            <app-language *ngIf="langflag" [languages]="cvformdata.get('languages')" class="languages"> </app-language>
+            <!-- <div formGroupName="languages" *ngIf="langflag" class="card languages shadow p-5 mt-5 ">
+
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="skill"></fa-icon>
+                Languages
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('languages')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('languages')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="setting('languages')" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+              <hr>
+
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="language"> Language</label>
+                    <input type="text" class="form-control" formControlName="language" id="language" placeholder="What do you speak" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="town"> Level</label>
+                    <select formControlName="level" class="form-control">
+                      <option> Select Lavel</option>
+                      <option> Expert </option>
+                      <option> Experianced </option>
+                      <option> Skillfull </option>
+                      <option> Beginner </option>
+                      <option> Novice</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <div class="addanother btn btn-light btn-lg text-secondary">
+                    <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another Language
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <app-course *ngIf="courseflag" class="courses" [courses]="cvformdata.get('courses')" ></app-course>
+
+            <!-- <div formGroupName="courses" *ngIf="courseflag" class="card course p-5 mt-5 shadow">
+              <h3 class="card-title">
+                <fa-icon class="fa-1x mr-2" [icon]="brifecase"></fa-icon>
+                Courses
+                <span class="align-items-around float-right">
+                  <fa-icon class="fa-0x mr-2" (click)="up('courses')" [icon]="arrowup"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="down('courses')" [icon]="arrowdown"></fa-icon>
+                  <fa-icon class="fa-0x mr-2" (click)="setting('courses')" [icon]="gear"></fa-icon>
+                </span>
+              </h3>
+              <hr>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="course">Course</label>
+                    <input type="text" class="form-control" formControlName="course" id="course" placeholder="your course" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="town"> Institution</label>
+                    <input type="text" class="form-control" formControlName="institution" id="town" placeholder="your institution" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="startdate"> Start Date</label>
+                    <div formGroupName="startDate" class="d-flex flex-row ">
+                      <select formControlName="month" class="custom-select col-6 mr-1">
+                        <option> Don't show </option>
+                        <option> Show year only </option>
+                        <option> January </option>
+                        <option> February </option>
+                        <option> March </option>
+                        <option> Add rest of the year </option>
+                      </select>
+
+                      <select formControlName="year" class="custom-select col-6">
+                        <option> 2023 </option>
+                        <option> 2022 </option>
+                        <option> 2021 </option>
+                        <option> 2020 </option>
+                        <option> 2019 </option>
+                        <option> 2018 </option>
+                        <option> 2017 </option>
+                        <option> 2016 </option>
+                        <option> 2015 </option>
+                        <option> 2014 </option>
+                      </select>
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="enddate"> End Date</label>
+                    <div formGroupName="endDate" class="d-flex flex-row">
+                      <select formControlName="month" class="custom-select col-6 mr-1">
+                        <option> Don't show </option>
+                        <option> Show year only </option>
+                        <option> January </option>
+                        <option> February </option>
+                        <option> March </option>
+                        <option> Add rest of the year </option>
+                      </select>
+
+                      <select formControlName="year" class="custom-select col-6 ">
+                        <option> 2023 </option>
+                        <option> 2022 </option>
+                        <option> 2021 </option>
+                        <option> 2020 </option>
+                        <option> 2019 </option>
+                        <option> 2018 </option>
+                        <option> 2017 </option>
+                        <option> 2016 </option>
+                        <option> 2015 </option>
+                        <option> 2014 </option>
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="description"> Description</label>
+                    <div class="list-group" #description>
+                      <div class="list-group-item p-0">
+                        <quill-editor [styles]="{height: '140px'}" class="textarea" formControlName="description" placeholder="Enter Text" [modules]="quillConfig"></quill-editor>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="float-left btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                    </div>
+
+                    <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                    </div>
+
+                    <div class="float-right btn btn-outline-dark btn-md">
+                      <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <div class="addanother btn btn-light btn-lg text-secondary">
+                    <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another Course
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+
+          <div class="card shadow addextralsection p-5 mt-5 mb-5">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <select class="form-control" (change)="extraschange($event)">
+                <option *ngFor="let item of extrasection" > {{item}} </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+
+            <div class="col-md-6 text-center">
+              <div class="btn btn-secondary btn-lg next-step  pr-5 pl-5" (click)="onshowpage();">
+                <fa-icon class="fa-1x ml-2" [icon]="arrowleft"></fa-icon>
+                Prev Step
+              </div>
+            </div>
+            <div class="col-md-6 text-center">
+
+              <button class="btn btn-primary btn-lg next-step  pr-5 pl-5" [disabled]="!cvformdata.valid" type="submit">
+                Next Step
+                <fa-icon class="fa-1x ml-2" [icon]="arrowright"></fa-icon>
+              </button>
+
+            </div>
+          </div>
+       
+          <div *ngIf="settings"  (click)="throwVal($event)" class="settings">
+            <div class="featurepopup">
+              <!-- <div class="form-group">
+                <h4> Edit section</h4>
+                <label> Edit the name of the section</label>
+                <input type="text" class="form-control sectionname" />
+              </div> -->
+              <div class="form-group">
+                <h4> Hide Section </h4>
+                <p> Hide this section from cv.</p>
+                <label class="togglesection">
+                  <input type="checkbox"  class="checkbox" [disabled]="disablebtnChek"  />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+      </form>
+    </div>
+  </div>
+</div>

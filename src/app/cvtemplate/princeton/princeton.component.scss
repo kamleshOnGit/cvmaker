@@ -1,0 +1,30 @@
+.princeton{font-size:14px;height:400px;overflow:hidden;padding:0 10px;background:#fff;}
+.princeton  .title{ padding:10px; text-transform: uppercase; }
+.modal .modal-body .princeton  { height:auto!important}
+.princeton  h2 {
+    font-size: 1em
+}
+
+.princeton  h5 {
+    font-size: .8em
+}
+
+.princeton p {
+    font-size: .6em
+}
+
+.princeton  .right-part {
+    background: #fff;
+    color: #333;
+    padding: 10px;
+}
+
+.princeton  .left-part {
+    background: #fff;
+    color: #333;
+    padding: 10px;
+}
+.princeton  .right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.princeton  .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.princeton  .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.princeton   .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

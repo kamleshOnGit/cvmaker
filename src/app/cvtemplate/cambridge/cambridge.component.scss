@@ -1,0 +1,33 @@
+.cambridge {font-size:14px;height:400px;overflow:hidden;padding:0 10px;background:#fff;}
+.cambridge .title{ padding:14px 10px; text-transform: uppercase;background:blue;
+    border-top-right-radius:10px ;border-top-left-radius:10px ; color:#fff; }
+
+    .modal .modal-body .cambridge  { height:auto!important}
+.cambridge h2 {
+    font-size: 1em
+}
+.profilepic  { width:100%;display:block;margin:auto}
+.proparent { max-width:120px;width:90%;margin:auto}
+.cambridge  h5 {
+    font-size: .8em
+}
+
+.cambridge p {
+    font-size: .6em
+}
+
+.cambridge .right-part {
+    background: #fff;
+    color: #333;
+    padding: 10px;
+}
+
+.cambridge  .left-part {
+    background:#fff;
+    color: #333;
+    // padding: 10px;
+}
+.cambridge .right-part .media-body div.description > p { margin-bottom:0px!important;font-size: .6em!important;}
+.cambridge  .right-part .media-body div.description > ul { margin-bottom:0px!important;}
+.cambridge  .right-part .media-body div.description > ul li { margin-bottom:0px!important;font-size: .6em!important;}
+.cambridge  .right-part .media-body div.description > ol li { margin-bottom:0px!important;font-size: .6em!important;}

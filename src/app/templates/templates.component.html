@@ -1,0 +1,18 @@
+<div class="container text-center">
+   <h1>CV examples</h1> 
+   <p> Increase your chances of finding a job and create your CV with one of our professionally designed CV templates. </p> 
+
+   <div class="d-flex flex-row mt-5 mb-5">
+      <div class="row justify-content-around">
+        <div class="card col-sm-4 col-md-3 mt-3" (click)="passtransferdata(item.images)"  *ngFor="let item of cvtemplateData" >
+          <div class="card-body">
+            <p class="card-title">{{item.title}} </p>
+          </div>
+            <img [src]="path + item.image" class="card-img-bottom" alt=" card image" />
+          
+        </div>
+      </div>
+   </div>
+</div>
+
+<app-template-popup *ngIf="showpopup" ></app-template-popup>

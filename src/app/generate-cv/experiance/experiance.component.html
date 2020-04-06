@@ -1,0 +1,372 @@
+<div  class="card experiance p-5 mt-5 shadow">
+  <h3 class="card-title">
+    <fa-icon class="fa-1x mr-2" [icon]="brifecase"></fa-icon>
+    Work experience
+    <span class="align-items-around float-right">
+      <fa-icon class="fa-0x mr-2" (click)="up('experiance')" [icon]="arrowup"></fa-icon>
+      <fa-icon class="fa-0x mr-2" (click)="down('experiance')" [icon]="arrowdown"></fa-icon>
+      <fa-icon class="fa-0x mr-2"  (click)="setting('experiance')" [icon]="gear"></fa-icon>
+    </span>
+  </h3>
+  <hr>
+<div *ngIf="exp.get('experiance1')"  [formGroup]="exp.get('experiance1')"> 
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="country"> Job</label>
+        <input type="text" class="form-control"  formControlName="jobTitle" id="job" placeholder="your country" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="town"> City/Town</label>
+        <input type="text" class="form-control"  formControlName="city"  id="town" placeholder="your town" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="employer"> Employer</label>
+        <input type="text" class="form-control"  formControlName="employer" id="employer" placeholder="your employer" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="startdate"> Start Date</label>
+        <div  formGroupName="startDate" class="d-flex flex-row ">
+          <select  formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option>
+            <option> Show year only </option>
+            <option> January </option>
+            <option> February </option>
+            <option> March </option>
+            <option> Add rest of the year </option>
+          </select>
+
+          <select  formControlName="year" class="custom-select col-6">
+            <option> 2023 </option>
+            <option> 2022 </option>
+            <option> 2021 </option>
+            <option> 2020 </option>
+            <option> 2019 </option>
+            <option> 2018 </option>
+            <option> 2017 </option>
+            <option> 2016 </option>
+            <option> 2015 </option>
+            <option> 2014 </option>
+          </select>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="enddate"> End Date</label>
+        <div  formGroupName="endDate" class="d-flex flex-row">
+          <select  formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option>
+            <option> Show year only </option>
+            <option> January </option>
+            <option> February </option>
+            <option> March </option>
+            <option> Add rest of the year </option>
+          </select>
+
+          <select  formControlName="year" class="custom-select col-6 ">
+            <option> 2023 </option>
+            <option> 2022 </option>
+            <option> 2021 </option>
+            <option> 2020 </option>
+            <option> 2019 </option>
+            <option> 2018 </option>
+            <option> 2017 </option>
+            <option> 2016 </option>
+            <option> 2015 </option>
+            <option> 2014 </option>
+          </select>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="description"> Description</label>
+        <div class="list-group" #description >
+          <div class="list-group-item p-0">
+            
+            <quill-editor  [styles]="{height: '140px'}" class="textarea" formControlName="description"
+             placeholder="Enter Text"
+             ></quill-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="float-left btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+        </div>
+
+        <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div> -->
+
+        <!-- <div class="float-right btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div> -->
+      </div>
+    </div>
+  </div>
+</div> 
+<div *ngIf="experiance2" [formGroup]="experiance2"> 
+  <hr>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="country"> Job</label>
+        <input type="text" class="form-control"  formControlName="jobTitle" id="job" placeholder="your country" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="town"> City/Town</label>
+        <input type="text" class="form-control"  formControlName="city"  id="town" placeholder="your town" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="employer"> Employer</label>
+        <input type="text" class="form-control"  formControlName="employer" id="employer" placeholder="your employer" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="startdate"> Start Date</label>
+        <div  formGroupName="startDate" class="d-flex flex-row ">
+          <select  formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option>
+            <option> Show year only </option>
+            <option> January </option>
+            <option> February </option>
+            <option> March </option>
+            <option> Add rest of the year </option>
+          </select>
+
+          <select  formControlName="year" class="custom-select col-6">
+            <option> 2023 </option>
+            <option> 2022 </option>
+            <option> 2021 </option>
+            <option> 2020 </option>
+            <option> 2019 </option>
+            <option> 2018 </option>
+            <option> 2017 </option>
+            <option> 2016 </option>
+            <option> 2015 </option>
+            <option> 2014 </option>
+          </select>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="enddate"> End Date</label>
+        <div  formGroupName="endDate" class="d-flex flex-row">
+          <select  formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option>
+            <option> Show year only </option>
+            <option> January </option>
+            <option> February </option>
+            <option> March </option>
+            <option> Add rest of the year </option>
+          </select>
+
+          <select  formControlName="year" class="custom-select col-6 ">
+            <option> 2023 </option>
+            <option> 2022 </option>
+            <option> 2021 </option>
+            <option> 2020 </option>
+            <option> 2019 </option>
+            <option> 2018 </option>
+            <option> 2017 </option>
+            <option> 2016 </option>
+            <option> 2015 </option>
+            <option> 2014 </option>
+          </select>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="description"> Description</label>
+        <div class="list-group" #description >
+          <div class="list-group-item p-0">
+            
+            <quill-editor  [styles]="{height: '140px'}" class="textarea" formControlName="description"
+             placeholder="Enter Text"
+             ></quill-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="float-left btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+        </div>
+
+        <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div> -->
+
+        <div class="float-right btn btn-outline-dark btn-md"  (click)="deleteextra('experiance2')">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div>
+      </div>
+    </div>
+  </div>
+</div> 
+<div *ngIf="experiance3" [formGroup]="experiance3"> 
+  <hr>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="country"> Job</label>
+        <input type="text" class="form-control"  formControlName="jobTitle" id="job" placeholder="your country" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="town"> City/Town</label>
+        <input type="text" class="form-control"  formControlName="city"  id="town" placeholder="your town" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="employer"> Employer</label>
+        <input type="text" class="form-control"  formControlName="employer" id="employer" placeholder="your employer" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="startdate"> Start Date</label>
+        <div  formGroupName="startDate" class="d-flex flex-row ">
+          <select  formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option>
+            <option> Show year only </option>
+            <option> January </option>
+            <option> February </option>
+            <option> March </option>
+            <option> Add rest of the year </option>
+          </select>
+
+          <select  formControlName="year" class="custom-select col-6">
+            <option> 2023 </option>
+            <option> 2022 </option>
+            <option> 2021 </option>
+            <option> 2020 </option>
+            <option> 2019 </option>
+            <option> 2018 </option>
+            <option> 2017 </option>
+            <option> 2016 </option>
+            <option> 2015 </option>
+            <option> 2014 </option>
+          </select>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="enddate"> End Date</label>
+        <div  formGroupName="endDate" class="d-flex flex-row">
+          <select  formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option>
+            <option> Show year only </option>
+            <option> January </option>
+            <option> February </option>
+            <option> March </option>
+            <option> Add rest of the year </option>
+          </select>
+
+          <select  formControlName="year" class="custom-select col-6 ">
+            <option> 2023 </option>
+            <option> 2022 </option>
+            <option> 2021 </option>
+            <option> 2020 </option>
+            <option> 2019 </option>
+            <option> 2018 </option>
+            <option> 2017 </option>
+            <option> 2016 </option>
+            <option> 2015 </option>
+            <option> 2014 </option>
+          </select>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="description"> Description</label>
+        <div class="list-group" #description >
+          <div class="list-group-item p-0">
+            
+            <quill-editor  [styles]="{height: '140px'}" class="textarea" formControlName="description"
+             placeholder="Enter Text" 
+             ></quill-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="float-left btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+        </div>
+
+        <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div> -->
+
+        <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('experiance3')">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div>
+      </div>
+    </div>
+  </div>
+</div> 
+  <div class="row mt-3">
+    <div class="col-md-12 text-center">
+      <div class="addanother btn btn-light btn-lg text-secondary" (click)="addextraexperiance()">
+          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another work experiance upto 3
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+<div  class="card languages shadow p-5 mt-5 ">
+
+  <h3 class="card-title">
+    <fa-icon class="fa-1x mr-2" [icon]="skill"></fa-icon>
+    Languages
+    <span class="align-items-around float-right">
+      <fa-icon class="fa-0x mr-2" (click)="up('languages')" [icon]="arrowup"></fa-icon>
+      <fa-icon class="fa-0x mr-2" (click)="down('languages')" [icon]="arrowdown"></fa-icon>
+      <fa-icon class="fa-0x mr-2" (click)="setting('languages')" [icon]="gear"></fa-icon>
+    </span>
+  </h3>
+  <hr>
+<div  [formGroup]="languages.get('language1')"> 
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="language"> Language</label>
+        <input type="text" class="form-control" formControlName="language" id="language" placeholder="What do you speak" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="town"> Level</label>
+        <select formControlName="level" class="form-control">
+          <option> Select Lavel</option>
+          <option> Expert </option>
+          <option> Experianced </option>
+          <option> Skillfull </option>
+          <option> Beginner </option>
+          <option> Novice</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="float-left btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+        </div>
+
+        <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+        </div> -->
+
+        <!-- <div class="float-right btn btn-outline-dark btn-md">
+          <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div  *ngIf="language2"  [formGroup]="language2"> 
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="language"> Language</label>
+          <input type="text" class="form-control" formControlName="language" id="language" placeholder="What do you speak" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="town"> Level</label>
+          <select formControlName="level" class="form-control">
+            <option> Select Lavel</option>
+            <option> Expert </option>
+            <option> Experianced </option>
+            <option> Skillfull </option>
+            <option> Beginner </option>
+            <option> Novice</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="float-left btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+          </div>
+  
+          <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div> -->
+  
+          <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('language2')">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div  *ngIf="language3"  [formGroup]="language3"> 
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="language"> Language</label>
+          <input type="text" class="form-control" formControlName="language" id="language" placeholder="What do you speak" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="town"> Level</label>
+          <select formControlName="level" class="form-control">
+            <option> Select Lavel</option>
+            <option> Expert </option>
+            <option> Experianced </option>
+            <option> Skillfull </option>
+            <option> Beginner </option>
+            <option> Novice</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="float-left btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+          </div>
+  
+          <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+          </div> -->
+  
+          <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('language3')">
+            <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  <div class="row mt-3">
+    <div class="col-md-12 text-center">
+      <div class="addanother btn btn-light btn-lg text-secondary" (click)="addextralanguage()">
+        <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another Language
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="container sticky-top"> 
+  <nav class="navbar navbar-expand-lg navbar-light justify-content-between align-items-center ">
+    <a class="navbar-brand " routerLink="/" >CV-MAKER</a>
+    <button class="navbar-toggler" type="button" (click)="togglemenu()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class=" navbar-collapse justify-content-end" [ngClass]="{'collapse' : !showmenu , 'collapse-in' : showmenu}"  id="navbarSupportedContent">
+      <ul class="navbar-nav mr-a">
+          <li class="nav-item ">
+              <a class="nav-link"  routerLink="/genrateCv" routerLinkActive="active"> Generate CV </a>
+            </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="/templates" routerLinkActive="active"> Templates </a>
+        </li>
+        <!-- <li class="nav-item ">
+          <a class="nav-link" routerLink="/userLogin" routerLinkActive="active"> Signup/Login </a>
+        </li> -->
+      </ul>
+     
+    </div>
+  </nav>
+ 
+</div>

@@ -1,0 +1,142 @@
+<div  class="card skills shadow p-5 mt-5 ">
+
+    <h3 class="card-title">
+        <fa-icon class="fa-1x mr-2" [icon]="skill"></fa-icon>
+        Skills
+        <span class="align-items-around float-right">
+          <fa-icon class="fa-0x mr-2" (click)="up('skills')" [icon]="arrowup"></fa-icon>
+          <fa-icon class="fa-0x mr-2" (click)="down('skills')" [icon]="arrowdown"></fa-icon>
+          <fa-icon class="fa-0x mr-2" (click)="setting('skills')" [icon]="gear"></fa-icon>
+        </span>
+      </h3>
+      <hr>
+<div [formGroup]="skills.get('skill1')"> 
+      <div class="row mt-3">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="skill"> Skill</label>
+              <input type="text" class="form-control"  formControlName="skill" id="skill" placeholder="your skill" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="town"> Lavel</label>
+              <select  formControlName="level" class="form-control" > 
+                  <option> Select Lavel</option>
+                  <option> Expert </option>
+                  <option> Experianced </option>
+                  <option> Skillfull </option>
+                  <option > Beginner </option>
+                  <option> Novice</option>
+              </select>
+            </div>
+          </div>
+        </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="float-left btn btn-outline-dark btn-md">
+                  <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+                </div>
+      
+                <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+                    <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+                  </div> -->
+      
+                <!-- <div class="float-right btn btn-outline-dark btn-md">
+                    <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+                  </div> -->
+              </div>
+            </div>
+          </div>
+</div>
+<div *ngIf="skills2"  [formGroup]="skills2"> 
+    <div class="row mt-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="skill"> Skill</label>
+            <input type="text" class="form-control"  formControlName="skill" id="skill" placeholder="your skill" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="town"> Lavel</label>
+            <select  formControlName="level" class="form-control" > 
+                <option> Select Lavel</option>
+                <option> Expert </option>
+                <option> Experianced </option>
+                <option> Skillfull </option>
+                <option > Beginner </option>
+                <option> Novice</option>
+            </select>
+          </div>
+        </div>
+      </div>
+         
+  <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="float-left btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+          </div>
+
+          <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+              <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+            </div> -->
+
+          <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('skills2')">
+              <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div *ngIf="skills3"  [formGroup]="skills3"> 
+    <div class="row mt-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="skill"> Skill</label>
+            <input type="text" class="form-control"  formControlName="skill" id="skill" placeholder="your skill" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="town"> Lavel</label>
+            <select  formControlName="level" class="form-control" > 
+                <option> Select Lavel</option>
+                <option> Expert </option>
+                <option> Experianced </option>
+                <option> Skillfull </option>
+                <option > Beginner </option>
+                <option> Novice</option>
+            </select>
+          </div>
+        </div>
+      </div>
+         
+  <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="float-left btn btn-outline-dark btn-md">
+            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+          </div>
+
+          <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
+              <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
+            </div> -->
+
+          <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('skills3')">
+              <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    <div class="row mt-3">
+      <div class="col-md-12 text-center">
+        <div class="addanother btn btn-light btn-lg text-secondary"  (click)="addextraskill()">
+            <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another skill
+        </div>
+      </div>
+    </div>
+</div>

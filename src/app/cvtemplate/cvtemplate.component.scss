@@ -1,6 +1,22 @@
  
 .showfull .containing .shadow { font-size:20px!important; line-height:2;height:auto!important}
 
+.showfull .containing .shadow {
+    overflow: visible!important;
+}
+
+.showfull #printcv {
+    background: #fff;
+}
+
+.showfull #printcv .media,
+.showfull #printcv .row,
+.showfull #printcv h2,
+.showfull #printcv h5 {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
 @media (max-width:900px) {
     .showfull .containing .shadow { font-size:16px!important; line-height:2;height:auto!important}
 }

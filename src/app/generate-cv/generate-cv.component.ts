@@ -99,8 +99,23 @@ AfterViewChecked {
     this.showpage = !this.showpage;
   }
 
+  goToExperience() {
+    const personal = this.cvformdata.get('personal') as FormGroup;
+    this.markControlsTouched(personal);
+
+    if (personal.valid) {
+      this.showpage = false;
+    }
+  }
+
   onSubmit() {
     console.log(this.cvformdata.value);
+    this.cvformdata.updateValueAndValidity();
+    if (this.cvformdata.invalid) {
+      this.markControlsTouched(this.cvformdata);
+      console.log(this.findInvalidControls(this.cvformdata));
+      return;
+    }
     this.formdata = this.cvformdata.value;
     this.divstructure = this.formchild.nativeElement.children;
     // this.Onformatdata();
@@ -108,6 +123,36 @@ AfterViewChecked {
     this
       .router
       .navigate(['../cvtemplate']);
+  }
+
+  private markControlsTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+
+      control.markAsTouched();
+      control.markAsDirty();
+
+      if (control instanceof FormGroup) {
+        this.markControlsTouched(control);
+      }
+    });
+  }
+
+  private findInvalidControls(formGroup: FormGroup, path = '') {
+    let invalidControls = [];
+
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      const controlPath = path ? `${path}.${key}` : key;
+
+      if (control instanceof FormGroup) {
+        invalidControls = invalidControls.concat(this.findInvalidControls(control, controlPath));
+      } else if (control.invalid) {
+        invalidControls.push(controlPath);
+      }
+    });
+
+    return invalidControls;
   }
 
   // showing profilepic preview and sending data to server

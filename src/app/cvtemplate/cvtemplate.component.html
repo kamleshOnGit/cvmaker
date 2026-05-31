@@ -37,12 +37,15 @@
         <div class="containing"   [ngSwitch]="popup" >
             <div class="col-12  sticky-top">
                 <div class="d-flex justify-content-between align-content-end pt-1 pb-1 p-ms-5" > 
-                  <button type="button" class="btn btn-primary" (click)="makePdf()">Download</button>
+                  <button type="button" class="btn btn-primary" [disabled]="isDownloading" (click)="makePdf()">
+                    {{ isDownloading ? 'Downloading...' : 'Download' }}
+                  </button>
                   <button type="button" class="btn btn-primary" (click)="editData()">Add/Edit Data</button>
                   <button type="button" class="btn btn-primary" (click)="toggleOptions()">back</button>
                 </div>
               </div>
-          <div #printcv> 
+          <div class="alert alert-danger mt-2" *ngIf="downloadError">{{ downloadError }}</div>
+          <div id="printcv" #printcv> 
             <app-auckland [formdata]="formdata"     *ngSwitchCase="'auckland'"  ></app-auckland>
 
             <app-edinburg [profilepic]="profilepic"  [formdata]="formdata"  *ngSwitchCase="'edinburg'" ></app-edinburg>

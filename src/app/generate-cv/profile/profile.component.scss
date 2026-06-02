@@ -1,6 +1,6 @@
-// Scoped to this component only - only show validation on visible/used fields
-:host ::ng-deep .ng-dirty.ng-invalid,
-:host ::ng-deep .ng-touched.ng-invalid { border: 1px solid red !important; }
-:host ::ng-deep .ng-dirty.ng-valid { border: 1px solid green !important; }
+// Scoped to this component only - only show validation on this component's fields
+:host .ng-dirty.ng-invalid,
+:host .ng-touched.ng-invalid { border: 1px solid red !important; }
+:host .ng-dirty.ng-valid { border: 1px solid green !important; }
 
 .textedit { position: relative;min-height:140px;display:block;}

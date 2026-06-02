@@ -55,31 +55,46 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
     this.downloadError = '';
     const sourceElement = this.printcv.nativeElement;
 
+    // High quality settings for PDF generation
     html2canvas(sourceElement, {
-      scale: 1,
+      scale: 3, // Higher scale for better resolution (300 DPI equivalent)
       useCORS: true,
+      allowTaint: true,
       scrollY: -window.scrollY,
       windowWidth: sourceElement.scrollWidth,
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
+      logging: false,
+      imageTimeout: 0, // Wait for all images to load
+      removeContainer: true
     }).then((canvas) => {
       const doc = new jspdf('p', 'mm' , 'A4');
       const pageWidth = this.getPdfPageWidth(doc);
       const pageHeight = this.getPdfPageHeight(doc);
-      const margin = 8;
+      const margin = 10;
       const contentWidth = pageWidth - (margin * 2);
       const contentHeight = pageHeight - (margin * 2);
-      const imageHeight = canvas.height * contentWidth / canvas.width;
-      const imageData = canvas.toDataURL('image/jpeg', 0.92);
-      let remainingHeight = imageHeight;
-      let imageTop = margin;
 
-      doc.addImage(imageData, 'JPEG', margin, imageTop, contentWidth, imageHeight);
+      // Calculate dimensions maintaining aspect ratio
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const scaleFactor = contentWidth / canvasWidth;
+      const scaledHeight = canvasHeight * scaleFactor;
+
+      // Use PNG for lossless quality (better for text)
+      const imageData = canvas.toDataURL('image/png');
+
+      let remainingHeight = scaledHeight;
+      let position = margin;
+
+      // Add first page
+      doc.addImage(imageData, 'PNG', margin, position, contentWidth, scaledHeight);
       remainingHeight -= contentHeight;
 
+      // Add additional pages if content overflows
       while (remainingHeight > 0) {
-        imageTop -= contentHeight;
+        position -= contentHeight;
         doc.addPage();
-        doc.addImage(imageData, 'JPEG', margin, imageTop, contentWidth, imageHeight);
+        doc.addImage(imageData, 'PNG', margin, position, contentWidth, scaledHeight);
         remainingHeight -= contentHeight;
       }
 

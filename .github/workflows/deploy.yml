@@ -43,8 +43,6 @@ jobs:
       - name: Build Angular app
         run: |
           npm run build -- --base-href="/${{ github.event.repository.name }}/" --prod
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Create 404.html for SPA routing
         run: |

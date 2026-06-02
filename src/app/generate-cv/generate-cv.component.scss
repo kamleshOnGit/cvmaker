@@ -8,8 +8,16 @@
 .image-cover{width:100%;border:1px dashed #999;border-radius:6px;height:122px;text-align: center;overflow:hidden;}
 .profile , .experience , .education , .interests , .referance , .skills {
     transition:all .1s cubic-bezier(0.755, 0.05, 0.855, 0.06)}
-.ng-dirty .ng-invalid{ border: 1px solid red;}
-.ng-dirty .ng-valid { border: 1px solid green;}
+
+// Only show validation styles on the currently visible page
+.page1 .ng-dirty.ng-invalid,
+.page1 .ng-touched.ng-invalid { border: 1px solid red !important;}
+.page1 .ng-dirty.ng-valid { border: 1px solid green !important;}
+
+.page2 .ng-dirty.ng-invalid,
+.page2 .ng-touched.ng-invalid { border: 1px solid red !important;}
+.page2 .ng-dirty.ng-valid { border: 1px solid green !important;}
+
 .picicon { display: none}
 .profilepic { width: 120px ;height:auto ;display:block;}
 .featurepopup {position: fixed;
@@ -35,4 +43,4 @@
 .togglesection .slider:before {content:''; width:22px; height:22px;border-radius:50%;display:block;
     background-color:#fff;transition: all .4s ease-out;position:absolute; top:3px;left:3px; }
 .togglesection input:checked + .slider:before {transform:translateX(21px);}
-.togglesection input:disabled + .slider {background-color:gray;} 
+.togglesection input:disabled + .slider {background-color:gray;}

@@ -1,4 +1,3 @@
-// Scoped to this component only - only show validation on this component's fields
-:host .ng-dirty.ng-invalid,
+// Only show validation on touched fields (user has interacted with them)
 :host .ng-touched.ng-invalid { border: 1px solid red !important; }
-:host .ng-dirty.ng-valid { border: 1px solid green !important; }
+:host .ng-touched.ng-valid { border: 1px solid green !important; }

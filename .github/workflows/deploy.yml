@@ -18,20 +18,19 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '12.x'
-          cache: 'npm'
 
       - name: Install dependencies
         run: |
-          npm ci || npm install --force
+          npm install --force
 
       - name: Patch sass-loader for Dart Sass
         run: |
@@ -42,14 +41,14 @@ jobs:
 
       - name: Build Angular app
         run: |
-          npm run build -- --base-href="/${{ github.event.repository.name }}/" --prod
+          npm run build -- --base-href="/${{ github.event.repository.name }}/" --prod --build-optimizer=false
 
       - name: Create 404.html for SPA routing
         run: |
           cp dist/cv-maker/index.html dist/cv-maker/404.html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
           path: './dist/cv-maker'
 
@@ -57,9 +56,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v2

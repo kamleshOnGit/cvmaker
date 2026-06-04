@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { FormcommunicationService } from '../formcommunication.service' ;
 import { FormGroup } from '@angular/forms';
 import {
@@ -51,15 +51,24 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
   skills3;
   count = 0;
   count1 = 0;
-  constructor(private formservices: FormcommunicationService) { }
+  showTipsModal = false;
+  skillsTips = [
+    'List skills that are relevant to the job you\'re applying for',
+    'Include both technical skills (e.g., programming languages) and soft skills (e.g., leadership)',
+    'Be specific - instead of "computers", list "Microsoft Excel" or "Python"',
+    'Rate your skills honestly - only mark as "Expert" if you truly are',
+    'Consider including certifications or years of experience for key skills'
+  ];
+  constructor(private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) { }
   @Input() skills: FormGroup;
   ngOnInit() {
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('skills2')) {
         this.skills2 = val.get('skills2');
+        this.cdr.detectChanges();
       } else if (val.get('skills3')) {
         this.skills3 = val.get('skills3');
-        this.formservices.count.next(1);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -98,6 +107,10 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
     if (identifier === 'skills3' ) {
       this.skills3 = null;
     }
+  }
+
+  toggleTips() {
+    this.showTipsModal = !this.showTipsModal;
   }
 
 }

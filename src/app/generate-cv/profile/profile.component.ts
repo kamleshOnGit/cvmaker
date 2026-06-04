@@ -48,7 +48,14 @@ export class ProfileComponent implements OnInit , AfterViewChecked {
   pen = faPen;
   arrowleft = faChevronLeft ;
   textinput = '';
-
+  showTipsModal = false;
+  profileTips = [
+    'Keep your profile summary concise - 3-4 sentences maximum',
+    'Highlight your key skills and experience relevant to the job',
+    'Use action verbs to describe your professional background',
+    'Include your career goals or what you\'re looking for',
+    'Make it engaging - this is your first impression to employers'
+  ];
 
   constructor(private formservices: FormcommunicationService , render: Renderer2) { }
   @Input()  prof: FormGroup;
@@ -73,6 +80,10 @@ export class ProfileComponent implements OnInit , AfterViewChecked {
 
     setting(identifier: string) {
       this.formservices.setting(identifier);
+    }
+
+    toggleTips() {
+      this.showTipsModal = !this.showTipsModal;
     }
 
 }

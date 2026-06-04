@@ -1741,4 +1741,209 @@
   .ql-container.ql-snow {
     border: 1px solid #ccc;
   }
-  
+  /* Modern Tooltip Styles */
+.app-tooltip {
+  position: fixed;
+  z-index: 10000;
+  padding: 0.625rem 1rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.95);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.app-tooltip.tooltip-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.control-error-message {
+  color: #dc3545 !important;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  line-height: 1.35;
+}
+
+.tips-modal .tips-content {
+  background: #ffffff !important;
+  color: #222222 !important;
+}
+
+.tips-modal .tips-content,
+.tips-modal .tips-content *,
+.tips-modal .tips-header,
+.tips-modal .tips-header *,
+.tips-modal .tips-list,
+.tips-modal .tips-list * {
+  color: #222222 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Arrow styles */
+.tooltip-arrow {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  border-radius: 2px;
+}
+
+/* Position-specific arrow placement */
+.tooltip-top .tooltip-arrow {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.tooltip-bottom .tooltip-arrow {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.tooltip-left .tooltip-arrow {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tooltip-right .tooltip-arrow {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Animation variations for different positions */
+.tooltip-top {
+  transform-origin: bottom center;
+  transform: translateY(8px) scale(0.95);
+}
+
+.tooltip-bottom {
+  transform-origin: top center;
+  transform: translateY(-8px) scale(0.95);
+}
+
+.tooltip-left {
+  transform-origin: right center;
+  transform: translateX(8px) scale(0.95);
+}
+
+.tooltip-right {
+  transform-origin: left center;
+  transform: translateX(-8px) scale(0.95);
+}
+
+/* Special tooltip styles for form fields */
+.form-tooltip {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-size: 0.8125rem;
+  padding: 0.5rem 0.875rem;
+}
+
+.form-tooltip .tooltip-arrow {
+  background: #667eea;
+}
+
+/* Info badge with tooltip trigger */
+.info-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: help;
+  margin-left: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+/* Input with tooltip indicator */
+.input-with-tooltip {
+  position: relative;
+}
+
+.input-with-tooltip .tooltip-indicator {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #667eea;
+  font-size: 0.875rem;
+  pointer-events: auto;
+  cursor: help;
+}
+
+/* Help text below inputs */
+.help-text {
+  font-size: 0.8125rem;
+  color: #6c757d;
+  margin-top: 0.375rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.help-text::before {
+  content: '\f05a';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 0.75rem;
+  color: #667eea;
+}
+
+/* ATS tips badge */
+.ats-tip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: #667eea;
+  font-weight: 500;
+  cursor: help;
+  transition: all 0.2s;
+}
+
+.ats-tip-badge:hover {
+  background: rgba(102, 126, 234, 0.15);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.ats-tip-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .app-tooltip {
+    background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+}

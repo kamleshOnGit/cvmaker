@@ -1,4 +1,4 @@
-import { Component, OnInit, Input , AfterViewChecked , DoCheck } from '@angular/core';
+import { Component, OnInit, Input , AfterViewChecked , DoCheck, ChangeDetectorRef } from '@angular/core';
 import { FormcommunicationService} from '../formcommunication.service';
 import { FormGroup } from '@angular/forms';
 import {
@@ -49,7 +49,15 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
   experiance3;
   count = 0;
   count1 = 0;
-  constructor(private formservices: FormcommunicationService) { }
+  showTipsModal = false;
+  experianceTips = [
+    'Start each bullet point with a strong action verb (e.g., "Developed", "Managed", "Led")',
+    'Include quantifiable achievements (e.g., "Increased sales by 25%")',
+    'Keep descriptions concise - 3-5 bullet points per role',
+    'Use industry-standard job titles for better ATS compatibility',
+    'Include relevant keywords from the job description'
+  ];
+  constructor(private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) { }
   @Input() exp: FormGroup;
 
 
@@ -57,9 +65,10 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('experiance2')) {
         this.experiance2 = val.get('experiance2');
+        this.cdr.detectChanges();
       } else if (val.get('experiance3')) {
         this.experiance3 = val.get('experiance3');
-        this.formservices.count.next(1);
+        this.cdr.detectChanges();
       }
     });
 
@@ -100,5 +109,9 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
     if (identifier === 'experiance3' ) {
       this.experiance3 = null;
     }
+  }
+
+  toggleTips() {
+    this.showTipsModal = !this.showTipsModal;
   }
 }

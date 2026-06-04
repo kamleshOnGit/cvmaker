@@ -58,7 +58,6 @@ export class InterestComponent implements OnInit , AfterViewChecked {
         this.interest2 = val.get('interest2');
       } else if (val.get('interest3')) {
         this.interest3 = val.get('interest3');
-        this.formservices.count.next(1);
       }
     });
   }

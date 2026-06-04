@@ -9,12 +9,34 @@
 .profile , .experience , .education , .interests , .referance , .skills {
     transition:all .1s cubic-bezier(0.755, 0.05, 0.855, 0.06)}
 
-// Only show validation on touched fields (user has focused and left the field)
-.page1 .ng-touched.ng-invalid { border: 1px solid red !important;}
-.page1 .ng-touched.ng-valid { border: 1px solid green !important;}
+// Only show validation on touched form inputs (not on card containers)
+.page1 input.ng-touched.ng-invalid,
+.page1 select.ng-touched.ng-invalid,
+.page1 textarea.ng-touched.ng-invalid,
+.page1 .ql-editor.ng-touched.ng-invalid {
+  border: 1px solid red !important;
+}
 
-.page2 .ng-touched.ng-invalid { border: 1px solid red !important;}
-.page2 .ng-touched.ng-valid { border: 1px solid green !important;}
+.page1 input.ng-touched.ng-valid,
+.page1 select.ng-touched.ng-valid,
+.page1 textarea.ng-touched.ng-valid,
+.page1 .ql-editor.ng-touched.ng-valid {
+  border: 1px solid green !important;
+}
+
+.page2 input.ng-touched.ng-invalid,
+.page2 select.ng-touched.ng-invalid,
+.page2 textarea.ng-touched.ng-invalid,
+.page2 .ql-editor.ng-touched.ng-invalid {
+  border: 1px solid red !important;
+}
+
+.page2 input.ng-touched.ng-valid,
+.page2 select.ng-touched.ng-valid,
+.page2 textarea.ng-touched.ng-valid,
+.page2 .ql-editor.ng-touched.ng-valid {
+  border: 1px solid green !important;
+}
 
 .picicon { display: none}
 .profilepic { width: 120px ;height:auto ;display:block;}

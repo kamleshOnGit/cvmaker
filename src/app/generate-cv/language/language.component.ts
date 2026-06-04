@@ -59,7 +59,6 @@ export class LanguageComponent implements OnInit , AfterViewChecked {
         this.language2 = val.get('language2');
       } else if (val.get('language3')) {
         this.language3 = val.get('language3');
-        this.formservices.count.next(1);
       }
     });
   }

@@ -1,6 +1,29 @@
 <div class="container" >
+  <!-- Template Gallery -->
   <div class="row" *ngIf="!togglepopup" >
-     
+    <!-- ATS-Friendly Template Card -->
+    <div class="col-12 col-sm-6 col-md-4 p-3">
+      <div class="template-card ats-template" (click)="selectATSFriendlyTemplate()">
+        <div class="template-preview ats-preview">
+          <div class="ats-badge">
+            <fa-icon [icon]="robot"></fa-icon>
+            ATS Optimized
+          </div>
+          <div class="preview-content">
+            <div class="preview-line name-line"></div>
+            <div class="preview-line contact-line"></div>
+            <div class="preview-section"></div>
+            <div class="preview-section"></div>
+          </div>
+        </div>
+        <div class="template-info">
+          <h5>ATS-Friendly</h5>
+          <p class="text-muted">Single column, keyword-optimized for applicant tracking systems</p>
+          <span class="badge badge-success">Recommended for Job Applications</span>
+        </div>
+      </div>
+    </div>
+
      <div class="col-12 col-sm-6 col-md-4 p-3">
        <app-edinburg [profilepic]="profilepic" [formdata]="formdata"  (popup)="showpopup($event)"></app-edinburg>
     </div>
@@ -28,46 +51,153 @@
     <div class="col-12 col-sm-6 col-md-4 p-3">
        <app-harvard  [profilepic]="profilepic" [formdata]="formdata"   (popup)="showpopup($event)"> </app-harvard>
     </div>
-    
+
   </div>
 
-  <div class="row">
-    <div class="col-12 col-sm-8 offset-sm-2">
-      <div class="showfull"  *ngIf="togglepopup" >
-        <div class="containing"   [ngSwitch]="popup" >
-            <div class="col-12  sticky-top">
-                <div class="d-flex justify-content-between align-content-end pt-1 pb-1 p-ms-5" > 
-                  <button type="button" class="btn btn-primary" [disabled]="isDownloading" (click)="makePdf()">
-                    {{ isDownloading ? 'Downloading...' : 'Download' }}
-                  </button>
-                  <button type="button" class="btn btn-primary" (click)="editData()">Add/Edit Data</button>
-                  <button type="button" class="btn btn-primary" (click)="toggleOptions()">back</button>
-                </div>
+  <!-- Resume Preview with ATS Analyzer -->
+  <div class="row" *ngIf="togglepopup">
+    <div class="col-12 col-lg-8">
+      <div class="showfull">
+        <div class="containing" [ngSwitch]="popup">
+          <!-- Enhanced Toolbar -->
+          <div class="col-12 sticky-top cv-toolbar">
+            <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-2 gap-2">
+              <div class="btn-group">
+                <button type="button"
+                        class="btn btn-primary"
+                        [disabled]="isDownloading"
+                        (click)="makePdf()"
+                        [appTooltip]="'Download your resume as PDF'">
+                  <fa-icon [icon]="download" class="mr-1"></fa-icon>
+                  {{ isDownloading ? 'Generating...' : 'Download PDF' }}
+                </button>
+                <button type="button"
+                        class="btn btn-success"
+                        *ngIf="popup === 'ats-friendly'"
+                        [disabled]="isDownloading"
+                        (click)="makeATSFriendlyPdf()"
+                        [appTooltip]="'Download ATS-optimized PDF'">
+                  <fa-icon [icon]="robot" class="mr-1"></fa-icon>
+                  ATS PDF
+                </button>
               </div>
-          <div class="alert alert-danger mt-2" *ngIf="downloadError">{{ downloadError }}</div>
-          <div id="printcv" #printcv> 
-            <app-auckland [formdata]="formdata"     *ngSwitchCase="'auckland'"  ></app-auckland>
 
-            <app-edinburg [profilepic]="profilepic"  [formdata]="formdata"  *ngSwitchCase="'edinburg'" ></app-edinburg>
-
-            <app-berkeley [formdata]="formdata"    *ngSwitchCase="'berkeley'"> </app-berkeley>
-
-            <app-princeton [formdata]="formdata"  *ngSwitchCase="'princeton'"> </app-princeton>
-
-            <app-cambridge  [profilepic]="profilepic"   [formdata]="formdata"  *ngSwitchCase="'cambridge'"> </app-cambridge>
-
-            <app-otago [formdata]="formdata"    *ngSwitchCase="'otago'"> </app-otago>
-
-            <app-oxford  [profilepic]="profilepic"   [formdata]="formdata"  *ngSwitchCase="'oxford'"> </app-oxford>
-
-            <app-standford  [profilepic]="profilepic"   [formdata]="formdata"  *ngSwitchCase="'standford'"> </app-standford>
-
-            <app-harvard  [profilepic]="profilepic"  [formdata]="formdata"  *ngSwitchCase="'harvard'"> </app-harvard>
+              <div class="btn-group">
+                <button type="button"
+                        class="btn btn-info"
+                        (click)="toggleATSAnalyzer()"
+                        [class.active]="showATSAnalyzer"
+                        [appTooltip]="'Check ATS compatibility score'">
+                  <fa-icon [icon]="chartLine" class="mr-1"></fa-icon>
+                  ATS Score
+                  <span class="badge badge-light ml-1" *ngIf="atsAnalysis">{{ atsAnalysis.score }}</span>
+                </button>
+                <button type="button"
+                        class="btn btn-secondary"
+                        (click)="editData()"
+                        [appTooltip]="'Go back and edit your information'">
+                  <fa-icon [icon]="edit" class="mr-1"></fa-icon>
+                  Edit
+                </button>
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        (click)="toggleOptions()"
+                        [appTooltip]="'Back to template gallery'">
+                  <fa-icon [icon]="arrowLeft" class="mr-1"></fa-icon>
+                  Back
+                </button>
+              </div>
+            </div>
           </div>
-            
+
+          <div class="alert alert-danger mt-2" *ngIf="downloadError">{{ downloadError }}</div>
+
+          <!-- Template Loading Indicator -->
+          <div class="text-center py-5" *ngIf="isTemplateLoading">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+              <span class="sr-only">Loading template...</span>
+            </div>
+            <p class="text-muted mt-3">Loading resume template...</p>
+          </div>
+
+          <!-- Loading indicator for analysis -->
+          <div class="text-center py-3" *ngIf="isAnalyzing">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Analyzing...</span>
+            </div>
+            <p class="text-muted mt-2">Analyzing ATS compatibility...</p>
+          </div>
+
+          <!-- ATS Analyzer Panel -->
+          <div class="ats-panel" *ngIf="showATSAnalyzer && atsAnalysis">
+            <app-ats-analyzer [analysis]="atsAnalysis"></app-ats-analyzer>
+          </div>
+
+          <div id="printcv" #printcv *ngIf="!isTemplateLoading" class="template-fade-in">
+            <app-ats-friendly [formdata]="formdata" *ngSwitchCase="'ats-friendly'"></app-ats-friendly>
+
+            <app-auckland [formdata]="formdata" *ngSwitchCase="'auckland'"></app-auckland>
+
+            <app-edinburg [profilepic]="profilepic" [formdata]="formdata" *ngSwitchCase="'edinburg'"></app-edinburg>
+
+            <app-berkeley [formdata]="formdata" *ngSwitchCase="'berkeley'"></app-berkeley>
+
+            <app-princeton [formdata]="formdata" *ngSwitchCase="'princeton'"></app-princeton>
+
+            <app-cambridge [profilepic]="profilepic" [formdata]="formdata" *ngSwitchCase="'cambridge'"></app-cambridge>
+
+            <app-otago [formdata]="formdata" *ngSwitchCase="'otago'"></app-otago>
+
+            <app-oxford [profilepic]="profilepic" [formdata]="formdata" *ngSwitchCase="'oxford'"></app-oxford>
+
+            <app-standford [profilepic]="profilepic" [formdata]="formdata" *ngSwitchCase="'standford'"></app-standford>
+
+            <app-harvard [profilepic]="profilepic" [formdata]="formdata" *ngSwitchCase="'harvard'"></app-harvard>
+          </div>
+
         </div>
       </div>
-       
+    </div>
+
+    <!-- Sidebar ATS Analyzer (Desktop) -->
+    <div class="col-lg-4 d-none d-lg-block" *ngIf="togglepopup && !showATSAnalyzer">
+      <div class="sticky-top" style="top: 80px;">
+        <div class="card shadow-sm">
+          <div class="card-body text-center">
+            <fa-icon [icon]="robot" class="fa-3x text-primary mb-3"></fa-icon>
+            <h5>ATS Compatibility Check</h5>
+            <p class="text-muted">Make sure your resume passes through Applicant Tracking Systems</p>
+            <button class="btn btn-primary btn-block" (click)="toggleATSAnalyzer()">
+              <fa-icon [icon]="chartLine" class="mr-2"></fa-icon>
+              Check ATS Score
+            </button>
+          </div>
+        </div>
+
+        <div class="card shadow-sm mt-3">
+          <div class="card-body">
+            <h6><fa-icon [icon]="lightbulb" class="mr-2 text-warning"></fa-icon>Quick Tips</h6>
+            <ul class="list-unstyled text-muted small mt-2">
+              <li class="mb-2">
+                <fa-icon [icon]="check" class="mr-1 text-success"></fa-icon>
+                Use standard job titles
+              </li>
+              <li class="mb-2">
+                <fa-icon [icon]="check" class="mr-1 text-success"></fa-icon>
+                Include relevant keywords
+              </li>
+              <li class="mb-2">
+                <fa-icon [icon]="check" class="mr-1 text-success"></fa-icon>
+                Avoid tables and graphics
+              </li>
+              <li class="mb-2">
+                <fa-icon [icon]="check" class="mr-1 text-success"></fa-icon>
+                Use bullet points
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

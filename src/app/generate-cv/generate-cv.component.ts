@@ -576,7 +576,7 @@ AfterViewChecked {
       .subscribe(val => this.addextracourse());
     this
       .formservices
-      .count
+      .count6
       .subscribe(count => this.count6 = count);
     this
       .formservices
@@ -592,7 +592,7 @@ AfterViewChecked {
       .subscribe(val => this.addextraskill());
     this
       .formservices
-      .count
+      .count5
       .subscribe(count => this.count5 = count);
     this
       .formservices
@@ -600,7 +600,7 @@ AfterViewChecked {
       .subscribe(val => this.addextraexperiance());
     this
       .formservices
-      .count
+      .count1
       .subscribe(count => this.count1 = count);
     this
       .formservices
@@ -608,7 +608,7 @@ AfterViewChecked {
       .subscribe(val => this.addextraeducation());
     this
       .formservices
-      .count
+      .count2
       .subscribe(count => this.count2 = count);
     this
       .formservices
@@ -616,7 +616,7 @@ AfterViewChecked {
       .subscribe(val => this.addextrareference());
     this
       .formservices
-      .count
+      .count4
       .subscribe(count => this.count4 = count);
     this
       .formservices
@@ -624,7 +624,7 @@ AfterViewChecked {
       .subscribe(val => this.addextrainterest());
     this
       .formservices
-      .count
+      .count3
       .subscribe(count => this.count3 = count);
     // add extra form controll ends to remove extra form control
     this
@@ -909,7 +909,7 @@ AfterViewChecked {
   }
 
   addextralanguage() {
-    this.count++;
+    this.count = this.cvformdata.get('language2') ? (this.cvformdata.get('language3') ? 4 : 3) : 2;
     if (this.count === 2) {
       const language = 'language' + this.count;
       this
@@ -951,7 +951,7 @@ AfterViewChecked {
   }
 
   addextracourse() {
-    this.count6++;
+    this.count6 = this.cvformdata.get('courses2') ? (this.cvformdata.get('courses3') ? 4 : 3) : 2;
     if (this.count6 === 2) {
       const courses = 'courses' + this.count6;
       this
@@ -1031,7 +1031,7 @@ AfterViewChecked {
   }
 
   addextraskill() {
-    this.count5++;
+    this.count5 = this.cvformdata.get('skills2') ? (this.cvformdata.get('skills3') ? 4 : 3) : 2;
     if (this.count5 === 2) {
       const skills = 'skills' + this.count5;
       this
@@ -1073,7 +1073,7 @@ AfterViewChecked {
   }
 
   addextraexperiance() {
-    this.count1++;
+    this.count1 = this.cvformdata.get('experiance2') ? (this.cvformdata.get('experiance3') ? 4 : 3) : 2;
     if (this.count1 === 2) {
       const experiance = 'experiance' + this.count1;
       this
@@ -1159,7 +1159,7 @@ AfterViewChecked {
   }
 
   addextraeducation() {
-    this.count2++;
+    this.count2 = this.cvformdata.get('education2') ? (this.cvformdata.get('education3') ? 4 : 3) : 2;
     if (this.count2 === 2) {
       const education = 'education' + this.count2;
       this
@@ -1245,7 +1245,7 @@ AfterViewChecked {
   }
 
   addextrainterest() {
-    this.count3++;
+    this.count3 = this.cvformdata.get('interest2') ? (this.cvformdata.get('interest3') ? 4 : 3) : 2;
     if (this.count3 === 2) {
       const interest = 'interest' + this.count3;
       this
@@ -1263,7 +1263,7 @@ AfterViewChecked {
         .next(this.cvformdata.get(interest));
     }
     if (this.count3 === 3) {
-      const interest = 'interest' + this.count;
+      const interest = 'interest' + this.count3;
       this
         .cvformdata
         .addControl(interest, this.formbuilder.group({
@@ -1281,7 +1281,7 @@ AfterViewChecked {
   }
 
   addextrareference() {
-    this.count4++;
+    this.count4 = this.cvformdata.get('reference2') ? (this.cvformdata.get('reference3') ? 4 : 3) : 2;
     if (this.count4 === 2) {
       const reference = 'reference' + this.count4;
       this

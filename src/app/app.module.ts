@@ -40,7 +40,13 @@ import { OtagoComponent } from './cvtemplate/otago/otago.component';
 import { OxfordComponent } from './cvtemplate/oxford/oxford.component';
 import { PrincetonComponent } from './cvtemplate/princeton/princeton.component';
 import { StandfordComponent } from './cvtemplate/standford/standford.component';
+import { AtsFriendlyComponent } from './cvtemplate/ats-friendly/ats-friendly.component';
+import { AtsAnalyzerComponent } from './ats-analyzer/ats-analyzer.component';
+import { TooltipDirective } from './directives/tooltip.directive';
+import { ValidationMessageDirective } from './directives/validation-message.directive';
 import { CookieService } from 'ngx-cookie-service';
+import { ATSAnalyzerService } from './services/ats-analyzer.service';
+import { PdfGeneratorService } from './services/pdf-generator.service';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -92,6 +98,10 @@ const appRoutes: Routes = [
     OxfordComponent,
     PrincetonComponent,
     StandfordComponent,
+    AtsFriendlyComponent,
+    AtsAnalyzerComponent,
+    TooltipDirective,
+    ValidationMessageDirective,
 
   ],
   imports: [
@@ -120,7 +130,7 @@ const appRoutes: Routes = [
        } , format: 'html'  }),
 
       ],
-  providers: [CookieService],
+  providers: [CookieService, ATSAnalyzerService, PdfGeneratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,37 +18,29 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '12.x'
+          node-version: '18.x'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          npm install --force
-
-      - name: Patch sass-loader for Dart Sass
-        run: |
-          # Patch sass-loader to prefer sass over node-sass
-          sed -i "s/let sassImplPkg = 'node-sass';/let sassImplPkg = 'sass';/" node_modules/sass-loader/dist/index.js
-          sed -i "s/require.resolve('node-sass');/require.resolve('sass');/" node_modules/sass-loader/dist/index.js
-          sed -i "s/require.resolve('sass');/require.resolve('node-sass');/" node_modules/sass-loader/dist/index.js
+        run: npm ci
 
       - name: Build Angular app
-        run: |
-          npm run build -- --base-href="/${{ github.event.repository.name }}/" --prod --build-optimizer=false
+        run: npm run build -- --configuration production --base-href="/${{ github.event.repository.name }}/"
 
       - name: Create 404.html for SPA routing
         run: |
           cp dist/cv-maker/index.html dist/cv-maker/404.html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './dist/cv-maker'
 
@@ -56,9 +48,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4

@@ -1,3 +1,110 @@
 // Only show validation on touched fields (user has interacted with them)
-:host .ng-touched.ng-invalid { border: 1px solid red !important; }
-:host .ng-touched.ng-valid { border: 1px solid green !important; }
+// Only show validation on touched form inputs (not on the card container)
+:host ::ng-deep input.ng-touched.ng-invalid,
+:host ::ng-deep select.ng-touched.ng-invalid,
+:host ::ng-deep textarea.ng-touched.ng-invalid,
+:host ::ng-deep .ql-editor.ng-touched.ng-invalid {
+  border: 1px solid red !important;
+}
+
+:host ::ng-deep input.ng-touched.ng-valid,
+:host ::ng-deep select.ng-touched.ng-valid,
+:host ::ng-deep textarea.ng-touched.ng-valid,
+:host ::ng-deep .ql-editor.ng-touched.ng-valid {
+  border: 1px solid green !important;
+}
+
+// Fix quill editor to take full width
+:host ::ng-deep quill-editor {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep quill-editor .ql-container {
+  width: 100%;
+}
+
+:host ::ng-deep quill-editor .ql-editor {
+  width: 100%;
+  min-height: 140px;
+}
+
+// Fix list-group-item containing quill editor
+:host ::ng-deep .list-group-item {
+  width: 100%;
+}
+
+:host ::ng-deep .list-group {
+  width: 100%;
+}
+
+// Tips Modal Styles
+:host ::ng-deep .tips-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+:host ::ng-deep .tips-content {
+  background: white !important;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  color: #333 !important;
+}
+
+:host ::ng-deep .tips-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333 !important;
+}
+
+:host ::ng-deep .tips-header h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #333 !important;
+}
+
+:host ::ng-deep .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666 !important;
+  line-height: 1;
+}
+
+:host ::ng-deep .tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+:host ::ng-deep .tips-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #333 !important;
+}
+
+:host ::ng-deep .tips-list li:last-child {
+  border-bottom: none;
+}
+
+:host ::ng-deep .tips-content * {
+  color: #333 !important;
+}

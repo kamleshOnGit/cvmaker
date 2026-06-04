@@ -60,7 +60,6 @@ export class CourseComponent implements OnInit , AfterViewChecked {
         this.courses2 = val.get('courses2');
       } else if (val.get('courses3')) {
         this.courses3 = val.get('courses3');
-        this.formservices.count.next(1);
       }
     });
   }

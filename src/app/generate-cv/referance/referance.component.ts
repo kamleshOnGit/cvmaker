@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { FormcommunicationService } from '../formcommunication.service';
 import { FormGroup } from '@angular/forms';
 import {
@@ -50,16 +50,25 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
   reference3;
   count = 0;
   count1 = 0;
-  constructor( private formservices: FormcommunicationService) { }
+  showTipsModal = false;
+  referenceTips = [
+    'Always ask permission before listing someone as a reference',
+    'Choose professional references (managers, colleagues) over personal ones',
+    'Provide complete contact information: name, title, company, phone, email',
+    'Ensure your references know about the job you\'re applying for',
+    'Keep your reference list updated with current contact details'
+  ];
+  constructor( private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) { }
   @Input() ref: FormGroup;
 
   ngOnInit() {
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('reference2')) {
         this.reference2 = val.get('reference2');
+        this.cdr.detectChanges();
       } else if (val.get('reference3')) {
         this.reference3 = val.get('reference3');
-        this.formservices.count.next(1);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -98,5 +107,9 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
       if (identifier === 'reference3' ) {
         this.reference3 = null;
       }
+    }
+
+    toggleTips() {
+      this.showTipsModal = !this.showTipsModal;
     }
 }

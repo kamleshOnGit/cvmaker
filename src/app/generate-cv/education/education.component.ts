@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, DoCheck  , AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, DoCheck  , AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {FormcommunicationService} from '../formcommunication.service';
 import {
@@ -50,10 +50,18 @@ export class EducationComponent implements OnInit , AfterViewChecked {
   education3 = null;
   count = 0;
   count1 = 0;
+  showTipsModal = false;
+  educationTips = [
+    'List your highest degree first',
+    'Include the full name of your institution',
+    'Add relevant coursework or academic achievements',
+    'Include GPA only if it\'s 3.5 or higher',
+    'Add certifications and continuing education courses'
+  ];
   @Input()
   public edu: FormGroup;
 
-  constructor(private formservices: FormcommunicationService) {
+  constructor(private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -61,10 +69,11 @@ export class EducationComponent implements OnInit , AfterViewChecked {
 
         if (val.get('education2')) {
           this.education2 = val.get('education2');
+          this.cdr.detectChanges();
           console.log( this.education2);
         } else if (val.get('education3')) {
           this.education3 = val.get('education3');
-          this.formservices.count.next(1);
+          this.cdr.detectChanges();
           console.log( this.education3);
         }
     });
@@ -106,5 +115,9 @@ export class EducationComponent implements OnInit , AfterViewChecked {
     if (identifier === 'education3' ) {
       this.education3 = null;
     }
+  }
+
+  toggleTips() {
+    this.showTipsModal = !this.showTipsModal;
   }
 }

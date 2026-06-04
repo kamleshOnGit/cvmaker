@@ -85,7 +85,7 @@ export class LanguageComponent implements OnInit , AfterViewChecked {
      this.formservices.setting(identifier);
    }
    addextralanguage() {
-    this.formservices.languagefieldsublect.next();
+    this.formservices.languagefieldsublect.next(null);
   }
   deleteextra(identifier: string) {
     this.formservices.newcontrolremoved.next(identifier);

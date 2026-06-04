@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener, Input, DoCheck } from '@angular/core';
 import { TransferdataService } from '../transferdata.service';
-import { element } from 'protractor';
 import {Popupdata} from './template-popup.model';
 
 @Component({

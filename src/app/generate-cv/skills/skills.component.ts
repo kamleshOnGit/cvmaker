@@ -88,7 +88,7 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
   this.formservices.setting(identifier);
   }
   addextraskill() {
-    this.formservices.skillfieldsublect.next();
+    this.formservices.skillfieldsublect.next(null);
   }
   deleteextra(identifier: string) {
     this.formservices.newcontrolremoved.next(identifier);

@@ -58,7 +58,7 @@ AfterViewChecked {
   cookieValue;
   // profile;  exp; edu; inter; refs; skilled;
 
-  @ViewChild('formchild')formchild : ElementRef < any >;
+  @ViewChild('formchild', { static: false }) formchild!: ElementRef<any>;
 
   forlength;
   formdata = {};

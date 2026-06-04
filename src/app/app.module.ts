@@ -97,8 +97,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // RouterModule.forRoot(appRoutes),
-    RouterModule.forChild(appRoutes),
+    RouterModule.forRoot(appRoutes),
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,

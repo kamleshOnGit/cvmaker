@@ -88,7 +88,7 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
       this.formservices.setting(identifier);
     }
     addextrareference() {
-      this.formservices.referencefieldsublect.next();
+      this.formservices.referencefieldsublect.next(null);
     }
     deleteextra(identifier: string) {
       this.formservices.newcontrolremoved.next(identifier);

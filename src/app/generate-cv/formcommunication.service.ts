@@ -50,7 +50,7 @@ export class FormcommunicationService {
   identifier = '';
   profilepic;
   formdata;
-  @Output() changeview: EventEmitter<object> =  new EventEmitter();
+  @Output() changeview: EventEmitter<{name: string, flag: boolean}> = new EventEmitter();
   refchild = (identifier: string) => {};
 
 

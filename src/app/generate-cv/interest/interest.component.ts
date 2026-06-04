@@ -85,7 +85,7 @@ export class InterestComponent implements OnInit , AfterViewChecked {
       this.formservices.setting(identifier);
     }
     addextrainterest() {
-      this.formservices.interestfieldsublect.next();
+      this.formservices.interestfieldsublect.next(null);
     }
     deleteextra(identifier: string) {
       this.formservices.newcontrolremoved.next(identifier);

@@ -1,6 +1,6 @@
 import { Component, OnInit , AfterViewChecked, ViewChild , ElementRef , ViewEncapsulation} from '@angular/core';
 import { FormcommunicationService } from '../generate-cv/formcommunication.service';
-import * as jspdf from 'jspdf';
+import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -21,7 +21,7 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
   isDownloading = false;
   downloadError = '';
 
-  @ViewChild('printcv') printcv: ElementRef;
+  @ViewChild('printcv', { static: false }) printcv!: ElementRef;
 
 
 
@@ -67,7 +67,7 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
       imageTimeout: 0, // Wait for all images to load
       removeContainer: true
     }).then((canvas) => {
-      const doc = new jspdf('p', 'mm' , 'A4');
+      const doc = new jsPDF('p', 'mm' , 'A4');
       const pageWidth = this.getPdfPageWidth(doc);
       const pageHeight = this.getPdfPageHeight(doc);
       const margin = 10;

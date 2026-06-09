@@ -1,16 +1,20 @@
-<div class="d-flex flex-column mt-5 mb-5">
-    <div *ngFor="let item of faqdata" class="col-sm-8 offset-sm-2 row item-data" >
-      <div class="col-12 shadow  p-4"> 
-      <h2>  {{item.title }} </h2>
-      <p> {{item.text}} </p>
-      <p> {{item.text1}} </p>
-      <ul> 
-      <li *ngFor="let list of item.text2" >  {{ list.list }} </li>
-      </ul>  
-         
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know about our resume builder</p>
     </div>
+    <div class="row justify-content-center">
+      <div *ngFor="let item of faqdata" class="col-lg-8 col-md-10 mb-4">
+        <div class="faq-card">
+          <h3 class="faq-question">{{item.title}}</h3>
+          <p class="faq-answer">{{item.text}}</p>
+          <p class="faq-answer">{{item.text1}}</p>
+          <ul class="faq-list" *ngIf="item.text2 && item.text2.length > 0">
+            <li *ngFor="let list of item.text2">{{list.list}}</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  
   </div>
-  
-    
+</section>

@@ -179,10 +179,47 @@
           </div>
         </div>
       </div>
+  <div *ngFor="let item of extraReferences" [formGroup]="item.group">
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label> Company Name</label>
+          <input type="text" class="form-control" formControlName="cName" placeholder="your country" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label> Contact Person</label>
+          <input type="text" class="form-control" formControlName="cPerson" placeholder="your town" />
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label> Phone Number</label>
+          <input type="tell" class="form-control" formControlName="cPhone" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label> Email Address</label>
+          <input type="email" class="form-control" formControlName="cEmail" placeholder="your town" />
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra(item.key)">
+          <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row mt-3">
     <div class="col-md-12 text-center">
       <div class="addanother btn btn-light btn-lg text-secondary" (click)="addextrareference()">
-        <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another reference
+        <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another reference upto 5
       </div>
     </div>
   </div>

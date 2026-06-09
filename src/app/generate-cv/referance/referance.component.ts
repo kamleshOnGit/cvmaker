@@ -48,6 +48,7 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
   arrowleft = faChevronLeft ;
   reference2;
   reference3;
+  extraReferences = [];
   count = 0;
   count1 = 0;
   showTipsModal = false;
@@ -65,11 +66,11 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('reference2')) {
         this.reference2 = val.get('reference2');
-        this.cdr.detectChanges();
       } else if (val.get('reference3')) {
         this.reference3 = val.get('reference3');
-        this.cdr.detectChanges();
       }
+      this.refreshExtraReferences();
+      this.cdr.detectChanges();
     });
   }
 
@@ -106,6 +107,18 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
       }
       if (identifier === 'reference3' ) {
         this.reference3 = null;
+      }
+      this.refreshExtraReferences();
+    }
+
+    refreshExtraReferences() {
+      this.extraReferences = [];
+      for (let i = 4; i <= 5; i++) {
+        const key = 'reference' + i;
+        const group = this.formservices.formref.get(key)?.get(key);
+        if (group) {
+          this.extraReferences.push({ key, group });
+        }
       }
     }
 

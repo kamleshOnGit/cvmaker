@@ -426,10 +426,78 @@
     </div>
   </div>
 </div> 
+<div *ngFor="let item of extraExperiances" [formGroup]="item.group">
+  <hr>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label> Job</label>
+        <input type="text" class="form-control" formControlName="jobTitle" placeholder="your country" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label> City/Town</label>
+        <input type="text" class="form-control" formControlName="city" placeholder="your town" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label> Employer</label>
+        <input type="text" class="form-control" formControlName="employer" placeholder="your employer" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label> Start Date</label>
+        <div formGroupName="startDate" class="d-flex flex-row">
+          <select formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option><option> Show year only </option><option> January </option><option> February </option><option> March </option><option> April </option><option> May </option><option> June </option><option> July </option><option> August </option><option> September </option><option> October </option><option> November </option><option> December </option>
+          </select>
+          <select formControlName="year" class="custom-select col-6">
+            <option> 2023 </option><option> 2022 </option><option> 2021 </option><option> 2020 </option><option> 2019 </option><option> 2018 </option><option> 2017 </option><option> 2016 </option><option> 2015 </option><option> 2014 </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label> End Date</label>
+        <div formGroupName="endDate" class="d-flex flex-row">
+          <select formControlName="month" class="custom-select col-6 mr-1">
+            <option> Don't show </option><option> Show year only </option><option> January </option><option> February </option><option> March </option><option> April </option><option> May </option><option> June </option><option> July </option><option> August </option><option> September </option><option> October </option><option> November </option><option> December </option>
+          </select>
+          <select formControlName="year" class="custom-select col-6">
+            <option> 2023 </option><option> 2022 </option><option> 2021 </option><option> 2020 </option><option> 2019 </option><option> 2018 </option><option> 2017 </option><option> 2016 </option><option> 2015 </option><option> 2014 </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label> Description</label>
+        <quill-editor [styles]="{height: '140px'}" class="textarea" formControlName="description" placeholder="Enter Text"></quill-editor>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra(item.key)">
+        <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+      </div>
+    </div>
+  </div>
+</div>
   <div class="row mt-3">
     <div class="col-md-12 text-center">
       <div class="addanother btn btn-light btn-lg text-secondary" (click)="addextraexperiance()">
-          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another work experiance upto 3
+          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another work experiance upto 10
       </div>
     </div>
   </div>

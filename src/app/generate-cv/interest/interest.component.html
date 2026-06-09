@@ -91,10 +91,27 @@
             </div>
           </div>
         </div>
+  <div *ngFor="let item of extraInterests" [formGroup]="item.group">
+    <div class="row mt-3">
+       <div class="col-md-12">
+          <div class="form-group">
+             <label> Hobby</label>
+             <input type="text" class="form-control" formControlName="interest" placeholder="e.g Drawing" />
+          </div>
+       </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra(item.key)">
+          <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row mt-3">
     <div class="col-md-12 text-center">
       <div class="addanother btn btn-light btn-lg text-secondary" (click)="addextrainterest()">
-          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another hobby
+          <fa-icon class="fa-1x mr-2" [icon]="add"></fa-icon> Add another hobby upto 5
       </div>
     </div>
   </div>

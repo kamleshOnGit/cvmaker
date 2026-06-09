@@ -1,0 +1,241 @@
+<div class="checker-page">
+
+  <!-- Hero -->
+  <div class="checker-hero">
+    <div class="container text-center">
+      <div class="hero-badge mb-3"><fa-icon [icon]="faRobot"></fa-icon> AI-Powered</div>
+      <h1 class="hero-title">Resume ATS Checker</h1>
+      <p class="hero-subtitle">Upload your resume and instantly discover your ATS score, keyword gaps, and actionable improvements to land more interviews.</p>
+    </div>
+  </div>
+
+  <div class="container checker-body">
+
+    <!-- Tabs -->
+    <div class="input-tabs">
+      <button class="tab-btn" [class.active]="activeTab === 'upload'" (click)="activeTab = 'upload'">
+        <fa-icon [icon]="faUpload" class="mr-2"></fa-icon> Upload File
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'paste'" (click)="activeTab = 'paste'">
+        <fa-icon [icon]="faFileAlt" class="mr-2"></fa-icon> Paste Text
+      </button>
+    </div>
+
+    <div class="row">
+      <!-- Left: Input -->
+      <div class="col-lg-5 mb-4">
+
+        <!-- Upload Tab -->
+        <div *ngIf="activeTab === 'upload'" class="input-panel">
+          <div class="drop-zone"
+               [class.dragging]="isDragging"
+               [class.has-file]="fileName"
+               (dragover)="onDragOver($event)"
+               (dragleave)="onDragLeave($event)"
+               (drop)="onDrop($event)"
+               (click)="!fileName && fileInput.click()">
+
+            <input #fileInput type="file" accept=".pdf,.txt,.doc,.docx" style="display:none" (change)="onFileSelected($event)">
+
+            <ng-container *ngIf="!fileName">
+              <div class="drop-icon"><fa-icon [icon]="faUpload"></fa-icon></div>
+              <p class="drop-title">Drag & drop your resume here</p>
+              <p class="drop-sub">or click to browse</p>
+              <p class="drop-formats">PDF, DOC, DOCX, TXT — max 5 MB</p>
+            </ng-container>
+
+            <ng-container *ngIf="fileName">
+              <fa-icon [icon]="faFileAlt" class="file-icon"></fa-icon>
+              <p class="file-name">{{ fileName }}</p>
+              <p class="file-size">{{ fileSize }}</p>
+              <button class="btn btn-sm btn-remove" (click)="$event.stopPropagation(); clearFile()">
+                <fa-icon [icon]="faTimes"></fa-icon> Remove
+              </button>
+            </ng-container>
+          </div>
+          <p class="text-danger mt-2 small" *ngIf="fileError">{{ fileError }}</p>
+        </div>
+
+        <!-- Paste Tab -->
+        <div *ngIf="activeTab === 'paste'" class="input-panel">
+          <textarea class="paste-area form-control" rows="14"
+            placeholder="Paste your resume text here..."
+            [(ngModel)]="rawText"></textarea>
+          <button class="btn btn-analyze w-100 mt-3" (click)="runAnalysisFromPaste()" [disabled]="!rawText.trim()">
+            <fa-icon [icon]="faSearch" class="mr-2"></fa-icon> Analyze Resume
+          </button>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="tips-card mt-4">
+          <h5><fa-icon [icon]="faLightbulb" class="mr-2 text-warning"></fa-icon>Quick Tips</h5>
+          <ul>
+            <li><fa-icon [icon]="faCheck" class="mr-1 text-success"></fa-icon> Use standard section headings</li>
+            <li><fa-icon [icon]="faCheck" class="mr-1 text-success"></fa-icon> Include measurable achievements</li>
+            <li><fa-icon [icon]="faCheck" class="mr-1 text-success"></fa-icon> Match keywords from the job description</li>
+            <li><fa-icon [icon]="faCheck" class="mr-1 text-success"></fa-icon> Keep formatting simple for ATS</li>
+            <li><fa-icon [icon]="faCheck" class="mr-1 text-success"></fa-icon> Use action verbs to start bullet points</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Results -->
+      <div class="col-lg-7 mb-4">
+
+        <!-- Analyzing Spinner -->
+        <div *ngIf="isAnalyzing" class="results-placeholder text-center">
+          <fa-icon [icon]="faSpinner" class="spinner-icon fa-3x fa-spin mb-3"></fa-icon>
+          <p class="analyzing-text">Analyzing your resume...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isAnalyzing && !analysis" class="results-placeholder text-center">
+          <fa-icon [icon]="faRobot" class="empty-icon fa-4x mb-3"></fa-icon>
+          <h4>Your ATS Report Appears Here</h4>
+          <p>Upload or paste your resume to get an instant score and improvement suggestions.</p>
+        </div>
+
+        <!-- Results -->
+        <div *ngIf="!isAnalyzing && analysis" class="results-panel">
+
+          <!-- Score Card -->
+          <div class="score-card mb-4">
+            <div class="score-left">
+              <svg viewBox="0 0 100 100" class="score-ring">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                <circle cx="50" cy="50" r="40" fill="none"
+                  [attr.stroke]="getScoreColor()"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                  stroke-dasharray="251.2"
+                  [attr.stroke-dashoffset]="251.2 - (analysis.score/100)*251.2"
+                  transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="score-number" [style.color]="getScoreColor()">{{ analysis.score }}</div>
+              <div class="score-label">ATS Score</div>
+            </div>
+            <div class="score-right">
+              <div class="score-badge" [class]="'badge-' + analysis.category">
+                {{ analysis.category | titlecase }}
+              </div>
+              <p class="score-desc">
+                <ng-container [ngSwitch]="analysis.category">
+                  <span *ngSwitchCase="'excellent'">Excellent! Your resume is highly ATS-optimized.</span>
+                  <span *ngSwitchCase="'good'">Good. A few tweaks will make it stand out more.</span>
+                  <span *ngSwitchCase="'fair'">Fair. Several improvements can boost your score significantly.</span>
+                  <span *ngSwitchDefault>Needs work. Follow the suggestions below to improve your chances.</span>
+                </ng-container>
+              </p>
+              <div class="score-meta">
+                <span class="meta-item" [class.ok]="analysis.format.isATSFriendly">
+                  <fa-icon [icon]="analysis.format.isATSFriendly ? faCheckCircle : faTimesCircle" class="mr-1"></fa-icon>
+                  {{ analysis.format.isATSFriendly ? 'ATS Friendly Format' : 'Format Issues Found' }}
+                </span>
+                <span class="meta-item">
+                  <fa-icon [icon]="faSearch" class="mr-1"></fa-icon>
+                  {{ analysis.keywords.found.length }} keywords found
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keywords -->
+          <div class="result-section mb-4">
+            <h5 class="result-section-title">
+              <fa-icon [icon]="faSearch" class="mr-2"></fa-icon>Keywords
+            </h5>
+            <div *ngIf="analysis.keywords.found.length > 0" class="mb-3">
+              <p class="kw-label text-success mb-2"><fa-icon [icon]="faCheckCircle" class="mr-1"></fa-icon>Found ({{ analysis.keywords.found.length }})</p>
+              <div class="keyword-chips">
+                <span *ngFor="let kw of analysis.keywords.found" class="chip chip-success">{{ kw }}</span>
+              </div>
+            </div>
+            <div *ngIf="analysis.keywords.missing.length > 0">
+              <p class="kw-label text-warning mb-2"><fa-icon [icon]="faExclamationTriangle" class="mr-1"></fa-icon>Consider Adding ({{ analysis.keywords.missing.length }})</p>
+              <div class="keyword-chips">
+                <span *ngFor="let kw of analysis.keywords.missing.slice(0, 12)" class="chip chip-warning">{{ kw }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suggestions -->
+          <div class="result-section">
+            <h5 class="result-section-title">
+              <fa-icon [icon]="faLightbulb" class="mr-2"></fa-icon>Improvement Suggestions
+            </h5>
+            <div *ngFor="let s of getValidSuggestions()" class="suggestion-item" [class]="'suggestion-' + s.type">
+              <div class="suggestion-icon">
+                <fa-icon [icon]="getSuggestionIcon(s.type)"></fa-icon>
+              </div>
+              <div class="suggestion-body">
+                <p class="suggestion-message">{{ s.message }}</p>
+                <p class="suggestion-action">{{ s.action }}</p>
+              </div>
+            </div>
+            <p *ngIf="getValidSuggestions().length === 0" class="text-success text-center py-3">
+              <fa-icon [icon]="faCheckCircle" class="mr-2"></fa-icon>No major issues found!
+            </p>
+            <button class="btn btn-analyze w-100 mt-3" (click)="openEditor()">
+              Edit Resume Details & Improve Score
+            </button>
+          </div>
+
+          <div *ngIf="showEditor" class="result-section mt-4">
+            <h5 class="result-section-title">Edit Extracted Resume Details</h5>
+            <form [formGroup]="manualForm">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>First Name</label>
+                  <input class="form-control" formControlName="firstName">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Last Name</label>
+                  <input class="form-control" formControlName="secondName">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Email</label>
+                  <input class="form-control" formControlName="email">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Phone</label>
+                  <input class="form-control" formControlName="phone">
+                </div>
+                <div class="col-md-12 form-group">
+                  <label>Professional Title</label>
+                  <input class="form-control" formControlName="title">
+                </div>
+                <div class="col-md-12 form-group">
+                  <label>Professional Summary</label>
+                  <textarea class="form-control" rows="4" formControlName="summary"></textarea>
+                </div>
+                <div class="col-md-12 form-group">
+                  <label>Experience</label>
+                  <textarea class="form-control" rows="5" formControlName="experience"></textarea>
+                </div>
+                <div class="col-md-12 form-group">
+                  <label>Education</label>
+                  <textarea class="form-control" rows="3" formControlName="education"></textarea>
+                </div>
+                <div class="col-md-12 form-group">
+                  <label>Skills</label>
+                  <textarea class="form-control" rows="3" formControlName="skills" placeholder="Separate skills with commas"></textarea>
+                </div>
+              </div>
+              <button type="button" class="btn btn-analyze w-100" (click)="runAnalysisFromForm()">
+                Re-check ATS Score
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta text-center">
+      <h3>Ready to Build a Better Resume?</h3>
+      <p>Use our builder to create an ATS-optimized resume from scratch.</p>
+      <a routerLink="/genrateCv" class="btn btn-primary btn-lg cta-build-btn">Build My Resume Now</a>
+    </div>
+  </div>
+
+</div>

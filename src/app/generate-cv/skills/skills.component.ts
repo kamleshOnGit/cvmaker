@@ -49,6 +49,7 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
   arrowleft = faChevronLeft ;
   skills2;
   skills3;
+  extraSkills = [];
   count = 0;
   count1 = 0;
   showTipsModal = false;
@@ -65,11 +66,11 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('skills2')) {
         this.skills2 = val.get('skills2');
-        this.cdr.detectChanges();
       } else if (val.get('skills3')) {
         this.skills3 = val.get('skills3');
-        this.cdr.detectChanges();
       }
+      this.refreshExtraSkills();
+      this.cdr.detectChanges();
     });
   }
 
@@ -106,6 +107,18 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
     }
     if (identifier === 'skills3' ) {
       this.skills3 = null;
+    }
+    this.refreshExtraSkills();
+  }
+
+  refreshExtraSkills() {
+    this.extraSkills = [];
+    for (let i = 4; i <= 100; i++) {
+      const key = 'skills' + i;
+      const group = this.formservices.formref.get(key)?.get(key);
+      if (group) {
+        this.extraSkills.push({ key, group });
+      }
     }
   }
 

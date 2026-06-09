@@ -1,17 +1,71 @@
 
 
 <div class="header">
-   <div class="container text-center">
-
-    <div class="mt-5 d-flex  align-content-center  flex-column  header-items"> 
-     <h1> Create your professional CV here </h1>
-     <h3> Create your very own professional CV and download it within 15 minutes. </h3>
-
-     <p>  <button routerLink="/genrateCv" class="btn btn-outline-light btn-lg cv-btn">Create your own cv</button> </p>
-     
-      <h3 >Create, maintain, publish, and share your CVs for free </h3>
-        
-     <p> You'll be 65% more likely to get a job</p>
+  <div class="container">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6 header-content">
+        <div class="badge-container mb-4">
+          <span class="badge">✨ Free & Professional</span>
+        </div>
+        <h1 class="hero-title">
+          Build Your <span class="highlight">Perfect Resume</span> in Minutes
+        </h1>
+        <p class="hero-subtitle">
+          Create a professional, ATS-friendly resume that gets you hired. 
+          Join thousands of job seekers who landed their dream jobs with our resume builder.
+        </p>
+        <div class="cta-buttons">
+          <button routerLink="/genrateCv" class="btn btn-primary btn-lg cta-btn">
+            <fa-icon [icon]="playIcon" class="mr-2"></fa-icon>
+            Create Your Resume
+          </button>
+          <button routerLink="/resume-checker" class="btn btn-outline-light btn-lg cta-btn-secondary">
+            <fa-icon [icon]="uploadIcon" class="mr-2"></fa-icon>
+            Check Your Resume
+          </button>
+        </div>
+        <div class="stats mt-5">
+          <div class="stat-item">
+            <div class="stat-number">65%</div>
+            <div class="stat-label">More Interviews</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Resumes Created</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15min</div>
+            <div class="stat-label">Average Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 header-visual">
+        <div class="resume-preview-card">
+          <div class="resume-preview-header">
+            <div class="resume-avatar"></div>
+            <div class="resume-preview-info">
+              <div class="resume-preview-line"></div>
+              <div class="resume-preview-line short"></div>
+            </div>
+          </div>
+          <div class="resume-preview-body">
+            <div class="resume-preview-line"></div>
+            <div class="resume-preview-line"></div>
+            <div class="resume-preview-line short"></div>
+            <div class="resume-preview-section"></div>
+            <div class="resume-preview-line"></div>
+            <div class="resume-preview-line"></div>
+            <div class="resume-preview-section"></div>
+            <div class="resume-preview-line"></div>
+            <div class="resume-preview-line short"></div>
+          </div>
+        </div>
+      </div>
     </div>
-   </div>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+    </svg>
+  </div>
 </div>

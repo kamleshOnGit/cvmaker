@@ -44,6 +44,7 @@ import { AtsFriendlyComponent } from './cvtemplate/ats-friendly/ats-friendly.com
 import { AtsAnalyzerComponent } from './ats-analyzer/ats-analyzer.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { ValidationMessageDirective } from './directives/validation-message.directive';
+import { ResumeCheckerComponent } from './resume-checker/resume-checker.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ATSAnalyzerService } from './services/ats-analyzer.service';
 import { PdfGeneratorService } from './services/pdf-generator.service';
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
      {path: 'login' , component: LoginComponent },
      {path: 'signup' , component: SignupComponent }
    ]},
-   {path: '**' , redirectTo: 'HomeComponent' , pathMatch: 'full'}
+   {path: 'resume-checker', component: ResumeCheckerComponent},
+  {path: '**' , redirectTo: 'HomeComponent' , pathMatch: 'full'}
 
 ];
 
@@ -102,6 +104,7 @@ const appRoutes: Routes = [
     AtsAnalyzerComponent,
     TooltipDirective,
     ValidationMessageDirective,
+    ResumeCheckerComponent,
 
   ],
   imports: [

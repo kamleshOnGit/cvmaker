@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Input, AfterViewChecked } from '@angular/core';
 import {FormcommunicationService} from '../formcommunication.service';
 import {  FormGroup } from '@angular/forms';
 import {
@@ -47,9 +47,10 @@ export class InterestComponent implements OnInit , AfterViewChecked {
   arrowleft = faChevronLeft ;
   interest2;
   interest3;
+  extraInterests = [];
   count = 0;
   count1 = 0;
-  constructor(private formservices: FormcommunicationService) { }
+  constructor(private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) { }
   @Input() interestdata: FormGroup;
 
   ngOnInit() {
@@ -59,6 +60,8 @@ export class InterestComponent implements OnInit , AfterViewChecked {
       } else if (val.get('interest3')) {
         this.interest3 = val.get('interest3');
       }
+      this.refreshExtraInterests();
+      this.cdr.detectChanges();
     });
   }
   ngAfterViewChecked() {
@@ -93,6 +96,18 @@ export class InterestComponent implements OnInit , AfterViewChecked {
       }
       if (identifier === 'interest3' ) {
         this.interest3 = null;
+      }
+      this.refreshExtraInterests();
+    }
+
+    refreshExtraInterests() {
+      this.extraInterests = [];
+      for (let i = 4; i <= 5; i++) {
+        const key = 'interest' + i;
+        const group = this.formservices.formref.get(key)?.get(key);
+        if (group) {
+          this.extraInterests.push({ key, group });
+        }
       }
     }
 

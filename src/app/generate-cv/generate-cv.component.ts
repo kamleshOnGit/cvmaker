@@ -1031,319 +1031,81 @@ AfterViewChecked {
   }
 
   addextraskill() {
-    this.count5 = this.cvformdata.get('skills2') ? (this.cvformdata.get('skills3') ? 4 : 3) : 2;
-    if (this.count5 === 2) {
-      const skills = 'skills' + this.count5;
-      this
-        .cvformdata
-        .addControl(skills, this.formbuilder.group({
-          skills2: this
-            .formbuilder
-            .group({
-              skill: [
-                '', Validators.required
-              ],
-              level: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(skills));
-    }
-    if (this.count5 === 3) {
-      const skills = 'skills' + this.count5;
-      this
-        .cvformdata
-        .addControl(skills, this.formbuilder.group({
-          skills3: this
-            .formbuilder
-            .group({
-              skill: [
-                '', Validators.required
-              ],
-              level: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(skills));
-    }
+    let next = 2;
+    while (this.cvformdata.get('skills' + next)) { next++; }
+    const skills = 'skills' + next;
+    this.cvformdata.addControl(skills, this.formbuilder.group({
+      [skills]: this.formbuilder.group({
+        skill: ['', Validators.required],
+        level: ['', Validators.required]
+      })
+    }));
+    this.formservices.newcontroladded.next(this.cvformdata.get(skills));
   }
 
   addextraexperiance() {
-    this.count1 = this.cvformdata.get('experiance2') ? (this.cvformdata.get('experiance3') ? 4 : 3) : 2;
-    if (this.count1 === 2) {
-      const experiance = 'experiance' + this.count1;
-      this
-        .cvformdata
-        .addControl(experiance, this.formbuilder.group({
-          experiance2: this
-            .formbuilder
-            .group({
-              jobTitle: [
-                '', Validators.required
-              ],
-              city: [
-                '', Validators.required
-              ],
-              employer: [
-                '', Validators.required
-              ],
-              startDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              endDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              description: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(experiance));
-    }
-    if (this.count1 === 3) {
-      const experiance = 'experiance' + this.count1;
-      this
-        .cvformdata
-        .addControl(experiance, this.formbuilder.group({
-          experiance3: this
-            .formbuilder
-            .group({
-              jobTitle: [
-                '', Validators.required
-              ],
-              city: [
-                '', Validators.required
-              ],
-              employer: [
-                '', Validators.required
-              ],
-              startDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              endDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              description: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(experiance));
-    }
+    let next = 2;
+    while (this.cvformdata.get('experiance' + next)) { next++; }
+    if (next > 10) { return; }
+    const experiance = 'experiance' + next;
+    this.cvformdata.addControl(experiance, this.formbuilder.group({
+      [experiance]: this.formbuilder.group({
+        jobTitle: ['', Validators.required],
+        city: ['', Validators.required],
+        employer: ['', Validators.required],
+        startDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
+        endDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
+        description: ['', Validators.required]
+      })
+    }));
+    this.formservices.newcontroladded.next(this.cvformdata.get(experiance));
   }
 
   addextraeducation() {
-    this.count2 = this.cvformdata.get('education2') ? (this.cvformdata.get('education3') ? 4 : 3) : 2;
-    if (this.count2 === 2) {
-      const education = 'education' + this.count2;
-      this
-        .cvformdata
-        .addControl(education, this.formbuilder.group({
-          education2: this
-            .formbuilder
-            .group({
-              degree: [
-                '', Validators.required
-              ],
-              city: [
-                '', Validators.required
-              ],
-              school: [
-                '', Validators.required
-              ],
-              startDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              endDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              description: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(education));
-    }
-    if (this.count2 === 3) {
-      const education = 'education' + this.count2;
-      this
-        .cvformdata
-        .addControl(education, this.formbuilder.group({
-          education3: this
-            .formbuilder
-            .group({
-              degree: [
-                '', Validators.required
-              ],
-              city: [
-                '', Validators.required
-              ],
-              school: [
-                '', Validators.required
-              ],
-              startDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              endDate: this
-                .formbuilder
-                .group({
-                  month: [
-                    '', Validators.required
-                  ],
-                  year: ['', Validators.required]
-                }),
-              description: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(education));
-    }
+    let next = 2;
+    while (this.cvformdata.get('education' + next)) { next++; }
+    if (next > 5) { return; }
+    const education = 'education' + next;
+    this.cvformdata.addControl(education, this.formbuilder.group({
+      [education]: this.formbuilder.group({
+        degree: ['', Validators.required],
+        city: ['', Validators.required],
+        school: ['', Validators.required],
+        startDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
+        endDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
+        description: ['', Validators.required]
+      })
+    }));
+    this.formservices.newcontroladded.next(this.cvformdata.get(education));
   }
 
   addextrainterest() {
-    this.count3 = this.cvformdata.get('interest2') ? (this.cvformdata.get('interest3') ? 4 : 3) : 2;
-    if (this.count3 === 2) {
-      const interest = 'interest' + this.count3;
-      this
-        .cvformdata
-        .addControl(interest, this.formbuilder.group({
-          interest2: this
-            .formbuilder
-            .group({
-              interest: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(interest));
-    }
-    if (this.count3 === 3) {
-      const interest = 'interest' + this.count3;
-      this
-        .cvformdata
-        .addControl(interest, this.formbuilder.group({
-          interest3: this
-            .formbuilder
-            .group({
-              interest: ['', Validators.required]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(interest));
-    }
+    let next = 2;
+    while (this.cvformdata.get('interest' + next)) { next++; }
+    if (next > 5) { return; }
+    const interest = 'interest' + next;
+    this.cvformdata.addControl(interest, this.formbuilder.group({
+      [interest]: this.formbuilder.group({
+        interest: ['', Validators.required]
+      })
+    }));
+    this.formservices.newcontroladded.next(this.cvformdata.get(interest));
   }
 
   addextrareference() {
-    this.count4 = this.cvformdata.get('reference2') ? (this.cvformdata.get('reference3') ? 4 : 3) : 2;
-    if (this.count4 === 2) {
-      const reference = 'reference' + this.count4;
-      this
-        .cvformdata
-        .addControl(reference, this.formbuilder.group({
-          reference2: this
-            .formbuilder
-            .group({
-              cName: [
-                '', Validators.required
-              ],
-              cPerson: [
-                '', Validators.required
-              ],
-              cPhone: [
-                '',
-                [
-                  Validators.required, Validators.pattern(/^[0-9][0-9]{9}$/)
-                ]
-              ],
-              cEmail: [
-                '',
-                [Validators.required, Validators.email]
-              ]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(reference));
-    }
-    if (this.count4 === 3) {
-      const reference = 'reference' + this.count4;
-      this
-        .cvformdata
-        .addControl(reference, this.formbuilder.group({
-          reference3: this
-            .formbuilder
-            .group({
-              cName: [
-                '', Validators.required
-              ],
-              cPerson: [
-                '', Validators.required
-              ],
-              cPhone: [
-                '',
-                [
-                  Validators.required, Validators.pattern(/^[0-9][0-9]{9}$/)
-                ]
-              ],
-              cEmail: [
-                '',
-                [Validators.required, Validators.email]
-              ]
-            })
-        }));
-      this
-        .formservices
-        .newcontroladded
-        .next(this.cvformdata.get(reference));
-    }
+    let next = 2;
+    while (this.cvformdata.get('reference' + next)) { next++; }
+    if (next > 5) { return; }
+    const reference = 'reference' + next;
+    this.cvformdata.addControl(reference, this.formbuilder.group({
+      [reference]: this.formbuilder.group({
+        cName: ['', Validators.required],
+        cPerson: ['', Validators.required],
+        cPhone: ['', [Validators.required, Validators.pattern(/^[0-9][0-9]{9}$/)]],
+        cEmail: ['', [Validators.required, Validators.email]]
+      })
+    }));
+    this.formservices.newcontroladded.next(this.cvformdata.get(reference));
   }
 
 }

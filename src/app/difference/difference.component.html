@@ -1,21 +1,22 @@
-<div class="difference"> 
-<div class="col-sm-8 offset-sm-2">
-  <h2 class="text-center mb-2"> Apply Successfully </h2>
-  <p class="text-center mb-2" > With the help of CV maker, your professional CV is always within reach. Whether you decide to quickly and easily create it yourself with our CV maker, or having it made bespoke by our professionals
-     - your CV always stands out from the crowd.</p>
-  <div class="d-flex flex-column flex-sm-row justify-content-between mt-5"> 
-   <div *ngFor="let item of differenceData"  class="difference-item card d-flex">
-       <div class="card-body"> 
-      <div class="col-12">
-        <h4 class="card-header card-title" > {{item.title}} </h4>
-      </div>
-      <div class="col-12">
-         <ul class="list">
-           <li *ngFor="let diffs of item.diff " class=" card-text" > {{diffs.text}} </li>
-         </ul>
+<section class="cta-section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="section-title">Ready to Stand Out?</h2>
+      <p class="section-subtitle">With CV Maker, your professional resume is always within reach. Stand out from the crowd and land more interviews.</p>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div *ngFor="let item of differenceData" class="col-lg-4 col-md-6">
+        <div class="cta-card">
+          <h4 class="cta-card-title">{{item.title}}</h4>
+          <ul class="cta-list">
+            <li *ngFor="let diffs of item.diff">{{diffs.text}}</li>
+          </ul>
+        </div>
       </div>
     </div>
-   </div>
+    <div class="cta-bottom text-center mt-5">
+      <a routerLink="/genrateCv" class="btn btn-primary btn-lg cta-main-btn">Get Started for Free</a>
+      <a routerLink="/resume-checker" class="btn btn-outline-primary btn-lg cta-secondary-btn ml-3">Check Your Existing Resume</a>
+    </div>
   </div>
-</div>
-</div>
+</section>

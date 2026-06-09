@@ -47,6 +47,7 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
   textinput;
   experiance2;
   experiance3;
+  extraExperiances = [];
   count = 0;
   count1 = 0;
   showTipsModal = false;
@@ -65,13 +66,12 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('experiance2')) {
         this.experiance2 = val.get('experiance2');
-        this.cdr.detectChanges();
       } else if (val.get('experiance3')) {
         this.experiance3 = val.get('experiance3');
-        this.cdr.detectChanges();
       }
+      this.refreshExtraExperiances();
+      this.cdr.detectChanges();
     });
-
   }
 
 
@@ -99,7 +99,7 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
       this.formservices.setting(identifier);
   }
   addextraexperiance() {
-  this.formservices.experiancefieldsublect.next(null);
+    this.formservices.experiancefieldsublect.next(null);
   }
   deleteextra(identifier: string) {
     this.formservices.newcontrolremoved.next(identifier);
@@ -108,6 +108,18 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
     }
     if (identifier === 'experiance3' ) {
       this.experiance3 = null;
+    }
+    this.refreshExtraExperiances();
+  }
+
+  refreshExtraExperiances() {
+    this.extraExperiances = [];
+    for (let i = 4; i <= 10; i++) {
+      const key = 'experiance' + i;
+      const group = this.formservices.formref.get(key)?.get(key);
+      if (group) {
+        this.extraExperiances.push({ key, group });
+      }
     }
   }
 

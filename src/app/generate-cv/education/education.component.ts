@@ -48,6 +48,7 @@ export class EducationComponent implements OnInit , AfterViewChecked {
   textinput;
   education2 = null;
   education3 = null;
+  extraEducations = [];
   count = 0;
   count1 = 0;
   showTipsModal = false;
@@ -66,19 +67,14 @@ export class EducationComponent implements OnInit , AfterViewChecked {
 
   ngOnInit() {
     this.formservices.newcontroladded.subscribe( val => {
-
-        if (val.get('education2')) {
-          this.education2 = val.get('education2');
-          this.cdr.detectChanges();
-          console.log( this.education2);
-        } else if (val.get('education3')) {
-          this.education3 = val.get('education3');
-          this.cdr.detectChanges();
-          console.log( this.education3);
-        }
+      if (val.get('education2')) {
+        this.education2 = val.get('education2');
+      } else if (val.get('education3')) {
+        this.education3 = val.get('education3');
+      }
+      this.refreshExtraEducations();
+      this.cdr.detectChanges();
     });
-
-
   }
   ngAfterViewChecked() {
     this.textinput = this.formservices.onChangesed;
@@ -114,6 +110,18 @@ export class EducationComponent implements OnInit , AfterViewChecked {
     }
     if (identifier === 'education3' ) {
       this.education3 = null;
+    }
+    this.refreshExtraEducations();
+  }
+
+  refreshExtraEducations() {
+    this.extraEducations = [];
+    for (let i = 4; i <= 5; i++) {
+      const key = 'education' + i;
+      const group = this.formservices.formref.get(key)?.get(key);
+      if (group) {
+        this.extraEducations.push({ key, group });
+      }
     }
   }
 

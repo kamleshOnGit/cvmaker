@@ -44,6 +44,92 @@ export class ATSAnalyzerService {
     'reduced', 'negotiated', 'coordinated', 'supervised', 'enhanced'
   ];
 
+  analyzeUploadedResume(parsed: any): ATSAnalysisResult {
+    const suggestions: ATSSuggestion[] = [];
+    const formatIssues: FormatIssue[] = [];
+    const foundKeywords: string[] = [];
+    const personal = parsed?.personal || {};
+    const profileText = parsed?.profile?.text || '';
+    const expText = parsed?.experiance?.description || '';
+    const eduText = parsed?.education?.description || '';
+    const skills: string[] = (parsed?.skills || [])
+      .map((s: any) => {
+        const raw = typeof s === 'string' ? s : (s?.skill ?? '');
+        return typeof raw === 'string' ? raw.trim() : String(raw).trim();
+      })
+      .filter((s: string) => s.length > 0);
+
+    // Contact info
+    if (!personal.firstName && !personal.secondName) {
+      suggestions.push({ type: 'critical', category: 'content', message: 'Full name not detected', action: 'Ensure your name is on the first line of your resume in plain text' });
+    }
+    if (!personal.email) {
+      suggestions.push({ type: 'critical', category: 'content', message: 'Email address is missing', action: 'Add a professional email address' });
+    }
+    if (!personal.phone) {
+      suggestions.push({ type: 'warning', category: 'content', message: 'Phone number not detected', action: 'Add a phone number for recruiters to contact you' });
+    }
+    if (!personal.city) {
+      suggestions.push({ type: 'info', category: 'content', message: 'Location not detected', action: 'Add your city and country for local job targeting' });
+    }
+
+    // Profile / Summary
+    if (!profileText || profileText.trim().length < 50) {
+      suggestions.push({ type: 'critical', category: 'content', message: 'Professional summary is missing or too short', action: 'Add a compelling 3-4 sentence professional summary with relevant keywords' });
+    } else {
+      this.commonATSKeywords.forEach(kw => { if (profileText.toLowerCase().includes(kw)) { foundKeywords.push(kw); } });
+      if (!this.powerVerbs.some(v => profileText.toLowerCase().includes(v))) {
+        suggestions.push({ type: 'warning', category: 'content', message: 'Summary lacks action-oriented language', action: 'Start sentences with power verbs like "Achieved", "Developed", "Led"' });
+      }
+    }
+
+    // Experience
+    if (!expText || expText.trim().length < 30) {
+      suggestions.push({ type: 'critical', category: 'content', message: 'No work experience detected', action: 'Ensure your experience section is labeled "Work Experience" or "Professional Experience"' });
+    } else {
+      this.commonATSKeywords.forEach(kw => { if (expText.toLowerCase().includes(kw)) { if (!foundKeywords.includes(kw)) { foundKeywords.push(kw); } } });
+      if (expText.length < 200) {
+        suggestions.push({ type: 'warning', category: 'content', message: 'Experience descriptions are brief', action: 'Add 3-5 bullet points per role with quantifiable achievements' });
+      }
+      if (!/\d+%?|\$\d+/.test(expText)) {
+        suggestions.push({ type: 'info', category: 'content', message: 'No quantifiable achievements found in experience', action: 'Add metrics like "Increased sales by 25%" or "Managed team of 10"' });
+      }
+    }
+
+    // Education
+    if (!eduText || eduText.trim().length < 10) {
+      suggestions.push({ type: 'warning', category: 'content', message: 'No education information detected', action: 'Ensure your education section is labeled "Education" and includes your degree and institution' });
+    }
+
+    // Skills
+    if (skills.length === 0) {
+      suggestions.push({ type: 'critical', category: 'structure', message: 'No skills section detected', action: 'Add a dedicated Skills section with 6-12 relevant technical and soft skills' });
+    } else {
+      skills.forEach(s => {
+        const kw = (typeof s === 'string' ? s : String(s)).toLowerCase();
+        if (kw && !foundKeywords.includes(kw)) { foundKeywords.push(kw); }
+      });
+      if (skills.length < 4) {
+        suggestions.push({ type: 'info', category: 'content', message: `Only ${skills.length} skill(s) detected`, action: 'Add more relevant skills (aim for 6-12)' });
+      }
+    }
+
+    // LinkedIn
+    if (!personal.linkedin) {
+      suggestions.push({ type: 'info', category: 'content', message: 'LinkedIn profile URL not found', action: 'Add your LinkedIn URL to increase credibility' });
+    }
+
+    const keywordAnalysis = this.analyzeKeywords(foundKeywords);
+    const score = this.calculateFinalScore(suggestions, formatIssues, keywordAnalysis);
+    return {
+      score,
+      category: this.getScoreCategory(score),
+      suggestions: this.prioritizeSuggestions(suggestions),
+      keywords: keywordAnalysis,
+      format: { issues: formatIssues, isATSFriendly: true }
+    };
+  }
+
   analyzeResume(formData: any): ATSAnalysisResult {
     const suggestions: ATSSuggestion[] = [];
     const formatIssues: FormatIssue[] = [];

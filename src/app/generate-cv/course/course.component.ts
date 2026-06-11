@@ -51,10 +51,20 @@ export class CourseComponent implements OnInit , AfterViewChecked {
   courses3;
   count = 0;
   count1 = 0;
+  years: number[] = [];
   @Input() courses: FormGroup;
   constructor( private formservices: FormcommunicationService) { }
 
+  generateYears() {
+    const currentYear = new Date().getFullYear();
+    this.years = [];
+    for (let year = 2000; year <= currentYear; year++) {
+      this.years.push(year);
+    }
+  }
+
   ngOnInit() {
+    this.generateYears();
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('courses2')) {
         this.courses2 = val.get('courses2');

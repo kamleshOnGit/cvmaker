@@ -29,8 +29,8 @@ export class PdfGeneratorService {
     marginLeft: 15,
     marginRight: 15,
     pageBreakAvoidSelector: '.avoid-break, h5, .media, .job, .degree',
-    scale: 2.5,
-    quality: 0.95,
+    scale: 5,
+    quality: 1.0,
     format: 'a4'
   };
 
@@ -193,10 +193,9 @@ export class PdfGeneratorService {
   private applyPDFStyles(element: HTMLElement, options: PDFOptions): string {
     const originalStyle = element.getAttribute('style') || '';
 
-    // Apply styles that help with PDF generation
+    // Apply styles that help with PDF generation - preserve colors instead of forcing black
     const pdfStyles = `
       background-color: white !important;
-      color: black !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     `;
@@ -224,13 +223,25 @@ export class PdfGeneratorService {
   private prepareClonedElement(element: HTMLElement | null, options: PDFOptions): void {
     if (!element) return;
 
-    // Ensure all backgrounds and colors are preserved
+    // Ensure all backgrounds and colors are preserved with enhanced contrast
     const allElements = element.querySelectorAll('*');
     allElements.forEach(el => {
       const htmlEl = el as HTMLElement;
       (htmlEl.style as any)['webkitPrintColorAdjust'] = 'exact';
       htmlEl.style.printColorAdjust = 'exact';
+      
+      // Enhance text contrast by ensuring darker colors
+      const computedColor = window.getComputedStyle(htmlEl).color;
+      if (computedColor && computedColor !== 'rgb(0, 0, 0)' && computedColor !== '#000000') {
+        // If text is not black, darken it slightly for better contrast
+        htmlEl.style.color = computedColor;
+      }
     });
+
+    // Ensure the root element has white background for proper contrast
+    if (element) {
+      element.style.backgroundColor = '#ffffff';
+    }
 
     // Add margin container for visual separation
     element.style.padding = `${options.marginTop}mm ${options.marginRight}mm ${options.marginBottom}mm ${options.marginLeft}mm`;

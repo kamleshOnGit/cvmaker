@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   faUpload, faCheckCircle, faTimesCircle, faExclamationTriangle,
   faInfoCircle, faRobot, faChartBar, faLightbulb, faSearch,
@@ -7,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ATSAnalyzerService, ATSAnalysisResult } from '../services/ats-analyzer.service';
 import * as pdfjsLib from 'pdfjs-dist';
+import * as mammoth from 'mammoth';
 
 interface ParsedResume {
   personal: {
@@ -58,15 +60,16 @@ export class ResumeCheckerComponent implements OnInit {
   fileError = '';
   rawText = '';
   analysis: ATSAnalysisResult = null;
-  showEditor = false;
 
   manualForm: FormGroup;
   activeTab: 'upload' | 'paste' = 'upload';
+  parsedResumeData: any = null;
 
   constructor(
     private fb: FormBuilder,
     private atsService: ATSAnalyzerService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
     pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
   }
@@ -134,6 +137,15 @@ export class ResumeCheckerComponent implements OnInit {
         this.isAnalyzing = false;
         this.cdr.detectChanges();
       });
+    } else if (file.name.match(/\.(doc|docx)$/i)) {
+      this.extractDocxText(file).then(text => {
+        this.rawText = text;
+        this.runAnalysisFromText(text);
+      }).catch(() => {
+        this.fileError = 'Could not read Word document. Try the Paste Text tab instead.';
+        this.isAnalyzing = false;
+        this.cdr.detectChanges();
+      });
     } else {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -169,8 +181,15 @@ export class ResumeCheckerComponent implements OnInit {
     return fullText;
   }
 
+  private async extractDocxText(file: File): Promise<string> {
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    return result.value;
+  }
+
   runAnalysisFromText(text: string) {
     const parsed = this.parseTextToFormData(text);
+    this.parsedResumeData = parsed;
     this.populateEditor(parsed);
     this.isAnalyzing = true;
     this.analysis = null;
@@ -234,10 +253,6 @@ export class ResumeCheckerComponent implements OnInit {
       experience: parsed?.experiance?.description || '',
       education: parsed?.education?.description || ''
     });
-  }
-
-  openEditor() {
-    this.showEditor = true;
   }
 
   private parseTextToFormData(text: string): any {

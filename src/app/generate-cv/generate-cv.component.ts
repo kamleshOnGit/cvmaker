@@ -6,7 +6,7 @@ import {
   Renderer2,
   AfterViewChecked
 } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import {FormcommunicationService} from './formcommunication.service';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
@@ -66,7 +66,7 @@ AfterViewChecked {
   compareArray = [];
   finalFormdata = {};
   profilePic;
-  prfilePicPreview;
+  prfilePicPreview = null;
   isProfilePicSet = false;
   langflag = false;
   courseflag = false;
@@ -87,6 +87,46 @@ AfterViewChecked {
   count4 = 1;
   count5 = 1;
   count6 = 1;
+
+  // Custom validator for date range
+  dateRangeValidator(control: AbstractControl): ValidationErrors | null {
+    const startDate = control.get('startDate');
+    const endDate = control.get('endDate');
+    
+    if (!startDate || !endDate) return null;
+    
+    const startMonth = startDate.value?.month;
+    const startYear = startDate.value?.year;
+    const endMonth = endDate.value?.month;
+    const endYear = endDate.value?.year;
+    
+    if (!startMonth || !startYear || !endMonth || !endYear) return null;
+    
+    const startDateValue = new Date(parseInt(startYear), this.getMonthIndex(startMonth), 1);
+    const endDateValue = new Date(parseInt(endYear), this.getMonthIndex(endMonth), 1);
+    
+    if (startDateValue > endDateValue) {
+      return { dateRangeInvalid: true };
+    }
+    
+    return null;
+  }
+
+  private getMonthIndex(month: string): number {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+    return months.indexOf(month);
+  }
+
+  years: number[] = [];
+
+  generateYears() {
+    const currentYear = new Date().getFullYear();
+    this.years = [];
+    for (let year = 2000; year <= currentYear; year++) {
+      this.years.push(year);
+    }
+  }
   base64textString;
   ext;
   cvformdata;
@@ -120,9 +160,67 @@ AfterViewChecked {
     this.divstructure = this.formchild.nativeElement.children;
     // this.Onformatdata();
     this.formservices.formdata = this.formdata;
-    this
-      .router
-      .navigate(['../cvtemplate']);
+    
+    // Always navigate to CV template
+    this.router.navigate(['../cvtemplate']);
+  }
+
+  loadResumeCheckerData(data: any) {
+    if (data.personal) {
+      this.cvformdata.patchValue({
+        personal: {
+          firstName: data.personal.firstName || '',
+          secondName: data.personal.secondName || '',
+          email: data.personal.email || '',
+          phone: data.personal.phone || '',
+          city: data.personal.city || '',
+          country: data.personal.country || '',
+          address: data.personal.city || '',
+          postalCode: '',
+          linkedin: data.personal.linkedin || ''
+        }
+      });
+    }
+    if (data.profile) {
+      this.cvformdata.patchValue({
+        profile: {
+          profiledata: data.profile.text || ''
+        }
+      });
+    }
+    if (data.experiance) {
+      this.cvformdata.patchValue({
+        experiance: {
+          experiance1: {
+            jobTitle: data.experiance.jobTitle || data.personal?.title || '',
+            employer: data.experiance.employer || '',
+            city: data.experiance.city || '',
+            description: data.experiance.description || ''
+          }
+        }
+      });
+    }
+    if (data.education) {
+      this.cvformdata.patchValue({
+        education: {
+          education1: {
+            degree: data.education.degree || '',
+            school: data.education.school || '',
+            city: data.education.city || '',
+            description: data.education.description || ''
+          }
+        }
+      });
+    }
+    if (data.skills && data.skills.length > 0) {
+      this.cvformdata.patchValue({
+        skills: {
+          skill1: {
+            skill: data.skills[0].skill || ''
+          }
+        }
+      });
+    }
   }
 
   private markControlsTouched(formGroup: FormGroup) {
@@ -226,6 +324,10 @@ AfterViewChecked {
                 level: ['', Validators.required]
               })
           }));
+        const langIndex = this.extrasection.indexOf('Language');
+        if (langIndex > -1) {
+          this.extrasection.splice(langIndex, 1);
+        }
         break;
       case 'Courses':
         this.courseflag = true;
@@ -260,6 +362,10 @@ AfterViewChecked {
                 description: ['', Validators.required]
               })
           }));
+        const courseIndex = this.extrasection.indexOf('Courses');
+        if (courseIndex > -1) {
+          this.extrasection.splice(courseIndex, 1);
+        }
         break;
       case 'Skills':
         this.skillsflag = true;
@@ -275,6 +381,10 @@ AfterViewChecked {
                 level: ['', Validators.required]
               })
           }));
+        const skillIndex = this.extrasection.indexOf('Skills');
+        if (skillIndex > -1) {
+          this.extrasection.splice(skillIndex, 1);
+        }
         break;
       case 'Experiance':
         this.experianceflag = true;
@@ -312,6 +422,10 @@ AfterViewChecked {
                 description: ['', Validators.required]
               })
           }));
+        const expIndex = this.extrasection.indexOf('Experiance');
+        if (expIndex > -1) {
+          this.extrasection.splice(expIndex, 1);
+        }
         break;
       case 'Education':
         this.educationflag = true;
@@ -349,6 +463,10 @@ AfterViewChecked {
                 description: ['', Validators.required]
               })
           }));
+        const eduIndex = this.extrasection.indexOf('Education');
+        if (eduIndex > -1) {
+          this.extrasection.splice(eduIndex, 1);
+        }
         break;
       case 'Interest':
         this.interestflag = true;
@@ -361,6 +479,10 @@ AfterViewChecked {
                 interest: ['', Validators.required]
               })
           }));
+        const interestIndex = this.extrasection.indexOf('Interest');
+        if (interestIndex > -1) {
+          this.extrasection.splice(interestIndex, 1);
+        }
         break;
       case 'Reference':
         this.referenceflag = true;
@@ -370,24 +492,16 @@ AfterViewChecked {
             reference1: this
               .formbuilder
               .group({
-                cName: [
-                  '', Validators.required
-                ],
-                cPerson: [
-                  '', Validators.required
-                ],
-                cPhone: [
-                  '',
-                  [
-                    Validators.required, Validators.pattern(/^[0-9][0-9]{9}$/)
-                  ]
-                ],
-                cEmail: [
-                  '',
-                  [Validators.required, Validators.email]
-                ]
+                cName: [''],
+                cPerson: [''],
+                cPhone: [''],
+                cEmail: ['', Validators.email]
               })
           }));
+        const refIndex = this.extrasection.indexOf('Reference');
+        if (refIndex > -1) {
+          this.extrasection.splice(refIndex, 1);
+        }
         break;
       case 'Profile':
         this.profileflag = true;
@@ -408,6 +522,16 @@ AfterViewChecked {
   }
 
   ngOnInit() {
+    // Generate years array for dropdowns
+    this.generateYears();
+    
+    // Check if coming from resume checker
+    const resumeCheckerData = localStorage.getItem('resumeCheckerData');
+    const returnToChecker = localStorage.getItem('returnToResumeChecker');
+    
+    // Check if there's saved form data from back navigation
+    const savedFormData = localStorage.getItem('savedFormData');
+    
     this.cvformdata = this
       .formbuilder
       .group({
@@ -430,21 +554,11 @@ AfterViewChecked {
                 Validators.required, Validators.pattern(/^[0-9][0-9]{9}$/)
               ]
             ],
-            address: [
-              '', Validators.required
-            ],
-            city: [
-              '', Validators.required
-            ],
-            country: [
-              '', Validators.required
-            ],
-            postalCode: [
-              '',
-              [
-                Validators.required, Validators.pattern(/^[0-9][0-9]{5}$/)
-              ]
-            ]
+            address: [''],
+            city: [''],
+            country: [''],
+            postalCode: [''],
+            linkedin: ['']
           }),
         profile: this
           .formbuilder
@@ -483,7 +597,7 @@ AfterViewChecked {
                     year: ['', Validators.required]
                   }),
                 description: ['', Validators.required]
-              })
+              }, { validators: this.dateRangeValidator.bind(this) })
           }),
         education: this
           .formbuilder
@@ -517,7 +631,7 @@ AfterViewChecked {
                     year: ['', Validators.required]
                   }),
                 description: ['', Validators.required]
-              })
+              }, { validators: this.dateRangeValidator.bind(this) })
           }),
         interest: this
           .formbuilder
@@ -566,9 +680,29 @@ AfterViewChecked {
           })
       });
     this.formservices.formref = this.cvformdata;
-    this.formservices.forlength = this.formchild.nativeElement.children;
-    this.formservices.formchild = this.formchild.nativeElement;
-    this.formservices.render = this.render;
+    
+    // Load resume checker data if available
+    if (resumeCheckerData) {
+      try {
+        const parsedData = JSON.parse(resumeCheckerData);
+        this.loadResumeCheckerData(parsedData);
+        localStorage.removeItem('resumeCheckerData');
+      } catch (e) {
+        console.error('Error parsing resume checker data:', e);
+      }
+    }
+    
+    // Load saved form data if available (from back navigation)
+    if (savedFormData && !resumeCheckerData) {
+      try {
+        const parsedData = JSON.parse(savedFormData);
+        this.cvformdata.patchValue(parsedData);
+        localStorage.removeItem('savedFormData');
+      } catch (e) {
+        console.error('Error parsing saved form data:', e);
+      }
+    }
+    
     // start adding extra form control
     this
       .formservices
@@ -631,13 +765,27 @@ AfterViewChecked {
       .formservices
       .newcontrolremoved
       .subscribe(val => {
-        this
-          .cvformdata
-          .removeControl(val);
+        if (val.startsWith('experiance')) {
+          this.cvformdata.get('experiance').removeControl(val);
+        } else if (val.startsWith('education')) {
+          this.cvformdata.get('education').removeControl(val);
+        } else if (val.startsWith('skills')) {
+          this.cvformdata.get('skills').removeControl(val);
+        } else if (val.startsWith('reference')) {
+          this.cvformdata.get('reference').removeControl(val);
+        } else if (val.startsWith('interest')) {
+          this.cvformdata.get('interest').removeControl(val);
+        } else if (val.startsWith('language')) {
+          this.cvformdata.get('languages').removeControl(val);
+        } else if (val.startsWith('course')) {
+          this.cvformdata.get('courses').removeControl(val);
+        } else {
+          this.cvformdata.removeControl(val);
+        }
         console.log(val);
       });
 
-    if (localStorage.getItem('profilepic')) {
+    if (localStorage.getItem('profilepic') != undefined || localStorage.getItem('profilepic') != null) {
       this.prfilePicPreview = localStorage.getItem('profilepic');
       this.isProfilePicSet = true;
       console.log(this.prfilePicPreview);
@@ -908,6 +1056,13 @@ AfterViewChecked {
     console.log(event);
   }
 
+  removeSection() {
+    const identifier = this.formservices.identifier;
+    this.formservices.hidesection();
+    this.formservices.settings = false;
+    this.settings = false;
+  }
+
   addextralanguage() {
     this.count = this.cvformdata.get('language2') ? (this.cvformdata.get('language3') ? 4 : 3) : 2;
     if (this.count === 2) {
@@ -1032,80 +1187,70 @@ AfterViewChecked {
 
   addextraskill() {
     let next = 2;
-    while (this.cvformdata.get('skills' + next)) { next++; }
+    while (this.cvformdata.get('skills')?.get('skills' + next)) { next++; }
     const skills = 'skills' + next;
-    this.cvformdata.addControl(skills, this.formbuilder.group({
-      [skills]: this.formbuilder.group({
-        skill: ['', Validators.required],
-        level: ['', Validators.required]
-      })
+    this.cvformdata.get('skills').addControl(skills, this.formbuilder.group({
+      skill: [''],
+      level: ['']
     }));
-    this.formservices.newcontroladded.next(this.cvformdata.get(skills));
+    this.formservices.newcontroladded.next(this.cvformdata.get('skills'));
   }
 
   addextraexperiance() {
     let next = 2;
-    while (this.cvformdata.get('experiance' + next)) { next++; }
+    while (this.cvformdata.get('experiance')?.get('experiance' + next)) { next++; }
     if (next > 10) { return; }
     const experiance = 'experiance' + next;
-    this.cvformdata.addControl(experiance, this.formbuilder.group({
-      [experiance]: this.formbuilder.group({
-        jobTitle: ['', Validators.required],
-        city: ['', Validators.required],
-        employer: ['', Validators.required],
-        startDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
-        endDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
-        description: ['', Validators.required]
-      })
+    this.cvformdata.get('experiance').addControl(experiance, this.formbuilder.group({
+      jobTitle: [''],
+      city: [''],
+      employer: [''],
+      startDate: this.formbuilder.group({ month: [''], year: [''] }),
+      endDate: this.formbuilder.group({ month: [''], year: [''] }),
+      description: ['']
     }));
-    this.formservices.newcontroladded.next(this.cvformdata.get(experiance));
+    this.formservices.newcontroladded.next(this.cvformdata.get('experiance'));
   }
 
   addextraeducation() {
     let next = 2;
-    while (this.cvformdata.get('education' + next)) { next++; }
+    while (this.cvformdata.get('education')?.get('education' + next)) { next++; }
     if (next > 5) { return; }
     const education = 'education' + next;
-    this.cvformdata.addControl(education, this.formbuilder.group({
-      [education]: this.formbuilder.group({
-        degree: ['', Validators.required],
-        city: ['', Validators.required],
-        school: ['', Validators.required],
-        startDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
-        endDate: this.formbuilder.group({ month: ['', Validators.required], year: ['', Validators.required] }),
-        description: ['', Validators.required]
-      })
+    this.cvformdata.get('education').addControl(education, this.formbuilder.group({
+      degree: [''],
+      city: [''],
+      school: [''],
+      startDate: this.formbuilder.group({ month: [''], year: [''] }),
+      endDate: this.formbuilder.group({ month: [''], year: [''] }),
+      description: ['']
     }));
-    this.formservices.newcontroladded.next(this.cvformdata.get(education));
+    this.formservices.newcontroladded.next(this.cvformdata.get('education'));
   }
 
   addextrainterest() {
     let next = 2;
-    while (this.cvformdata.get('interest' + next)) { next++; }
+    while (this.cvformdata.get('interest')?.get('interest' + next)) { next++; }
     if (next > 5) { return; }
     const interest = 'interest' + next;
-    this.cvformdata.addControl(interest, this.formbuilder.group({
-      [interest]: this.formbuilder.group({
-        interest: ['', Validators.required]
-      })
+    this.cvformdata.get('interest').addControl(interest, this.formbuilder.group({
+      interest: ['']
     }));
-    this.formservices.newcontroladded.next(this.cvformdata.get(interest));
+    this.formservices.newcontroladded.next(this.cvformdata.get('interest'));
   }
 
   addextrareference() {
     let next = 2;
-    while (this.cvformdata.get('reference' + next)) { next++; }
+    while (this.cvformdata.get('reference')?.get('reference' + next)) { next++; }
     if (next > 5) { return; }
     const reference = 'reference' + next;
-    this.cvformdata.addControl(reference, this.formbuilder.group({
-      [reference]: this.formbuilder.group({
-        cName: ['', Validators.required],
-        cPerson: ['', Validators.required],
-        cPhone: ['', [Validators.required, Validators.pattern(/^[0-9][0-9]{9}$/)]],
-        cEmail: ['', [Validators.required, Validators.email]]
-      })
+    this.cvformdata.get('reference').addControl(reference, this.formbuilder.group({
+      cName: [''],
+      cPerson: [''],
+      cPhone: [''],
+      cEmail: ['']
     }));
-    this.formservices.newcontroladded.next(this.cvformdata.get(reference));
+    this.formservices.newcontroladded.next(this.cvformdata.get('reference'));
   }
 
 }

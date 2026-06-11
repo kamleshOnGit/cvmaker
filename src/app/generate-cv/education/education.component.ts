@@ -59,13 +59,23 @@ export class EducationComponent implements OnInit , AfterViewChecked {
     'Include GPA only if it\'s 3.5 or higher',
     'Add certifications and continuing education courses'
   ];
+  years: number[] = [];
   @Input()
   public edu: FormGroup;
 
   constructor(private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) {
   }
 
+  generateYears() {
+    const currentYear = new Date().getFullYear();
+    this.years = [];
+    for (let year = 2000; year <= currentYear; year++) {
+      this.years.push(year);
+    }
+  }
+
   ngOnInit() {
+    this.generateYears();
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('education2')) {
         this.education2 = val.get('education2');
@@ -118,7 +128,7 @@ export class EducationComponent implements OnInit , AfterViewChecked {
     this.extraEducations = [];
     for (let i = 4; i <= 5; i++) {
       const key = 'education' + i;
-      const group = this.formservices.formref.get(key)?.get(key);
+      const group = this.formservices.formref.get('education')?.get(key);
       if (group) {
         this.extraEducations.push({ key, group });
       }

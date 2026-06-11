@@ -78,13 +78,19 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
 
     // Simulate template loading and then run ATS analysis
     setTimeout(() => {
-      this.isTemplateLoading = false;
-      this.cdr.detectChanges();
-      // Auto-run ATS analysis when template opens
-      if (!this.atsAnalysis) {
-        this.runATSAnalysis();
+      try {
+        this.isTemplateLoading = false;
+        this.cdr.detectChanges();
+        // Auto-run ATS analysis when template opens
+        if (!this.atsAnalysis) {
+          this.runATSAnalysis();
+        }
+      } catch (error) {
+        console.error('Error loading template:', error);
+        this.isTemplateLoading = false;
+        this.cdr.detectChanges();
       }
-    }, 800);
+    }, 500);
 
     console.log(this.togglepopup, identifier , this.printcv);
   }
@@ -103,6 +109,9 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
     this.isDownloading = true;
     this.downloadError = '';
     const sourceElement = this.printcv.nativeElement;
+
+    // Add class for PDF contrast enhancement
+    sourceElement.classList.add('pdf-generation');
 
     try {
       let result;
@@ -130,6 +139,8 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
       console.error('Unable to generate CV PDF', error);
       this.downloadError = 'Unable to generate PDF. Please try again or check the browser console.';
     } finally {
+      // Remove class after PDF generation
+      sourceElement.classList.remove('pdf-generation');
       this.isDownloading = false;
     }
   }
@@ -147,12 +158,18 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
 
     this.isAnalyzing = true;
 
-    // Small delay to not block UI
-    await new Promise(resolve => setTimeout(resolve, 100));
+    try {
+      // Small delay to not block UI
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-    this.atsAnalysis = this.atsAnalyzer.analyzeResume(this.formdata);
-    this.isAnalyzing = false;
-    this.cdr.detectChanges();
+      this.atsAnalysis = this.atsAnalyzer.analyzeResume(this.formdata);
+    } catch (error) {
+      console.error('Error running ATS analysis:', error);
+      this.atsAnalysis = null;
+    } finally {
+      this.isAnalyzing = false;
+      this.cdr.detectChanges();
+    }
   }
 
   // Toggle ATS analyzer visibility
@@ -177,13 +194,19 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
 
     // Simulate template loading and then run ATS analysis
     setTimeout(() => {
-      this.isTemplateLoading = false;
-      this.cdr.detectChanges();
-      // Auto-run ATS analysis when template opens
-      if (!this.atsAnalysis) {
-        this.runATSAnalysis();
+      try {
+        this.isTemplateLoading = false;
+        this.cdr.detectChanges();
+        // Auto-run ATS analysis when template opens
+        if (!this.atsAnalysis) {
+          this.runATSAnalysis();
+        }
+      } catch (error) {
+        console.error('Error loading ATS template:', error);
+        this.isTemplateLoading = false;
+        this.cdr.detectChanges();
       }
-    }, 800);
+    }, 500);
   }
 
   // Check if content fits on one page

@@ -115,7 +115,7 @@ export class SkillsComponent implements OnInit , AfterViewChecked {
     this.extraSkills = [];
     for (let i = 4; i <= 100; i++) {
       const key = 'skills' + i;
-      const group = this.formservices.formref.get(key)?.get(key);
+      const group = this.formservices.formref.get('skills')?.get(key);
       if (group) {
         this.extraSkills.push({ key, group });
       }

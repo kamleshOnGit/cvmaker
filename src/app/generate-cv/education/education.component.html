@@ -55,16 +55,7 @@
             </select>
   
             <select  formControlName="year" class="custom-select col-6">
-              <option> 2023 </option>
-              <option> 2022 </option>
-              <option> 2021 </option>
-              <option> 2020 </option>
-              <option> 2019 </option>
-              <option> 2018 </option>
-              <option> 2017 </option>
-              <option> 2016 </option>
-              <option> 2015 </option>
-              <option> 2014 </option>
+              <option *ngFor="let year of years" [value]="year"> {{year}} </option>
             </select>
   
           </div>
@@ -128,14 +119,10 @@
     <div class="row mt-3">
       <div class="col-md-12">
         <div class="form-group">
-          <div class="float-left btn btn-outline-dark btn-md" (click)="toggleTips()">
-            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-          </div>
-  
           <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
               <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
             </div> -->
-  
+
           <!-- <div class="float-right btn btn-outline-dark btn-md">
               <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
             </div> -->
@@ -143,21 +130,6 @@
       </div>
     </div>
 
-    <!-- Tips Modal -->
-    <div class="tips-modal" *ngIf="showTipsModal" @fadeIn>
-      <div class="tips-content">
-        <div class="tips-header">
-          <h6><fa-icon [icon]="tip" class="mr-2 text-warning"></fa-icon>Education Tips</h6>
-          <button class="close-btn" (click)="toggleTips()">&times;</button>
-        </div>
-        <ul class="tips-list">
-          <li *ngFor="let tip of educationTips">
-            <fa-icon [icon]="['fas', 'check-circle']" class="mr-2 text-success"></fa-icon>
-            {{ tip }}
-          </li>
-        </ul>
-      </div>
-    </div>
     <div *ngIf="education2"  [formGroup]="education2" >
         <div class="row mt-3">
           <div class="col-md-6">
@@ -275,14 +247,6 @@
         <div class="row mt-3">
           <div class="col-md-12">
             <div class="form-group">
-              <div class="float-left btn btn-outline-dark btn-md">
-                <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-              </div>
-      
-              <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
-                  <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
-                </div> -->
-      
               <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('education2')">
                   <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
                 </div>
@@ -408,7 +372,6 @@
         <div class="col-md-12">
           <div class="form-group">
             <div class="float-left btn btn-outline-dark btn-md">
-              <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
             </div>
     
             <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">

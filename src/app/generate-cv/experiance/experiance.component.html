@@ -38,8 +38,7 @@
         <label for="startdate"> Start Date</label>
         <div  formGroupName="startDate" class="d-flex flex-row ">
           <select  formControlName="month" class="custom-select col-6 mr-1">
-            <option> Don't show </option>
-            <option> Show year only </option>
+            <option value=""> Select Month </option>
             <option> January </option>
             <option> February </option>
             <option> March </option>
@@ -55,18 +54,16 @@
           </select>
 
           <select  formControlName="year" class="custom-select col-6">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option value=""> Select Year </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
+        </div>
+        <div *ngIf="exp.get('experiance1.startDate.month').invalid && exp.get('experiance1.startDate.month').touched" class="text-danger small">
+          Month is required
+        </div>
+        <div *ngIf="exp.get('experiance1.startDate.year').invalid && exp.get('experiance1.startDate.year').touched" class="text-danger small">
+          Year is required
         </div>
 
       </div>
@@ -76,8 +73,7 @@
         <label for="enddate"> End Date</label>
         <div  formGroupName="endDate" class="d-flex flex-row">
           <select  formControlName="month" class="custom-select col-6 mr-1">
-            <option> Don't show </option>
-            <option> Show year only </option>
+            <option value=""> Select Month </option>
             <option> January </option>
             <option> February </option>
             <option> March </option>
@@ -93,18 +89,16 @@
           </select>
 
           <select  formControlName="year" class="custom-select col-6 ">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option value=""> Select Year </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
+        </div>
+        <div *ngIf="exp.get('experiance1.endDate.month').invalid && exp.get('experiance1.endDate.month').touched" class="text-danger small">
+          Month is required
+        </div>
+        <div *ngIf="exp.get('experiance1.endDate.year').invalid && exp.get('experiance1.endDate.year').touched" class="text-danger small">
+          Year is required
         </div>
       </div>
     </div>
@@ -127,9 +121,6 @@
   <div class="row mt-3">
     <div class="col-md-12">
       <div class="form-group">
-        <div class="float-left btn btn-outline-dark btn-md" (click)="toggleTips()">
-          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-        </div>
 
         <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
             <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
@@ -142,21 +133,6 @@
     </div>
   </div>
 
-  <!-- Tips Modal -->
-  <div class="tips-modal" *ngIf="showTipsModal" @fadeIn>
-    <div class="tips-content">
-      <div class="tips-header">
-        <h6><fa-icon [icon]="tip" class="mr-2 text-warning"></fa-icon>Work Experience Tips</h6>
-        <button class="close-btn" (click)="toggleTips()">&times;</button>
-      </div>
-      <ul class="tips-list">
-        <li *ngFor="let tip of experianceTips">
-          <fa-icon [icon]="['fas', 'check-circle']" class="mr-2 text-success"></fa-icon>
-          {{ tip }}
-        </li>
-      </ul>
-    </div>
-  </div>
 </div> 
 <div *ngIf="experiance2" [formGroup]="experiance2"> 
   <hr>
@@ -205,16 +181,7 @@
           </select>
 
           <select  formControlName="year" class="custom-select col-6">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
         </div>
@@ -243,16 +210,7 @@
           </select>
 
           <select  formControlName="year" class="custom-select col-6 ">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
         </div>
@@ -277,10 +235,6 @@
   <div class="row mt-3">
     <div class="col-md-12">
       <div class="form-group">
-        <div class="float-left btn btn-outline-dark btn-md">
-          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-        </div>
-
         <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
             <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
           </div> -->
@@ -339,16 +293,7 @@
           </select>
 
           <select  formControlName="year" class="custom-select col-6">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
         </div>
@@ -377,16 +322,7 @@
           </select>
 
           <select  formControlName="year" class="custom-select col-6 ">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
         </div>
@@ -411,10 +347,6 @@
   <div class="row mt-3">
     <div class="col-md-12">
       <div class="form-group">
-        <div class="float-left btn btn-outline-dark btn-md">
-          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-        </div>
-
         <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
             <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
           </div> -->

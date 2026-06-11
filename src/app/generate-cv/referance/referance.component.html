@@ -12,13 +12,9 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="bg-light p-3 rounded ">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input " id="referenceondemand" />
-          <label class="custom-control-label" for="referenceondemand"> References on request? Displays "References available on request" on your CV. </label>
-        </div>
+      <div class="bg-light p-3 rounded">
+        <p>References on request? Displays "References available on request" on your CV.</p>
       </div>
-
     </div>
   </div>
   <hr>
@@ -27,13 +23,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="country"> Company Name</label>
-          <input type="text" class="form-control" formControlName="cName" id="cname" placeholder="your country" />
+          <input type="text" class="form-control" formControlName="cName" id="cname" placeholder="e.g. Microsoft" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="town"> Contact Person</label>
-          <input type="text" class="form-control" formControlName="cPerson" id="cperson" placeholder="your town" />
+          <input type="text" class="form-control" formControlName="cPerson" id="cperson" placeholder="e.g. John Smith" />
         </div>
       </div>
     </div>
@@ -47,16 +43,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="cemail"> Email Address</label>
-          <input type="email" class="form-control" formControlName="cEmail" id="cemail" placeholder="your town" />
+          <input type="email" class="form-control" formControlName="cEmail" id="cemail" placeholder="e.g. john@example.com" />
         </div>
       </div>
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
         <div class="form-group">
-          <div class="float-left btn btn-outline-dark btn-md" (click)="toggleTips()">
-            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-          </div>
 
           <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
             <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
@@ -69,21 +62,6 @@
       </div>
     </div>
 
-    <!-- Tips Modal -->
-    <div class="tips-modal" *ngIf="showTipsModal">
-      <div class="tips-content">
-        <div class="tips-header">
-          <h6><fa-icon [icon]="tip" class="mr-2 text-warning"></fa-icon>References Tips</h6>
-          <button class="close-btn" (click)="toggleTips()">&times;</button>
-        </div>
-        <ul class="tips-list">
-          <li *ngFor="let tip of referenceTips">
-            <fa-icon [icon]="['fas', 'check-circle']" class="mr-2 text-success"></fa-icon>
-            {{ tip }}
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
   <div *ngIf="reference2"  [formGroup]="reference2">
       <div class="row mt-3">
@@ -117,14 +95,6 @@
       <div class="row mt-3">
         <div class="col-md-12">
           <div class="form-group">
-            <div class="float-left btn btn-outline-dark btn-md">
-              <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-            </div>
-  
-            <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
-              <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
-            </div> -->
-  
             <div class="float-right btn btn-outline-dark btn-md" (click)="deleteextra('reference2')" >
               <fa-icon class="fa-1x mr-2" [icon]="delete"></fa-icon> Delete
             </div>
@@ -164,10 +134,6 @@
         <div class="row mt-3">
           <div class="col-md-12">
             <div class="form-group">
-              <div class="float-left btn btn-outline-dark btn-md">
-                <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-              </div>
-    
               <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
                 <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
               </div> -->
@@ -184,13 +150,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label> Company Name</label>
-          <input type="text" class="form-control" formControlName="cName" placeholder="your country" />
+          <input type="text" class="form-control" formControlName="cName" placeholder="e.g. Microsoft" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label> Contact Person</label>
-          <input type="text" class="form-control" formControlName="cPerson" placeholder="your town" />
+          <input type="text" class="form-control" formControlName="cPerson" placeholder="e.g. John Smith" />
         </div>
       </div>
     </div>
@@ -204,7 +170,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label> Email Address</label>
-          <input type="email" class="form-control" formControlName="cEmail" placeholder="your town" />
+          <input type="email" class="form-control" formControlName="cEmail" placeholder="e.g. john@example.com" />
         </div>
       </div>
     </div>

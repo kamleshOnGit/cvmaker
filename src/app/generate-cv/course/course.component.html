@@ -47,16 +47,7 @@
           </select>
 
           <select formControlName="year" class="custom-select col-6">
-            <option> 2023 </option>
-            <option> 2022 </option>
-            <option> 2021 </option>
-            <option> 2020 </option>
-            <option> 2019 </option>
-            <option> 2018 </option>
-            <option> 2017 </option>
-            <option> 2016 </option>
-            <option> 2015 </option>
-            <option> 2014 </option>
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
           </select>
 
         </div>
@@ -116,10 +107,6 @@
   <div class="row mt-3">
     <div class="col-md-12">
       <div class="form-group">
-        <div class="float-left btn btn-outline-dark btn-md">
-          <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
-        </div>
-
         <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
           <fa-icon class="fa-1x mr-2" [icon]="save"></fa-icon> Save
         </div> -->
@@ -239,7 +226,8 @@
       <div class="col-md-12">
         <div class="form-group">
           <div class="float-left btn btn-outline-dark btn-md">
-            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+              <div class="float-left btn btn-outline-dark btn-md">
+            </div>
           </div>
   
           <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">
@@ -361,7 +349,8 @@
       <div class="col-md-12">
         <div class="form-group">
           <div class="float-left btn btn-outline-dark btn-md">
-            <fa-icon class="fa-1x mr-2" [icon]="tip"></fa-icon> Tips
+              <div class="float-left btn btn-outline-dark btn-md">
+            </div>
           </div>
   
           <!-- <div class="float-right btn ml-5 btn-outline-dark btn-md">

@@ -222,3 +222,28 @@
     transform: translateY(0);
   }
 }
+
+// PDF generation styles for better contrast (applied during html2canvas capture)
+.showfull #printcv.pdf-generation,
+.showfull #printcv.pdf-generation * {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.showfull #printcv.pdf-generation {
+  color: #000000 !important;
+}
+
+.showfull #printcv.pdf-generation p,
+.showfull #printcv.pdf-generation h1,
+.showfull #printcv.pdf-generation h2,
+.showfull #printcv.pdf-generation h3,
+.showfull #printcv.pdf-generation h4,
+.showfull #printcv.pdf-generation h5,
+.showfull #printcv.pdf-generation h6,
+.showfull #printcv.pdf-generation span,
+.showfull #printcv.pdf-generation div,
+.showfull #printcv.pdf-generation li,
+.showfull #printcv.pdf-generation a {
+  color: #000000 !important;
+}

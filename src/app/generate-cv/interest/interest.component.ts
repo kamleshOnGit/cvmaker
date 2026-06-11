@@ -104,7 +104,7 @@ export class InterestComponent implements OnInit , AfterViewChecked {
       this.extraInterests = [];
       for (let i = 4; i <= 5; i++) {
         const key = 'interest' + i;
-        const group = this.formservices.formref.get(key)?.get(key);
+        const group = this.formservices.formref.get('interest')?.get(key);
         if (group) {
           this.extraInterests.push({ key, group });
         }

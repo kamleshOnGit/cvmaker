@@ -115,7 +115,7 @@ export class ReferanceComponent implements OnInit , AfterViewChecked {
       this.extraReferences = [];
       for (let i = 4; i <= 5; i++) {
         const key = 'reference' + i;
-        const group = this.formservices.formref.get(key)?.get(key);
+        const group = this.formservices.formref.get('reference')?.get(key);
         if (group) {
           this.extraReferences.push({ key, group });
         }

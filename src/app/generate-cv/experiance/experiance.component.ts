@@ -58,11 +58,21 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
     'Use industry-standard job titles for better ATS compatibility',
     'Include relevant keywords from the job description'
   ];
+  years: number[] = [];
   constructor(private formservices: FormcommunicationService, private cdr: ChangeDetectorRef) { }
+
+  generateYears() {
+    const currentYear = new Date().getFullYear();
+    this.years = [];
+    for (let year = 2000; year <= currentYear; year++) {
+      this.years.push(year);
+    }
+  }
   @Input() exp: FormGroup;
 
 
   ngOnInit() {
+    this.generateYears();
     this.formservices.newcontroladded.subscribe( val => {
       if (val.get('experiance2')) {
         this.experiance2 = val.get('experiance2');
@@ -116,7 +126,7 @@ export class ExperianceComponent implements OnInit, AfterViewChecked {
     this.extraExperiances = [];
     for (let i = 4; i <= 10; i++) {
       const key = 'experiance' + i;
-      const group = this.formservices.formref.get(key)?.get(key);
+      const group = this.formservices.formref.get('experiance')?.get(key);
       if (group) {
         this.extraExperiances.push({ key, group });
       }

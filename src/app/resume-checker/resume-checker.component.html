@@ -175,56 +175,6 @@
             <p *ngIf="getValidSuggestions().length === 0" class="text-success text-center py-3">
               <fa-icon [icon]="faCheckCircle" class="mr-2"></fa-icon>No major issues found!
             </p>
-            <button class="btn btn-analyze w-100 mt-3" (click)="openEditor()">
-              Edit Resume Details & Improve Score
-            </button>
-          </div>
-
-          <div *ngIf="showEditor" class="result-section mt-4">
-            <h5 class="result-section-title">Edit Extracted Resume Details</h5>
-            <form [formGroup]="manualForm">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <label>First Name</label>
-                  <input class="form-control" formControlName="firstName">
-                </div>
-                <div class="col-md-6 form-group">
-                  <label>Last Name</label>
-                  <input class="form-control" formControlName="secondName">
-                </div>
-                <div class="col-md-6 form-group">
-                  <label>Email</label>
-                  <input class="form-control" formControlName="email">
-                </div>
-                <div class="col-md-6 form-group">
-                  <label>Phone</label>
-                  <input class="form-control" formControlName="phone">
-                </div>
-                <div class="col-md-12 form-group">
-                  <label>Professional Title</label>
-                  <input class="form-control" formControlName="title">
-                </div>
-                <div class="col-md-12 form-group">
-                  <label>Professional Summary</label>
-                  <textarea class="form-control" rows="4" formControlName="summary"></textarea>
-                </div>
-                <div class="col-md-12 form-group">
-                  <label>Experience</label>
-                  <textarea class="form-control" rows="5" formControlName="experience"></textarea>
-                </div>
-                <div class="col-md-12 form-group">
-                  <label>Education</label>
-                  <textarea class="form-control" rows="3" formControlName="education"></textarea>
-                </div>
-                <div class="col-md-12 form-group">
-                  <label>Skills</label>
-                  <textarea class="form-control" rows="3" formControlName="skills" placeholder="Separate skills with commas"></textarea>
-                </div>
-              </div>
-              <button type="button" class="btn btn-analyze w-100" (click)="runAnalysisFromForm()">
-                Re-check ATS Score
-              </button>
-            </form>
           </div>
         </div>
       </div>

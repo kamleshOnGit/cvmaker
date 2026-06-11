@@ -5,7 +5,8 @@
 .indicator-inner{height:100%;width:43%;border-radius:6px;}
 .hidepage{display:none}
 .imagetype { position: absolute;top:0;left:0;bottom:0;right:0;opacity:0;z-index: 19;}
-.image-cover{width:100%;border:1px dashed #999;border-radius:6px;height:122px;text-align: center;overflow:hidden;}
+.image-cover{width:100%;border:2px dashed #ccc;border-radius:8px;height:122px;text-align: center;overflow:hidden;background-color: #f8f9fa;cursor:pointer;transition: all 0.3s ease;}
+.image-cover:hover {border-color: #667eea;background-color: #f0f4ff;}
 .profile , .experience , .education , .interests , .referance , .skills {
     transition:all .1s cubic-bezier(0.755, 0.05, 0.855, 0.06)}
 
@@ -39,7 +40,7 @@
 }
 
 .picicon { display: none}
-.profilepic { width: 120px ;height:auto ;display:block;}
+.profilepic { width: 100% ;height:100% ;object-fit:cover;display:block;border-radius:6px;}
 .featurepopup {position: fixed;
     margin: 2% auto;
     display: block;

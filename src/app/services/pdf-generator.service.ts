@@ -24,10 +24,10 @@ export interface PDFPageInfo {
 })
 export class PdfGeneratorService {
   private readonly defaultOptions: PDFOptions = {
-    marginTop: 15,
-    marginBottom: 15,
-    marginLeft: 15,
-    marginRight: 15,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
     pageBreakAvoidSelector: '.avoid-break, h5, .media, .job, .degree',
     scale: 5,
     quality: 1.0,
@@ -56,8 +56,11 @@ export class PdfGeneratorService {
         logging: false,
         backgroundColor: '#ffffff',
         imageTimeout: 0,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
         onclone: (clonedDoc) => {
-          this.prepareClonedElement(clonedDoc.body.querySelector('[id]') as HTMLElement, options);
+          const clonedElement = clonedDoc.getElementById(element.id) || clonedDoc.getElementById('printcv');
+          this.prepareClonedElement(clonedElement as HTMLElement, options);
         }
       });
 
@@ -79,8 +82,14 @@ export class PdfGeneratorService {
       const canvasWidth = canvas.width;
       const canvasHeight = canvas.height;
       const scaleFactor = (contentWidth * options.scale) / pageDims.width;
-      const scaledWidth = contentWidth;
-      const scaledHeight = (canvasHeight * contentWidth) / canvasWidth;
+      let scaledWidth = contentWidth;
+      let scaledHeight = (canvasHeight * contentWidth) / canvasWidth;
+
+      if (scaledHeight > contentHeight && scaledHeight <= contentHeight * 1.25) {
+        const fitRatio = contentHeight / scaledHeight;
+        scaledHeight = contentHeight;
+        scaledWidth = scaledWidth * fitRatio;
+      }
 
       // Calculate pages needed with proper pagination
       const pages = this.calculatePagination(
@@ -97,10 +106,12 @@ export class PdfGeneratorService {
         }
 
         const page = pages[i];
+        const imageX = options.marginLeft + (contentWidth - scaledWidth) / 2;
+
         doc.addImage(
           imgData,
           'PNG',
-          options.marginLeft,
+          imageX,
           options.marginTop - page.contentOffset,
           scaledWidth,
           scaledHeight
@@ -193,9 +204,17 @@ export class PdfGeneratorService {
   private applyPDFStyles(element: HTMLElement, options: PDFOptions): string {
     const originalStyle = element.getAttribute('style') || '';
 
-    // Apply styles that help with PDF generation - preserve colors instead of forcing black
+    // Apply styles that help with PDF generation
     const pdfStyles = `
       background-color: white !important;
+      color: #000000 !important;
+      opacity: 1 !important;
+      filter: none !important;
+      animation: none !important;
+      transform: none !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     `;
@@ -223,29 +242,83 @@ export class PdfGeneratorService {
   private prepareClonedElement(element: HTMLElement | null, options: PDFOptions): void {
     if (!element) return;
 
-    // Ensure all backgrounds and colors are preserved with enhanced contrast
+    // Force full opacity and dark readable colors before html2canvas capture
+    element.style.backgroundColor = '#ffffff';
+    element.style.color = '#000000';
+    element.style.opacity = '1';
+    element.style.filter = 'none';
+    element.style.mixBlendMode = 'normal';
+    element.style.animation = 'none';
+    element.style.transform = 'none';
+    element.style.height = 'auto';
+    element.style.maxHeight = 'none';
+    element.style.overflow = 'visible';
+
     const allElements = element.querySelectorAll('*');
     allElements.forEach(el => {
       const htmlEl = el as HTMLElement;
       (htmlEl.style as any)['webkitPrintColorAdjust'] = 'exact';
       htmlEl.style.printColorAdjust = 'exact';
-      
-      // Enhance text contrast by ensuring darker colors
-      const computedColor = window.getComputedStyle(htmlEl).color;
-      if (computedColor && computedColor !== 'rgb(0, 0, 0)' && computedColor !== '#000000') {
-        // If text is not black, darken it slightly for better contrast
-        htmlEl.style.color = computedColor;
+
+      htmlEl.style.opacity = '1';
+      htmlEl.style.filter = 'none';
+      htmlEl.style.mixBlendMode = 'normal';
+      htmlEl.style.textShadow = 'none';
+      htmlEl.style.animation = 'none';
+      htmlEl.style.transform = 'none';
+
+      const tagName = htmlEl.tagName.toLowerCase();
+      const isTextElement = ['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'strong', 'b', 'em', 'small', 'label', 'a'].includes(tagName);
+      const isInDarkSection = Boolean(htmlEl.closest('.standford .left-part, .edinburg .title, .cambridge .title'));
+
+      if (isTextElement) {
+        htmlEl.style.color = isInDarkSection ? '#ffffff' : '#000000';
+        htmlEl.style.fontWeight = tagName.startsWith('h') || tagName === 'strong' || tagName === 'b' ? '700' : '500';
+      }
+
+      if (tagName === 'img' && (htmlEl.classList.contains('profilepic') || htmlEl.classList.contains('profilepicoxford'))) {
+        htmlEl.style.borderRadius = '50%';
+        htmlEl.style.objectFit = 'cover';
+        htmlEl.style.objectPosition = 'center';
+        htmlEl.style.aspectRatio = '1 / 1';
+        htmlEl.style.display = 'block';
+        htmlEl.style.margin = '0 auto';
+      }
+
+      if (htmlEl.classList.contains('row')) {
+        htmlEl.style.marginLeft = '0';
+        htmlEl.style.marginRight = '0';
+        htmlEl.style.width = '100%';
+      }
+
+      if (htmlEl.className && typeof htmlEl.className === 'string' && htmlEl.className.includes('col-')) {
+        htmlEl.style.boxSizing = 'border-box';
+        htmlEl.style.minWidth = '0';
+      }
+
+      const borderColor = window.getComputedStyle(htmlEl).borderColor;
+      if (borderColor && borderColor !== 'rgba(0, 0, 0, 0)') {
+        htmlEl.style.borderColor = '#e0e0e0';
       }
     });
 
-    // Ensure the root element has white background for proper contrast
-    if (element) {
-      element.style.backgroundColor = '#ffffff';
-    }
+    const templateElements = element.querySelectorAll(
+      '.auckland, .berkeley, .cambridge, .edinburg, .harvard, .otago, .oxford, .princeton, .standford, .shadow, .containing'
+    );
 
-    // Add margin container for visual separation
-    element.style.padding = `${options.marginTop}mm ${options.marginRight}mm ${options.marginBottom}mm ${options.marginLeft}mm`;
+    templateElements.forEach(el => {
+      const htmlEl = el as HTMLElement;
+      htmlEl.style.height = 'auto';
+      htmlEl.style.minHeight = 'auto';
+      htmlEl.style.maxHeight = 'none';
+      htmlEl.style.overflow = 'visible';
+      htmlEl.style.boxSizing = 'border-box';
+    });
+
+    element.style.padding = '0';
+    element.style.margin = '0';
     element.style.boxSizing = 'border-box';
+    element.style.width = '100%';
   }
 
   // Generate ATS-friendly single-column PDF

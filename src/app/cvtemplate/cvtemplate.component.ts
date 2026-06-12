@@ -49,7 +49,7 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
     marginRight: 15,
     pageBreakAvoidSelector: '.avoid-break, h5, .media, .job, .degree',
     scale: 2.5,
-    quality: 0.95,
+    quality: 1,
     format: 'a4'
   };
 

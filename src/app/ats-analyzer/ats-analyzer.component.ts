@@ -380,15 +380,19 @@ export class AtsAnalyzerComponent implements OnInit {
   }
 
   hasCriticalIssues(): boolean {
-    return this.analysis?.suggestions?.some(s => s.type === 'critical') || false;
+    return this.getValidSuggestions().some(s => s.type === 'critical');
   }
 
   hasValidSuggestions(): boolean {
-    return (this.analysis?.suggestions || []).some(s => s.message && s.message.trim());
+    return this.getValidSuggestions().length > 0;
   }
 
   getValidSuggestions(): ATSSuggestion[] {
-    return (this.analysis?.suggestions || []).filter(s => s.message && s.message.trim());
+    return (this.analysis?.suggestions || []).filter(s => {
+      const message = typeof s?.message === 'string' ? s.message.trim() : '';
+      const action = typeof s?.action === 'string' ? s.action.trim() : '';
+      return message.length > 0 || action.length > 0;
+    });
   }
 
   getSuggestionIcon(type: string): string[] {

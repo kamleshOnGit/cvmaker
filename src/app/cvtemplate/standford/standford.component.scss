@@ -15,13 +15,13 @@
     font-size: .6em
 }
 
-.profilepic  { width:100%;display:block;margin:auto}
-.proparent { max-width:120px;width:90%;margin:auto}
+.profilepic  { width:80px;height:80px;max-width:80px;max-height:80px;display:block;margin:auto;border-radius:50%;object-fit:cover;object-position:center;}
+.proparent { width:80px;height:80px;margin:10px auto;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:50%;}
  
 
 .standford .right-part {
     background: #fff;
-    color: #777;
+    color: #000;
     padding: 10px;
 }
 

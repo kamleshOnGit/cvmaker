@@ -9,6 +9,14 @@
     background: #fff;
 }
 
+.showfull #printcv .profilepic,
+.showfull #printcv .profilepicoxford {
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
 .showfull #printcv .media,
 .showfull #printcv .row,
 .showfull #printcv h2,

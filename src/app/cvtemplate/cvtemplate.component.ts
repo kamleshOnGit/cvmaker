@@ -94,7 +94,10 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
 
     console.log(this.togglepopup, identifier , this.printcv);
   }
-  toggleOptions() {
+  toggleOptions(event?: Event) {
+    event?.preventDefault();
+    event?.stopPropagation();
+    this.showATSAnalyzer = false;
     this.togglepopup = false;
   }
   closepopup() {
@@ -173,7 +176,9 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
   }
 
   // Toggle ATS analyzer visibility
-  toggleATSAnalyzer() {
+  toggleATSAnalyzer(event?: Event) {
+    event?.preventDefault();
+    event?.stopPropagation();
     this.showATSAnalyzer = !this.showATSAnalyzer;
     if (this.showATSAnalyzer && !this.atsAnalysis) {
       this.runATSAnalysis();
@@ -221,7 +226,10 @@ export class CvtemplateComponent implements OnInit , AfterViewChecked {
     );
   }
 
-  editData() {
+  editData(event?: Event) {
+  event?.preventDefault();
+  event?.stopPropagation();
+  this.showATSAnalyzer = false;
   const cookie = JSON.stringify(this.formdata);
   // const profilepic = JSON.stringify(this.profilepic);
   this.cookieService.set('prefillformdata' , cookie );

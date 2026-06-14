@@ -10,59 +10,33 @@ import { ATSAnalysisResult, ATSSuggestion } from '../services/ats-analyzer.servi
           <fa-icon [icon]="['fas', 'robot']" class="mr-2"></fa-icon>
           ATS Compatibility Check
         </h5>
-        <span class="badge badge-light" [class]="'score-' + analysis?.category">
-          {{ analysis?.score }}/100
+        <span class="badge badge-light" [ngClass]="'score-' + analysis?.category">
+          <span [textContent]="scoreText"></span>/100
         </span>
       </div>
       <div class="card-body">
         <!-- Score Ring -->
         <div class="score-section text-center mb-4">
-          <div class="score-ring" [class]="'category-' + analysis?.category">
-            <svg viewBox="0 0 36 36" class="circular-chart">
-              <path class="circle-bg"
-                d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <path class="circle"
-                [attr.stroke-dasharray]="analysis?.score + ', 100'"
-                d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-            </svg>
-            <div class="score-text">
-              <span class="score-value">{{ analysis?.score }}</span>
-              <span class="score-label">ATS Score</span>
+          <div class="ats-score-circle" [ngClass]="'category-' + analysis?.category">
+            <div class="ats-score-number" [textContent]="scoreText"></div>
+            <div class="ats-score-label">ATS Score</div>
+          </div>
+          <div class="ats-stats-row">
+            <div class="ats-stat">
+              <div class="ats-stat-value" [textContent]="keywordsFoundText"></div>
+              <div class="ats-stat-label">Keywords Found</div>
+            </div>
+            <div class="ats-stat">
+              <div class="ats-stat-value" [textContent]="atsFriendlyText"></div>
+              <div class="ats-stat-label">ATS Friendly</div>
+            </div>
+            <div class="ats-stat">
+              <div class="ats-stat-value" [textContent]="keywordDensityText"></div>
+              <div class="ats-stat-label">Keyword Density</div>
             </div>
           </div>
-          <div class="category-badge mt-2" [class]="'badge-' + analysis?.category">
+          <div class="category-badge mt-2" [ngClass]="'badge-' + analysis?.category">
             {{ getCategoryLabel(analysis?.category) }}
-          </div>
-        </div>
-
-        <!-- Quick Stats -->
-        <div class="quick-stats row mb-4">
-          <div class="col-4 text-center">
-            <div class="stat-item">
-              <fa-icon [icon]="['fas', 'tags']" class="text-primary"></fa-icon>
-              <div class="stat-value">{{ analysis?.keywords?.found?.length || 0 }}</div>
-              <div class="stat-label">Keywords Found</div>
-            </div>
-          </div>
-          <div class="col-4 text-center">
-            <div class="stat-item">
-              <fa-icon [icon]="['fas', 'file-alt']" class="text-success"></fa-icon>
-              <div class="stat-value">{{ analysis?.format?.isATSFriendly ? 'Yes' : 'No' }}</div>
-              <div class="stat-label">ATS Friendly</div>
-            </div>
-          </div>
-          <div class="col-4 text-center">
-            <div class="stat-item">
-              <fa-icon [icon]="['fas', 'percentage']" class="text-info"></fa-icon>
-              <div class="stat-value">{{ analysis?.keywords?.density || 0 }}%</div>
-              <div class="stat-label">Keyword Density</div>
-            </div>
           </div>
         </div>
 
@@ -81,19 +55,19 @@ import { ATSAnalysisResult, ATSSuggestion } from '../services/ats-analyzer.servi
           <div class="suggestion-list">
             <div *ngFor="let suggestion of getValidSuggestions()"
                  class="suggestion-item"
-                 [class]="'type-' + suggestion.type">
+                 [ngClass]="'type-' + suggestion.type">
               <div class="suggestion-icon">
                 <fa-icon [icon]="getSuggestionIcon(suggestion.type)"></fa-icon>
               </div>
               <div class="suggestion-content">
                 <div class="suggestion-header">
-                  <span class="badge badge-pill" [class]="'badge-' + suggestion.type">
+                  <span class="badge badge-pill" [ngClass]="'badge-' + suggestion.type">
                     {{ suggestion.type | uppercase }}
                   </span>
                   <span class="category-badge">{{ suggestion.category }}</span>
                 </div>
-                <p class="suggestion-message">{{ suggestion.message }}</p>
-                <p class="suggestion-action">
+                <p class="suggestion-message" *ngIf="suggestion.message && suggestion.message.trim()">{{ suggestion.message }}</p>
+                <p class="suggestion-action" *ngIf="suggestion.action && suggestion.action.trim()">
                   <fa-icon [icon]="['fas', 'arrow-right']" class="mr-1"></fa-icon>
                   {{ suggestion.action }}
                 </p>
@@ -143,49 +117,24 @@ import { ATSAnalysisResult, ATSSuggestion } from '../services/ats-analyzer.servi
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 
-    .score-ring {
-      position: relative;
+    .ats-score-circle {
       width: 150px;
       height: 150px;
       margin: 0 auto;
+      border-radius: 50%;
+      border: 12px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: scorePop 0.45s ease-out;
     }
 
-    .circular-chart {
-      width: 100%;
-      height: 100%;
-      transform: rotate(-90deg);
-    }
-
-    .circle-bg {
-      fill: none;
-      stroke: #eee;
-      stroke-width: 3;
-    }
-
-    .circle {
-      fill: none;
-      stroke-width: 3;
-      stroke-linecap: round;
-      animation: progressAnimation 1s ease-out forwards;
-    }
-
-    @keyframes progressAnimation {
+    @keyframes scorePop {
       from {
-        stroke-dasharray: 0, 100;
-      }
-    }
-
-    .score-value {
-      animation: fadeInScale 0.6s ease-out 0.3s both;
-    }
-
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.92);
       }
       to {
-        opacity: 1;
         transform: scale(1);
       }
     }
@@ -205,30 +154,63 @@ import { ATSAnalysisResult, ATSSuggestion } from '../services/ats-analyzer.servi
       }
     }
 
-    .category-excellent .circle { stroke: #28a745; }
-    .category-good .circle { stroke: #17a2b8; }
-    .category-fair .circle { stroke: #ffc107; }
-    .category-poor .circle { stroke: #dc3545; }
+    .category-excellent { border-color: #28a745; }
+    .category-good { border-color: #17a2b8; }
+    .category-fair { border-color: #ffc107; }
+    .category-poor { border-color: #dc3545; }
 
-    .score-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+    .ats-score-number {
+      display: block !important;
+      font-size: 2.5rem !important;
+      font-weight: 800 !important;
+      color: #333 !important;
+      line-height: 1 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      min-height: 42px;
     }
 
-    .score-value {
-      display: block;
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .score-label {
-      font-size: 0.75rem;
-      color: #666;
+    .ats-score-label {
+      display: block !important;
+      margin-top: 0.35rem;
+      font-size: 0.75rem !important;
+      color: #666 !important;
       text-transform: uppercase;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .ats-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .ats-stat {
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .ats-stat-value {
+      display: block !important;
+      font-size: 1.25rem !important;
+      font-weight: 800 !important;
+      color: #333 !important;
+      margin: 0.25rem 0;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .ats-stat-label {
+      display: block !important;
+      font-size: 0.75rem !important;
+      color: #666 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
 
     .category-badge {
@@ -244,28 +226,6 @@ import { ATSAnalysisResult, ATSSuggestion } from '../services/ats-analyzer.servi
     .badge-good { background: #d1ecf1; color: #0c5460; }
     .badge-fair { background: #fff3cd; color: #856404; }
     .badge-poor { background: #f8d7da; color: #721c24; }
-
-    .quick-stats {
-      padding: 1rem;
-      background: #f8f9fa;
-      border-radius: 8px;
-    }
-
-    .stat-item {
-      padding: 0.5rem;
-    }
-
-    .stat-value {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #333;
-      margin: 0.25rem 0;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: #666;
-    }
 
     .section-title {
       font-size: 0.875rem;
@@ -365,9 +325,35 @@ import { ATSAnalysisResult, ATSSuggestion } from '../services/ats-analyzer.servi
   `]
 })
 export class AtsAnalyzerComponent implements OnInit {
-  @Input() analysis!: ATSAnalysisResult;
+  private _analysis!: ATSAnalysisResult;
+
+  @Input()
+  set analysis(value: ATSAnalysisResult) {
+    this._analysis = value;
+  }
+
+  get analysis(): ATSAnalysisResult {
+    return this._analysis;
+  }
 
   ngOnInit(): void {}
+
+  get scoreText(): string {
+    const score = this.analysis?.score;
+    return score === undefined || score === null ? '0' : String(score);
+  }
+
+  get keywordsFoundText(): string {
+    return String(this.analysis?.keywords?.found?.length || 0);
+  }
+
+  get atsFriendlyText(): string {
+    return this.analysis?.format?.isATSFriendly ? 'Yes' : 'No';
+  }
+
+  get keywordDensityText(): string {
+    return `${this.analysis?.keywords?.density || 0}%`;
+  }
 
   getCategoryLabel(category: string): string {
     const labels: { [key: string]: string } = {

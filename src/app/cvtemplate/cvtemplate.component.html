@@ -66,8 +66,7 @@
                 <button type="button"
                         class="btn btn-primary"
                         [disabled]="isDownloading"
-                        (click)="makePdf()"
-                        [appTooltip]="'Download your resume as PDF'">
+                        (click)="makePdf()">
                   <fa-icon [icon]="download" class="mr-1"></fa-icon>
                   {{ isDownloading ? 'Generating...' : 'Download PDF' }}
                 </button>
@@ -75,8 +74,7 @@
                         class="btn btn-success"
                         *ngIf="popup === 'ats-friendly'"
                         [disabled]="isDownloading"
-                        (click)="makeATSFriendlyPdf()"
-                        [appTooltip]="'Download ATS-optimized PDF'">
+                        (click)="makeATSFriendlyPdf()">
                   <fa-icon [icon]="robot" class="mr-1"></fa-icon>
                   ATS PDF
                 </button>
@@ -85,24 +83,21 @@
               <div class="btn-group">
                 <button type="button"
                         class="btn btn-info"
-                        (click)="toggleATSAnalyzer()"
-                        [class.active]="showATSAnalyzer"
-                        [appTooltip]="'Check ATS compatibility score'">
+                        (click)="toggleATSAnalyzer($event)"
+                        [class.active]="showATSAnalyzer">
                   <fa-icon [icon]="chartLine" class="mr-1"></fa-icon>
                   ATS Score
                   <span class="badge badge-light ml-1" *ngIf="atsAnalysis">{{ atsAnalysis.score }}</span>
                 </button>
                 <button type="button"
                         class="btn btn-secondary"
-                        (click)="editData()"
-                        [appTooltip]="'Go back and edit your information'">
+                        (click)="editData($event)">
                   <fa-icon [icon]="edit" class="mr-1"></fa-icon>
                   Edit
                 </button>
                 <button type="button"
                         class="btn btn-outline-secondary"
-                        (click)="toggleOptions()"
-                        [appTooltip]="'Back to template gallery'">
+                        (click)="toggleOptions($event)">
                   <fa-icon [icon]="arrowLeft" class="mr-1"></fa-icon>
                   Back
                 </button>

@@ -1,6 +1,6 @@
 
 # CVMaker - High-Performance Reactive CV Engine
-[![Live Demo](https://github.com/angular/angular-cli) version 7.3.6.
+[![Live Demo](https://kamleshongit.github.io/cvmaker/)
 
 A highly efficient, single-page application built to generate structured, recruiter-compliant professional resumes dynamically. This application implements strict client-side data binding and optimized document rendering layouts.
 

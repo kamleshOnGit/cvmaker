@@ -1,0 +1,17 @@
+{
+  "name": "CvMaker - Resume Builder",
+  "short_name": "CvMaker",
+  "description": "Build professional resumes and check ATS compatibility",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#667eea",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}

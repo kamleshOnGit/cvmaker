@@ -1,27 +1,27 @@
-# CvMaker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+# CVMaker - High-Performance Reactive CV Engine
+ [](https://kamleshongit.github.io/cvmaker/)
 
-## Development server
+A highly efficient, single-page application built to generate structured, recruiter-compliant professional resumes dynamically. This application implements strict client-side data binding and optimized document rendering layouts.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 🛠️ Tech Stack & Architecture
+- **Framework:** Angular (Robust Component-Driven Architecture)
+- **Styling:** Semantic HTML5 & Responsive CSS3 Grid Modules
+- **State Management:** Reactive Form Control Elements
 
-## Code scaffolding
+## ⚡ Key Engineering Features
+- **Dynamic Content Injection:** Real-time DOM patching as user updates input fields without structural layout shifts.
+- **Export Optimization:** Custom styling sheets configured for absolute A4 print layouts to eliminate PDF truncation bugs.
+- **Client-Side Data Persistence:** Built-in modular inputs to ensure quick rendering and zero database latency during generation sweeps.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Local Installation & Execution
+```bash
+# Clone the repository
+git clone https://github.com
 
-## Build
+# Install core dependencies
+npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Launch local development server
+ng serve --open
+```

@@ -33,11 +33,12 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build -- --configuration production --base-href="/${{ github.event.repository.name }}/"
+        run: npx ng build cv-maker --configuration production --base-href="/" --deploy-url="/"
 
-      - name: Create 404.html for SPA routing
+      - name: Configure GitHub Pages custom domain and SPA routing
         run: |
           cp dist/cv-maker/index.html dist/cv-maker/404.html
+          echo "cv-maker.kamaleshpro.com" > dist/cv-maker/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
